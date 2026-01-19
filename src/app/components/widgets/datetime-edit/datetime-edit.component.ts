@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './datetime-edit.component.html',
   styleUrl: './datetime-edit.component.css'
 })
-export class DatetimeEditComponent {
+export class DateTimeEditComponent {
 
 }
