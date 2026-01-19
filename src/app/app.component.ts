@@ -76,11 +76,9 @@ export class UserProfileState {
       devMode: this.devMode.value,
       logging: this.logging.value
     };
-
     return payload
   }
 }
-
 
 @Component({
   selector: 'app-root',
@@ -133,21 +131,27 @@ export class AppComponent implements OnInit {
   state = inject(UserProfileState);
   messageBox = inject(QMessageBox);
 
-  ngOnInit() {
-    this.screen = this.desktop.screenGeometry();
-    this.desktop.screenGeometryChanges().subscribe(geom => {
-      this.screen = geom;
-    });
-
-    // setTimeout(() => { this.cdr.detectChanges(); }, 50);
-  }
-
   separator = new Separator();
 
-  newAction = new Action({ text: 'New', handler: () => console.log('New clicked') });
-  openAction = new Action({ text: 'Open', handler: () => console.log('Open clicked') });
-  saveAction = new Action({ text: 'Save', handler: () => this.save() });
-  exitAction = new Action({ text: 'Exit', handler: () => console.log('Exit clicked') });
+  newAction = new Action({
+    text: 'New',
+    handler: () => console.log('New clicked')
+  });
+
+  openAction = new Action({
+    text: 'Open',
+    handler: () => console.log('Open clicked')
+  });
+
+  saveAction = new Action({
+    text: 'Save',
+    handler: () => this.save()
+  });
+
+  exitAction = new Action({
+    text: 'Exit',
+    handler: () => console.log('Exit clicked')
+  });
 
   boldAction = new Action({
     text: 'Bold',
@@ -160,6 +164,13 @@ export class AppComponent implements OnInit {
     checkable: true,
     handler: () => console.log('Italic toggled')
   });
+
+  ngOnInit() {
+    this.screen = this.desktop.screenGeometry();
+    this.desktop.screenGeometryChanges().subscribe(geom => {
+      this.screen = geom;
+    });
+  }
 
   async save() {
     console.log('Form saved', this.state);
