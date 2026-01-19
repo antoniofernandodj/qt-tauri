@@ -4,27 +4,39 @@
   <QMenuBar>
     <QMenu
       title="File"
-      [actions]="[newAction, openAction, saveAction, separator, exitAction]"
+      [actions]="[
+        newAction,
+        openAction,
+        saveAction,
+        separator,
+        exitAction
+      ]"
     />
 
     <QMenu
       title="Edit"
-      [actions]="[boldAction, italicAction]"
+      [actions]="[
+        boldAction,
+        italicAction
+      ]"
     />
 
   </QMenuBar>
 
   <QToolBar
-    [actions]="[newAction, openAction, saveAction, separator, exitAction]"
+    [actions]="[
+      newAction,
+      openAction,
+      saveAction,
+      separator,
+      exitAction
+    ]"
   />
 
   <QCentralWidget>
-
     <QLabel [text]="toString(screen)" />
-    
     <QHBoxLayout [spacing]="10">
       <QScrollArea style="width: 80%;">
-
         <QFrame [margin]="5">
           <QLabel
             text="User Profile"
@@ -46,9 +58,22 @@
           <QSeparator />
 
           <QRadioGroup [model]="state.gender">
-            <QRadioButton label="Male" value="male" />
-            <QRadioButton label="Female" value="female" />
-            <QRadioButton label="Other" value="other" />
+
+            <QRadioButton
+                label="Male"
+                value="male"
+            />
+
+            <QRadioButton
+              label="Female"
+              value="female"
+            />
+
+            <QRadioButton
+              label="Other"
+              value="other"
+            />
+
           </QRadioGroup>
 
           <QSeparator />
@@ -66,7 +91,9 @@
 
           <QPushButton
             text="Tela cheia"
-            (clicked)="desktop.toggleFullscreen()"
+            (clicked)="
+              desktop.toggleFullscreen()
+            "
           />
 
           <QSeparator />
@@ -99,13 +126,16 @@
 
           <QComboBox
             label="Theme"
-            [items]="['Light', 'Dark', 'System']"
+            [items]="[
+              'Light',
+              'Dark',
+              'System'
+            ]"
           />
 
           <QSeparator />
 
           <QHBoxLayout [spacing]="5">
-
             <QPushButton
               text="Save"
               kind="primary"
@@ -126,7 +156,6 @@
 
           </QHBoxLayout>
         </QFrame>
-
       </QScrollArea>
 
       <QVBoxLayout
@@ -135,7 +164,6 @@
       >
 
         <QTabWidget>
-
           <QTab title="Advanced Settings">
             <QVBoxLayout [spacing]="10">
 
@@ -170,7 +198,6 @@
 
           <QTab title="Progress">
             <QVBoxLayout [spacing]="10">
-
               <QLabel
                 text="Task Progress"
                 alignment="center"
@@ -183,14 +210,10 @@
                 [maximum]="100"
                 [model]="state.perfLevel"
               />
-
             </QVBoxLayout>
           </QTab>
-
         </QTabWidget>
-
       </QVBoxLayout>
-
     </QHBoxLayout>
   </QCentralWidget>
 
