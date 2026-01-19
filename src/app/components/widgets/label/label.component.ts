@@ -19,6 +19,7 @@ export class LabelComponent {
   @Input() alignment: LabelAlignment = 'left';
   @Input() wordWrap = false;
   @Input() rich = false;
+  @Input() size: number = 0;
 
   get textAlign(): string {
     return this.alignment;
