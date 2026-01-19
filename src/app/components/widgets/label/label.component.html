@@ -1,0 +1,11 @@
+<div
+  class="qt-label"
+  [style.text-align]="textAlign"
+  [style.white-space]="whiteSpace"
+>
+  @if (rich) {
+    <span [innerHTML]="text"></span>
+  } @else {
+    {{ text }}
+  }
+</div>

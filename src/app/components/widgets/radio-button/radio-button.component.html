@@ -1,0 +1,17 @@
+<div
+  class="qt-radio"
+  role="radio"
+  [attr.aria-checked]="checked"
+  [attr.aria-disabled]="disabled"
+  (click)="onClick()"
+>
+  <span class="qt-radio-indicator">
+    @if (checked) {
+      <span class="qt-radio-dot"></span>
+    }
+  </span>
+
+  <span class="qt-radio-label">
+    {{ label }}
+  </span>
+</div>

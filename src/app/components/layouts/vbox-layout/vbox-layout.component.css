@@ -1,0 +1,13 @@
+.qt-vbox-layout {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  
+  /* Transições suaves para mudanças de tamanho */
+  transition: gap var(--transition-fast);
+}
+
+/* Espaçamento uniforme entre items */
+.qt-vbox-layout > * + * {
+  margin-top: 0;
+}

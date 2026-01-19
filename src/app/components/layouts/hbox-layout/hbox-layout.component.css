@@ -1,0 +1,11 @@
+.qt-hbox-layout {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+.qt-hbox-layout > * + * {
+  margin-left: 0;
+}

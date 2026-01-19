@@ -1,0 +1,22 @@
+<div class="qt-progress-bar">
+
+  <div
+    class="qt-progress-track"
+    [class.qt-busy]="busy">
+
+    @if (!busy) {
+      <div
+        class="qt-progress-fill"
+        [style.width.%]="percentage">
+      </div>
+    }
+
+  </div>
+
+  @if (showText && !busy) {
+    <div class="qt-progress-text">
+      {{ text }}
+    </div>
+  }
+
+</div>

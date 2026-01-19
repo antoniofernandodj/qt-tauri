@@ -1,0 +1,21 @@
+.qt-form-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+/* Labels na primeira coluna */
+.qt-form-layout > *:nth-child(odd) {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding-right: 12px;
+  text-align: right;
+}
+
+/* Inputs na segunda coluna */
+.qt-form-layout > *:nth-child(even) {
+  min-width: 0; /* Permite que inputs sejam menores que o conteúdo */
+}

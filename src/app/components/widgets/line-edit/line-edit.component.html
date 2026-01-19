@@ -1,0 +1,12 @@
+<input
+  class="qt-line-edit"
+  [type]="inputType"
+  [value]="displayValue"
+  [attr.placeholder]="placeholder"
+  [readOnly]="readOnly"
+  [disabled]="disabled"
+  [attr.maxLength]="maxLength"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  (keydown.enter)="onEnter()"
+/>

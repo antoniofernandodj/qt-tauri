@@ -1,0 +1,13 @@
+<button
+  [class]="'qt-button qt-button-' + kind"
+  [class.hover]="isHover"
+  [class.pressed]="isPressed"
+  [disabled]="disabled"
+  (click)="onClick($event)"
+  (mouseenter)="isHover = true"
+  (mouseleave)="isHover = false; isPressed = false"
+  (mousedown)="isPressed = true"
+  (mouseup)="isPressed = false"
+>
+  {{ text }}
+</button>

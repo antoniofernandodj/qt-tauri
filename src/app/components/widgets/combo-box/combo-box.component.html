@@ -1,0 +1,25 @@
+<div class="qt-combobox" [class.qt-disabled]="disabled">
+
+  <div class="qt-combobox-field" (click)="toggle()">
+    <span class="qt-combobox-text">
+      {{ currentText }}
+    </span>
+
+    <span class="qt-combobox-arrow">▾</span>
+  </div>
+
+  @if (open) {
+    <div class="qt-combobox-popup">
+      @for (item of items; track item) {
+        <div
+          class="qt-combobox-item"
+          [class.qt-selected]="items.indexOf(item) === currentIndex"
+          (click)="select(items.indexOf(item))"
+        >
+          {{ item }}
+        </div>
+      }
+    </div>
+  }
+
+</div>

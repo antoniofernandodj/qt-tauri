@@ -1,0 +1,22 @@
+<div
+  class="qt-slider"
+  (click)="onTrackClick($event)"
+  #track
+>
+  <div
+    class="qt-slider-groove"
+  >
+    <div
+      class="qt-slider-fill"
+      [style.width.%]="orientation === 'horizontal' ? percent : 100"
+      [style.height.%]="orientation === 'vertical' ? percent : 100"
+    ></div>
+  </div>
+
+  <div
+    class="qt-slider-handle"
+    [style.left.%]="orientation === 'horizontal' ? percent : null"
+    [style.bottom.%]="orientation === 'vertical' ? percent : null"
+    (mousedown)="onThumbMouseDown($event)"
+  ></div>
+</div>

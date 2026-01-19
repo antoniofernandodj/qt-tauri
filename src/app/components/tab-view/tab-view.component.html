@@ -1,0 +1,15 @@
+<div class="qt-tab-view">
+  <div class="tab-header">
+    <button
+      *ngFor="let tab of tabs; let i = index"
+      class="tab-btn"
+      [class.active]="activeIndex === i"
+      (click)="selectTab(i)"
+    >
+      {{ tab.title }}
+    </button>
+  </div>
+  <div class="tab-content">
+    <ng-content></ng-content>
+  </div>
+</div>

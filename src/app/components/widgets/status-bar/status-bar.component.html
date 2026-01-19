@@ -1,0 +1,28 @@
+<div class="qt-statusbar">
+
+  <!-- Left area -->
+  <div class="qt-statusbar-left">
+
+    @if (message) {
+      <span class="qt-statusbar-message">
+        {{ message }}
+      </span>
+    }
+
+    <ng-container *ngFor="let item of leftItems()">
+      <ng-content select="[status-item-{{item.id}}]"></ng-content>
+    </ng-container>
+
+  </div>
+
+  <!-- Spacer -->
+  <div class="qt-statusbar-spacer"></div>
+
+  <!-- Right area -->
+  <div class="qt-statusbar-right">
+    <ng-container *ngFor="let item of rightItems()">
+      <ng-content select="[status-item-{{item.id}}]"></ng-content>
+    </ng-container>
+  </div>
+
+</div>

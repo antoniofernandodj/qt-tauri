@@ -1,0 +1,27 @@
+<div class="qt-spinbox">
+  <input
+    class="qt-spinbox-input"
+    type="text"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="onInput($event)"
+    (keydown)="onKeyDown($event)"
+    (blur)="onBlur()"
+  />
+
+  <div class="qt-spinbox-buttons">
+    <button
+      class="qt-spinbox-btn up"
+      type="button"
+      [disabled]="disabled"
+      (click)="increment()"
+    ></button>
+
+    <button
+      class="qt-spinbox-btn down"
+      type="button"
+      [disabled]="disabled"
+      (click)="decrement()"
+    ></button>
+  </div>
+</div>

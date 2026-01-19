@@ -1,0 +1,45 @@
+.qt-textedit {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  resize: vertical;
+  outline: none;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-textedit::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.qt-textedit:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-textedit:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.qt-textedit:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.qt-textedit[readonly] {
+  background-color: var(--color-bg-secondary);
+}

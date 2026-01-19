@@ -1,0 +1,13 @@
+<div class="qt-toolbar">
+
+  @for (action of actions; track action) {
+
+    @if (action.text === '---') {
+      <div class="qt-toolbar-separator"></div>
+    } @else {
+      <QToolButton [action]="action"></QToolButton>
+    }
+
+  }
+
+</div>

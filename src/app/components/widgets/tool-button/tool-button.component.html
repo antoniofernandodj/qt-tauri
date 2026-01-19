@@ -1,0 +1,14 @@
+<button
+  class="qt-toolbutton"
+  [class.qt-disabled]="!action.enabled"
+  [class.qt-checked]="action.checkable && action.checked"
+  (click)="onClick()"
+>
+  @if (action.icon) {
+    <img class="qt-toolbutton-icon" [src]="action.icon" />
+  }
+
+  <span class="qt-toolbutton-text">
+    {{ action.text }}
+  </span>
+</button>

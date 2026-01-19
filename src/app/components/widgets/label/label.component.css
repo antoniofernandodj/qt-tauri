@@ -1,0 +1,47 @@
+.qt-label {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  
+  user-select: none;
+}
+
+.qt-label::selection {
+  background: transparent;
+}
+
+/* Variantes de peso */
+.qt-label.bold {
+  font-weight: 600;
+}
+
+.qt-label.semibold {
+  font-weight: 500;
+}
+
+/* Variantes de tamanho */
+.qt-label.small {
+  font-size: var(--font-size-sm);
+}
+
+.qt-label.large {
+  font-size: var(--font-size-lg);
+}
+
+/* Variantes de cor */
+.qt-label.secondary {
+  color: var(--color-text-secondary);
+}
+
+.qt-label.muted {
+  color: var(--color-text-disabled);
+}
+
+.qt-label.accent {
+  color: var(--color-accent-primary);
+}
+
+.qt-label.danger {
+  color: var(--color-danger);
+}

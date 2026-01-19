@@ -1,0 +1,46 @@
+.qt-line-edit {
+  width: 100%;
+  padding: 8px 12px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  outline: none;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-line-edit::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.qt-line-edit:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-line-edit:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.qt-line-edit:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.qt-line-edit.invalid {
+  border-color: var(--color-danger);
+}
+
+.qt-line-edit.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}

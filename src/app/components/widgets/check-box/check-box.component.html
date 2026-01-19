@@ -1,0 +1,20 @@
+<div
+  class="qt-checkbox"
+  role="checkbox"
+  [attr.aria-checked]="state"
+  [attr.aria-disabled]="disabled"
+  (click)="toggle()"
+>
+  <span class="qt-checkbox-indicator">
+    @if (state === 'checked') {
+      <span class="qt-checkbox-check"></span>
+    }
+    @if (state === 'partial') {
+      <span class="qt-checkbox-partial"></span>
+    }
+  </span>
+
+  <span class="qt-checkbox-label">
+    {{ label }}
+  </span>
+</div>

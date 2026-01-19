@@ -1,0 +1,203 @@
+
+<QMainWindow>
+
+  <QMenuBar>
+    <QMenu
+      title="File"
+      [actions]="[newAction, openAction, saveAction, separator, exitAction]"
+    />
+
+    <QMenu
+      title="Edit"
+      [actions]="[boldAction, italicAction]"
+    />
+
+  </QMenuBar>
+
+  <QToolBar
+    [actions]="[newAction, openAction, saveAction, separator, exitAction]"
+  />
+
+  <QCentralWidget>
+
+    <QLabel [text]="toString(screen)" />
+    
+    <QHBoxLayout [spacing]="10">
+      <QScrollArea style="width: 80%;">
+
+        <QFrame [margin]="5">
+          <QLabel
+            text="User Profile"
+            alignment="center"
+          />
+
+          <QSeparator />
+
+          <QLineEdit
+            placeholder="Full Name"
+            [model]="state.name"
+          />
+
+          <QLineEdit
+            placeholder="Email"
+            [model]="state.email"
+          />
+
+          <QSeparator />
+
+          <QRadioGroup [model]="state.gender">
+            <QRadioButton label="Male" value="male" />
+            <QRadioButton label="Female" value="female" />
+            <QRadioButton label="Other" value="other" />
+          </QRadioGroup>
+
+          <QSeparator />
+
+          <QCheckBox
+            label="Receive Newsletters"
+            [model]="state.newsletter"
+            [tristate]="true"
+          />
+
+          <QCheckBox
+            label="Receive Newsletters"
+            [model]="state.newsletter"
+          />
+
+          <QPushButton
+            text="Tela cheia"
+            (clicked)="desktop.toggleFullscreen()"
+          />
+
+          <QSeparator />
+
+          <QSpinBox
+            label="Age"
+            [min]="0"
+            [max]="120"
+            [step]="1"
+            [model]="state.age"
+          />
+
+          <QSlider
+            label="Volume"
+            [min]="0"
+            [max]="100"
+            [step]="1"
+            [model]="state.volume"
+          />
+
+          <QSeparator />
+
+          <QTextEdit
+            placeholder="Bio"
+            [rows]="4"
+            [model]="state.bio"
+          />
+
+          <QSeparator />
+
+          <QComboBox
+            label="Theme"
+            [items]="['Light', 'Dark', 'System']"
+          />
+
+          <QSeparator />
+
+          <QHBoxLayout [spacing]="5">
+
+            <QPushButton
+              text="Save"
+              kind="primary"
+              (clicked)="save()"
+            />
+
+            <QPushButton
+              text="Reset"
+              kind="secondary"
+              (clicked)="reset()"
+            />
+
+            <QPushButton
+              text="Delete"
+              kind="destructive"
+              (clicked)="deleteProfile()"
+            />
+
+          </QHBoxLayout>
+        </QFrame>
+
+      </QScrollArea>
+
+      <QVBoxLayout
+        [spacing]="10"
+        style="width: 60%;"
+      >
+
+        <QTabWidget>
+
+          <QTab title="Advanced Settings">
+            <QVBoxLayout [spacing]="10">
+
+              <QLabel
+                text="Developer Options"
+                alignment="center"
+              />
+
+              <QSeparator />
+
+              <QCheckBox
+                label="Enable Developer Mode"
+                [model]="state.devMode"
+                [tristate]="true"
+
+              />
+
+              <QCheckBox
+                label="Enable Logging"
+                [model]="state.logging"
+              />
+
+              <QSeparator />
+              <QSlider
+                label="Performance Level"
+                [min]="0"
+                [max]="100"
+                [step]="1"
+                [model]="state.perfLevel"
+              />
+            </QVBoxLayout>
+          </QTab>
+
+          <QTab title="Progress">
+            <QVBoxLayout [spacing]="10">
+
+              <QLabel
+                text="Task Progress"
+                alignment="center"
+              />
+
+              <QSeparator />
+
+              <QProgressBar
+                [minimum]="0"
+                [maximum]="100"
+                [model]="state.perfLevel"
+              />
+
+            </QVBoxLayout>
+          </QTab>
+
+        </QTabWidget>
+
+      </QVBoxLayout>
+
+    </QHBoxLayout>
+  </QCentralWidget>
+
+  <QStatusBar>
+    <QLabel text="Ready" />
+    <QLabel text="All changes are autosaved" />
+  </QStatusBar>
+
+</QMainWindow>

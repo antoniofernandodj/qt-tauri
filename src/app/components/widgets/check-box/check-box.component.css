@@ -1,0 +1,77 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.qt-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  cursor: pointer;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.qt-checkbox:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-checkbox-indicator {
+  width: 18px;
+  height: 18px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  background-color: var(--color-bg-primary);
+  border: 2px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-checkbox:hover .qt-checkbox-indicator {
+  border-color: var(--color-accent-primary);
+  background-color: var(--color-bg-hover);
+}
+
+:host.qt-checked .qt-checkbox-indicator,
+:host.qt-partial .qt-checkbox-indicator {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+}
+
+.qt-checkbox-check {
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.qt-checkbox-partial {
+  width: 10px;
+  height: 2px;
+  background-color: white;
+  border-radius: 1px;
+}
+
+:host.qt-disabled .qt-checkbox {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:host.qt-disabled .qt-checkbox-indicator {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}

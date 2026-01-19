@@ -1,0 +1,43 @@
+<div
+  class="qt-messagebox-overlay"
+  (click)="close('cancel')"
+>
+
+  <div
+    class="qt-messagebox-window"
+    (click)="$event.stopPropagation()"
+  >
+
+    <div class="qt-messagebox">
+
+      <div class="qt-messagebox-icon" [ngClass]="iconClass">
+        {{ icon }}
+      </div>
+
+      <div class="qt-messagebox-content">
+
+        <h3 class="qt-messagebox-title">
+          {{ options.title }}
+        </h3>
+
+        <p class="qt-messagebox-text">
+          {{ options.text }}
+        </p>
+
+        <div class="qt-messagebox-actions">
+          <button
+            *ngFor="let b of options.buttons"
+            class="qt-btn"
+            (click)="close(b)"
+          >
+            {{ label(b) }}
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

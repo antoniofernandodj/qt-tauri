@@ -1,0 +1,77 @@
+.qt-menu-container {
+  position: relative;
+  user-select: none;
+}
+
+.qt-menu-title {
+  padding: 8px 12px;
+  
+  font-weight: 500;
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-menu-title:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-menu-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  
+  min-width: 180px;
+  padding: 4px;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  
+  animation: slideDown 0.15s ease-out;
+}
+
+.qt-menu-item {
+  padding: 8px 12px;
+  
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.qt-menu-item:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-menu-item.qt-disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.qt-menu-item.qt-checked {
+  font-weight: 500;
+}
+
+.qt-menu-item.qt-checked::before {
+  content: "✓";
+  margin-right: 8px;
+  color: var(--color-accent-primary);
+}
+
+.qt-menu-separator {
+  height: 1px;
+  margin: 4px 8px;
+  background-color: var(--color-border-light);
+}

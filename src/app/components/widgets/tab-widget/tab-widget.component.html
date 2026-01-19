@@ -1,0 +1,20 @@
+<div class="qt-tab-widget">
+
+  <!-- Tab bar -->
+  <div class="qt-tab-bar">
+    <div
+      class="qt-tab"
+      *ngFor="let tab of tabs; let i = index"
+      [class.qt-active]="i === currentIndex"
+      (click)="selectTab(i)"
+    >
+      {{ tab.title }}
+    </div>
+  </div>
+
+  <!-- Pages -->
+  <div class="qt-tab-content">
+    <ng-content></ng-content>
+  </div>
+
+</div>

@@ -1,0 +1,55 @@
+.qt-toolbutton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  cursor: pointer;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-toolbutton:hover:not(.qt-disabled) {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-light);
+}
+
+.qt-toolbutton:active:not(.qt-disabled) {
+  background-color: var(--color-bg-active);
+  transform: scale(0.98);
+}
+
+.qt-toolbutton.qt-checked {
+  background-color: var(--color-accent-bg);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.qt-toolbutton.qt-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.qt-toolbutton-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.qt-toolbutton-text {
+  line-height: 1;
+}

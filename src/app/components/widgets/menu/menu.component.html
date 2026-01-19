@@ -1,0 +1,36 @@
+<div class="qt-menu-container">
+
+  <div class="qt-menu-title" (click)="toggle()">
+    {{ title }}
+  </div>
+
+  @if (open) {
+    <div class="qt-menu-popup">
+
+      @for (item of actions; track item) {
+
+        @if (item.type === 'separator') {
+          <div class="qt-menu-separator"></div>
+
+        } @else if (instanceOfMenuComponent(item)) {
+          <div class="qt-menu-submenu">
+            {{ item.title }} ▶
+          </div>
+
+        } @else {
+          <div
+            class="qt-menu-item"
+            [class.qt-disabled]="!item.enabled"
+            [class.qt-checked]="item.checkable && item.checked"
+            (click)="onActionClick(item)"
+          >
+            {{ item.text }}
+          </div>
+        }
+
+      }
+
+    </div>
+  }
+
+</div>

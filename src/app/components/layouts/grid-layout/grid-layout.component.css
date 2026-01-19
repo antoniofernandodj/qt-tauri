@@ -1,0 +1,13 @@
+.qt-grid-layout {
+  display: grid;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+/* Auto-fit responsivo como fallback */
+@media (max-width: 768px) {
+  .qt-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+}

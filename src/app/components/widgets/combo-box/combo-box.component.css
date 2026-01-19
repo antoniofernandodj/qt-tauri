@@ -1,0 +1,103 @@
+:host {
+  display: inline-block;
+  width: 200px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+}
+
+.qt-combobox {
+  position: relative;
+}
+
+.qt-combobox-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  
+  height: 36px;
+  padding: 0 12px;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.qt-combobox-field:hover:not(.qt-disabled .qt-combobox-field) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-combobox-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-primary);
+}
+
+.qt-combobox-arrow {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  transition: transform var(--transition-fast);
+}
+
+.qt-combobox.open .qt-combobox-arrow {
+  transform: rotate(180deg);
+}
+
+.qt-combobox-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  
+  max-height: 240px;
+  overflow-y: auto;
+  
+  animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qt-combobox-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.qt-combobox-item:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-combobox-item.qt-selected {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-primary);
+  font-weight: 500;
+}
+
+.qt-disabled .qt-combobox-field {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}

@@ -1,0 +1,144 @@
+/* .qt-button {
+  background: var(--btn-primary-bg);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  padding: 6px 14px;
+  min-height: 28px;
+  font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.qt-button:hover:not(:disabled) {
+  background: var(--btn-primary-hover);
+  border-color: var(--border-hover);
+}
+
+.qt-button.pressed:not(:disabled) {
+  background: var(--btn-primary-active);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.qt-button:disabled {
+  background: #efefef;
+  border-color: var(--border-disabled);
+  color: var(--text-secondary);
+  cursor: default;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-primary {
+  background: linear-gradient(to bottom, #5a9fdb, #4a8fd4);
+  color: #ffffff;
+  border-color: #3a7fc4;
+}
+
+.qt-button.qt-button-primary:hover:not(:disabled) {
+  background: linear-gradient(to bottom, #6aafeb, #5a9fdb);
+}
+
+.qt-button.qt-button-destructive {
+  background: linear-gradient(to bottom, #f66, #e44);
+  color: #ffffff;
+  border-color: #c33;
+}
+
+.qt-button.qt-button-ghost {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.qt-button.qt-button-ghost:hover:not(:disabled) {
+  background: rgba(0,0,0,0.05);
+  border-color: var(--border-default);
+} */
+
+.qt-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  padding: 7px 16px;
+  min-height: 32px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+  
+  box-shadow: var(--shadow-xs);
+  transition: all var(--transition-fast);
+}
+
+.qt-button:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.qt-button:active:not(:disabled),
+.qt-button.pressed:not(:disabled) {
+  background-color: var(--color-bg-active);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+.qt-button:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-primary {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+}
+
+.qt-button.qt-button-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.qt-button.qt-button-primary:active:not(:disabled) {
+  background-color: var(--color-accent-active);
+}
+
+.qt-button.qt-button-destructive {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: white;
+}
+
+.qt-button.qt-button-destructive:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+.qt-button.qt-button-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-ghost:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+}
