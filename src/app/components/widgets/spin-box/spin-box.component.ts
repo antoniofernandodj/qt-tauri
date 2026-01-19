@@ -1,7 +1,7 @@
 import {
   Component,
-  Input,
-  HostBinding
+  HostBinding,
+  Input
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
@@ -16,10 +16,23 @@ export class SpinBoxComponent {
   @Input({ required: true })
   model!: QProperty<number>;
 
-  @Input() min = 0;
-  @Input() max = 100;
-  @Input() step = 1;
-  @Input() disabled = false;
+  @Input()
+  min = 0;
+
+  @Input()
+  max = 100;
+
+  @Input()
+  step = 1;
+
+  @Input()
+  disabled = false;
+
+  @Input()
+  marginLeft: string | number = '0';
+
+  @Input()
+  marginRight: string | number = '0';
 
   /* =========================
      Value proxy

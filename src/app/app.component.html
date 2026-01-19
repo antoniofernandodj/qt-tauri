@@ -48,11 +48,15 @@
           <QLineEdit
             placeholder="Full Name"
             [model]="state.name"
+            [marginTop]="5"
+            [marginBottom]="5"
           />
 
           <QLineEdit
             placeholder="Email"
             [model]="state.email"
+            [marginTop]="5"
+            [marginBottom]="5"
           />
 
           <QSeparator />
@@ -104,6 +108,8 @@
             [max]="120"
             [step]="1"
             [model]="state.age"
+            [marginLeft]="0"
+            [marginRight]="10"
           />
 
           <QSlider

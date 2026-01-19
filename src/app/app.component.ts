@@ -1,39 +1,37 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { CommonModule, NgIf, NgFor } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { invoke } from "@tauri-apps/api/core";
-import { VBoxLayoutComponent } from './components/layouts/vbox-layout/vbox-layout.component';
-import { HBoxLayoutComponent } from './components/layouts/hbox-layout/hbox-layout.component';
-import { TabViewComponent } from './components/tab-view/tab-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GridLayoutComponent } from './components/layouts/grid-layout/grid-layout.component';
+import { HBoxLayoutComponent } from './components/layouts/hbox-layout/hbox-layout.component';
+import { VBoxLayoutComponent } from './components/layouts/vbox-layout/vbox-layout.component';
+import { TabViewComponent } from './components/tab-view/tab-view.component';
+import { CentralWidgetComponent } from './components/widgets/central-widget/central-widget.component';
+import { CheckBoxComponent } from './components/widgets/check-box/check-box.component';
+import { ComboBoxComponent } from './components/widgets/combo-box/combo-box.component';
+import { FrameComponent } from './components/widgets/frame/frame.component';
+import { LabelComponent } from './components/widgets/label/label.component';
 import { LineEditComponent } from './components/widgets/line-edit/line-edit.component';
-import { TextEditComponent } from './components/widgets/text-edit/text-edit.component';
-import { SliderComponent } from './components/widgets/slider/slider.component';
+import { MainWindowComponent } from './components/widgets/main-window/main-window.component';
+import { MenuBarComponent } from './components/widgets/menu-bar/menu-bar.component';
+import { MenuComponent } from './components/widgets/menu/menu.component';
+import { MessageBoxComponent } from './components/widgets/message-box/message-box.component';
+import { ProgressBarComponent } from './components/widgets/progress-bar/progress-bar.component';
 import { PushButtonComponent } from './components/widgets/push-button/push-button.component';
-import { SeparatorComponent } from './components/widgets/separator/separator.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioButtonComponent } from './components/widgets/radio-button/radio-button.component';
 import { RadioGroupComponent } from './components/widgets/radio-group/radio-group.component';
-import { CheckBoxComponent } from './components/widgets/check-box/check-box.component';
-import { SpinBoxComponent } from './components/widgets/spin-box/spin-box.component';
-import { FrameComponent } from './components/widgets/frame/frame.component';
-import { StatusBarComponent } from './components/widgets/status-bar/status-bar.component';
-import { MainWindowComponent } from './components/widgets/main-window/main-window.component';
-import { Action } from './core/action';
-import { ToolBarComponent } from './components/widgets/tool-bar/tool-bar.component';
-import { MenuBarComponent } from './components/widgets/menu-bar/menu-bar.component';
-import { CentralWidgetComponent } from './components/widgets/central-widget/central-widget.component';
-import { MenuComponent } from './components/widgets/menu/menu.component';
-import { Separator } from './core/separator';
-import { ComboBoxComponent } from './components/widgets/combo-box/combo-box.component';
-import { ProgressBarComponent } from './components/widgets/progress-bar/progress-bar.component';
-import { TabComponent, TabWidgetComponent } from './components/widgets/tab-widget/tab-widget.component';
 import { ScrollAreaComponent } from './components/widgets/scroll-area/scroll-area.component';
-import { LabelComponent } from './components/widgets/label/label.component';
-import { DesktopWidgetService } from './services/desktop';
-import { QProperty } from './core/property';
+import { SeparatorComponent } from './components/widgets/separator/separator.component';
+import { SliderComponent } from './components/widgets/slider/slider.component';
+import { SpinBoxComponent } from './components/widgets/spin-box/spin-box.component';
+import { StatusBarComponent } from './components/widgets/status-bar/status-bar.component';
+import { TabComponent, TabWidgetComponent } from './components/widgets/tab-widget/tab-widget.component';
+import { TextEditComponent } from './components/widgets/text-edit/text-edit.component';
+import { ToolBarComponent } from './components/widgets/tool-bar/tool-bar.component';
+import { Action } from './core/action';
 import { QMessageBox } from './core/message-box';
-import { MessageBoxComponent } from './components/widgets/message-box/message-box.component';
+import { QProperty } from './core/property';
+import { Separator } from './core/separator';
+import { DesktopWidgetService } from './services/desktop';
 // import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
 
 
@@ -135,22 +133,26 @@ export class AppComponent implements OnInit {
 
   newAction = new Action({
     text: 'New',
-    handler: () => console.log('New clicked')
+    handler: () => console.log('New clicked'),
+    icon: 'assets/new.png'
   });
 
   openAction = new Action({
     text: 'Open',
-    handler: () => console.log('Open clicked')
+    handler: () => console.log('Open clicked'),
+    icon: 'assets/open.png'
   });
 
   saveAction = new Action({
     text: 'Save',
-    handler: () => this.save()
+    handler: () => this.save(),
+    icon: 'assets/save.png'
   });
 
   exitAction = new Action({
     text: 'Exit',
-    handler: () => console.log('Exit clicked')
+    handler: () => console.log('Exit clicked'),
+    icon: 'assets/exit.png'
   });
 
   boldAction = new Action({

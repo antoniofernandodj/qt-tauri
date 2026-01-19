@@ -6,9 +6,10 @@
 >
   @if (action.icon) {
     <img class="qt-toolbutton-icon" [src]="action.icon" />
+  } @else {
+    <span class="qt-toolbutton-text">
+      {{ action.text }}
+    </span>
   }
 
-  <span class="qt-toolbutton-text">
-    {{ action.text }}
-  </span>
 </button>

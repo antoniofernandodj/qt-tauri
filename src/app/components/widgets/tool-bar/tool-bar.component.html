@@ -2,7 +2,7 @@
 
   @for (action of actions; track action) {
 
-    @if (action.text === '---') {
+    @if (isSeparator(action)) {
       <div class="qt-toolbar-separator"></div>
     } @else {
       <QToolButton [action]="action"></QToolButton>

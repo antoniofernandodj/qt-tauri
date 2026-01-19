@@ -1,9 +1,9 @@
-import { Subject } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 
 
 export interface ActionOptions {
   text?: string;
+  icon?: string;
   enabled?: boolean;
   checkable?: boolean;
   checked?: boolean;

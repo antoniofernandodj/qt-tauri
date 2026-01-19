@@ -29,6 +29,8 @@ export class LineEditComponent {
 
   @Input() validator?: (value: string) => boolean;
   @Input() inputMask?: RegExp;
+  @Input() marginTop: string | number = '0';
+  @Input() marginBottom: string | number = '0';
 
   /* =========================
      Qt-like signals (sem estado)
@@ -43,7 +45,7 @@ export class LineEditComponent {
   /* =========================
      Derived state
      ========================= */
-
+     
   get inputType(): string {
     return this.echoMode === 'password' ? 'password' : 'text';
   }

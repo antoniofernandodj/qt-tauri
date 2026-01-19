@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Action } from '../../../core/action';
+import { Separator } from '../../../core/separator';
 import { ToolButtonComponent } from '../tool-button/tool-button.component';
 
 
@@ -16,4 +17,9 @@ export class ToolBarComponent {
 
   @Input()
   actions: Action[] = [];
+
+
+  isSeparator(action: Action) {
+    return action instanceof Separator
+  }
 }
