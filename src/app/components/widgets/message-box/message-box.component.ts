@@ -8,11 +8,12 @@ import {
   MessageBoxOptions,
   MessageBoxResult
 } from '../../../core/message-box';
+import { PushButtonComponent } from "../push-button/push-button.component";
 
 @Component({
   selector: 'QMessageBox',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PushButtonComponent],
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.css']
 })

@@ -3,7 +3,9 @@ import {
   Input,
   HostBinding,
   ElementRef,
-  ViewChild
+  ViewChild,
+  EventEmitter,
+  Output
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
@@ -27,6 +29,9 @@ export class SliderComponent {
   @Input() step = 1;
   @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
   @Input() disabled = false;
+
+  @Output()
+  modelChange = new EventEmitter<number>();
 
   @ViewChild('track', { static: true })
   track!: ElementRef<HTMLDivElement>;
@@ -82,7 +87,10 @@ export class SliderComponent {
   }
 
   set value(v: number) {
+    if (this.model.value === v) return;
+  
     this.model.value = v;
+    this.modelChange.emit(v);
   }
 
   get percent(): number {

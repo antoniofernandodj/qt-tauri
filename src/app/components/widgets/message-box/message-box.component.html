@@ -25,13 +25,12 @@
         </p>
 
         <div class="qt-messagebox-actions">
-          <button
+          <QPushButton
+            [text]="label(b)"
+            [kind]="'secondary'"
             *ngFor="let b of options.buttons"
-            class="qt-btn"
             (click)="close(b)"
-          >
-            {{ label(b) }}
-          </button>
+          />
         </div>
 
       </div>

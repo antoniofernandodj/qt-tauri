@@ -1,64 +1,3 @@
-/* .qt-button {
-  background: var(--btn-primary-bg);
-  border: 1px solid var(--border-default);
-  border-radius: 4px;
-  padding: 6px 14px;
-  min-height: 28px;
-  font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif;
-  font-size: 13px;
-  color: var(--text-primary);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  transition: all 0.15s ease;
-}
-
-.qt-button:hover:not(:disabled) {
-  background: var(--btn-primary-hover);
-  border-color: var(--border-hover);
-}
-
-.qt-button.pressed:not(:disabled) {
-  background: var(--btn-primary-active);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
-}
-
-.qt-button:disabled {
-  background: #efefef;
-  border-color: var(--border-disabled);
-  color: var(--text-secondary);
-  cursor: default;
-  box-shadow: none;
-}
-
-.qt-button.qt-button-primary {
-  background: linear-gradient(to bottom, #5a9fdb, #4a8fd4);
-  color: #ffffff;
-  border-color: #3a7fc4;
-}
-
-.qt-button.qt-button-primary:hover:not(:disabled) {
-  background: linear-gradient(to bottom, #6aafeb, #5a9fdb);
-}
-
-.qt-button.qt-button-destructive {
-  background: linear-gradient(to bottom, #f66, #e44);
-  color: #ffffff;
-  border-color: #c33;
-}
-
-.qt-button.qt-button-ghost {
-  background: transparent;
-  box-shadow: none;
-  border-color: transparent;
-}
-
-.qt-button.qt-button-ghost:hover:not(:disabled) {
-  background: rgba(0,0,0,0.05);
-  border-color: var(--border-default);
-} */
-
 .qt-button {
   display: inline-flex;
   align-items: center;
@@ -107,6 +46,7 @@
   box-shadow: none;
 }
 
+/* Variantes de cor */
 .qt-button.qt-button-primary {
   background-color: var(--color-accent-primary);
   border-color: var(--color-accent-primary);
@@ -141,4 +81,17 @@
 
 .qt-button.qt-button-ghost:hover:not(:disabled) {
   background-color: var(--color-bg-hover);
+}
+
+/* Estado checked (quando dentro de um ButtonGroup) */
+.qt-button.qt-checked {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.qt-button.qt-checked:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }

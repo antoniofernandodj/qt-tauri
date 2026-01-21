@@ -2,6 +2,7 @@
   [class]="'qt-button qt-button-' + kind"
   [class.hover]="isHover"
   [class.pressed]="isPressed"
+  [class.qt-checked]="isChecked"
   [disabled]="disabled"
   (click)="onClick($event)"
   (mouseenter)="isHover = true"

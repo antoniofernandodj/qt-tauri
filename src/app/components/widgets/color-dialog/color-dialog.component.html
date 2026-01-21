@@ -1,1 +1,63 @@
-<p>color-dialog works!</p>
+<div
+  class="qt-colordialog-overlay"
+  *ngIf="visible.value"
+  (click)="cancel()"
+>
+  <div
+    class="qt-colordialog-window"
+    (click)="$event.stopPropagation()"
+  >
+    <h3 class="qt-colordialog-title">
+      Select Color
+    </h3>
+
+    <div class="qt-colordialog-body">
+
+      <!-- Preview -->
+      <div
+        class="qt-color-preview"
+        [style.background]="model.value"
+      ></div>
+
+      <!-- Sliders -->
+      <div class="qt-color-sliders">
+
+        <label>R</label>
+        <QSlider
+          [model]="r"
+          [min]="0"
+          [max]="255"
+          (modelChange)="onRgbChanged()"
+        />
+
+        <label>G</label>
+        <QSlider
+          [model]="g"
+          [min]="0"
+          [max]="255"
+          (modelChange)="onRgbChanged()"
+        />
+
+        <label>B</label>
+        <QSlider
+          [model]="b"
+          [min]="0"
+          [max]="255"
+          (modelChange)="onRgbChanged()"
+        />
+
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="qt-colordialog-actions">
+      <button class="qt-btn" (click)="cancel()">
+        Cancel
+      </button>
+      <button class="qt-btn qt-btn-primary" (click)="accept()">
+        OK
+      </button>
+    </div>
+
+  </div>
+</div>

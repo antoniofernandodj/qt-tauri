@@ -1,0 +1,4365 @@
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { GridLayoutComponent } from './components/layouts/grid-layout/grid-layout.component';
+import { HBoxLayoutComponent } from './components/layouts/hbox-layout/hbox-layout.component';
+import { VBoxLayoutComponent } from './components/layouts/vbox-layout/vbox-layout.component';
+import { TabViewComponent } from './components/tab-view/tab-view.component';
+import { CalendarWidgetComponent } from './components/widgets/calendar/calendar-widget.component';
+import { CentralWidgetComponent } from './components/widgets/central-widget/central-widget.component';
+import { CheckBoxComponent } from './components/widgets/check-box/check-box.component';
+import { ColorDialogComponent } from './components/widgets/color-dialog/color-dialog.component';
+import { ColumnViewComponent } from './components/widgets/column-view/column-view.component';
+import { ComboBoxComponent } from './components/widgets/combo-box/combo-box.component';
+import { CommandLinkEditComponent } from './components/widgets/command-link-edit/command-link-edit.component';
+import { ContextMenuComponent } from './components/widgets/context-menu/context-menu.component';
+import { DateEditComponent } from './components/widgets/date-edit/date-edit.component';
+import { DateTimeEditComponent } from './components/widgets/datetime-edit/datetime-edit.component';
+import { DialEditComponent } from './components/widgets/dial-edit/dial-edit.component';
+import { DialogButtonBoxComponent } from './components/widgets/dialog-button-box/dialog-button-box.component';
+import { DialogComponent } from './components/widgets/dialog/dialog.component';
+import { DoubleSpinBoxComponent } from './components/widgets/double-spin-box/double-spin-box.component';
+import { DragComponent } from './components/widgets/drag/drag.component';
+import { DropComponent } from './components/widgets/drop/drop.component';
+import { EditableComboBoxComponent } from './components/widgets/editable-combo-box/editable-combo-box.component';
+import { ErrorMessageComponent } from './components/widgets/error-message/error-message.component';
+import { FileDialogComponent } from './components/widgets/file-dialog/file-dialog.component';
+import { FontComboboxComponent } from './components/widgets/font-combobox/font-combobox.component';
+import { FrameComponent } from './components/widgets/frame/frame.component';
+import { IconViewComponent } from './components/widgets/icon-view/icon-view.component';
+import { InputDialogComponent } from './components/widgets/input-dialog/input-dialog.component';
+import { LabelComponent } from './components/widgets/label/label.component';
+import { LineEditComponent } from './components/widgets/line-edit/line-edit.component';
+import { LineComponent } from './components/widgets/line/line.component';
+import { ListViewComponent } from './components/widgets/list-view/list-view.component';
+import { MainWindowComponent } from './components/widgets/main-window/main-window.component';
+import { MenuBarComponent } from './components/widgets/menu-bar/menu-bar.component';
+import { MenuComponent } from './components/widgets/menu/menu.component';
+import { MonthDayEditComponent } from './components/widgets/month-day-edit/month-day-edit.component';
+import { ProgressBarComponent } from './components/widgets/progress-bar/progress-bar.component';
+import { ProgressDialogComponent } from './components/widgets/progress-dialog/progress-dialog.component';
+import { PushButtonComponent } from './components/widgets/push-button/push-button.component';
+import { RadioButtonComponent } from './components/widgets/radio-button/radio-button.component';
+import { RadioGroupComponent } from './components/widgets/radio-group/radio-group.component';
+import { RangeSliderComponent } from './components/widgets/range-slider/range-slider.component';
+import { ScrollAreaComponent } from './components/widgets/scroll-area/scroll-area.component';
+import { ScrollBarComponent } from './components/widgets/scroll-bar/scroll-bar.component';
+import { SeparatorComponent } from './components/widgets/separator/separator.component';
+import { ShortcutComponent } from './components/widgets/shortcut/shortcut.component';
+import { SliderComponent } from './components/widgets/slider/slider.component';
+import { SpinBoxComponent } from './components/widgets/spin-box/spin-box.component';
+import { SplitterHandleComponent } from './components/widgets/splitter-handle/splitter-handle.component';
+import { SplitterComponent } from './components/widgets/splitter/splitter.component';
+import { StackedLayoutComponent } from './components/widgets/stacked-layout/stacked-layout.component';
+import { StackedWidgetComponent } from './components/widgets/stacked-widget/stacked-widget.component';
+import { StatusBarComponent } from './components/widgets/status-bar/status-bar.component';
+import { StatusTipComponent } from './components/widgets/status-tip/status-tip.component';
+import { TabComponent, TabWidgetComponent } from './components/widgets/tab-widget/tab-widget.component';
+import { TableViewComponent } from './components/widgets/table-view/table-view.component';
+import { TextBrowserComponent } from './components/widgets/text-browser/text-browser.component';
+import { TextEditComponent } from './components/widgets/text-edit/text-edit.component';
+import { ToolBarComponent } from './components/widgets/tool-bar/tool-bar.component';
+import { ToolBoxComponent } from './components/widgets/tool-box/tool-box.component';
+import { ToolTipComponent } from './components/widgets/tool-tip/tool-tip.component';
+import { TreeViewComponent } from './components/widgets/tree-view/tree-view.component';
+import { WizardComponent } from './components/widgets/wizard/wizard.component';
+import { Action } from './core/action';
+import { QMessageBox } from './core/message-box';
+import { QProperty } from './core/property';
+import { Separator } from './core/separator';
+import { DesktopWidgetService } from './services/desktop';
+import { QThread } from './core/qthread';
+// import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
+
+
+export class UserProfileState {
+
+  name = new QProperty('');
+  bio = new QProperty('');
+  email = new QProperty('');
+  devMode = new QProperty(false);
+  logging = new QProperty(false);
+  gender = new QProperty<'male' | 'female' | 'other'>('other');
+  newsletter = new QProperty<boolean | null>(false);
+  age = new QProperty(0);
+  volume = new QProperty(50);
+  perfLevel = new QProperty(50);
+
+  reset() {
+    this.name.value = '';
+    this.bio.value = '';
+    this.logging.value = false;
+    this.devMode.value = false;
+    this.email.value = '';
+    this.gender.value = 'other';
+    this.newsletter.value = false;
+    this.age.value = 0;
+    this.volume.value = 50;
+    this.perfLevel.value = 50;
+  }
+
+  toObject() {
+    const payload = {
+      name: this.name.value,
+      email: this.email.value,
+      bio: this.bio.value,
+      gender: this.gender.value,
+      newsletter: this.newsletter.value,
+      age: this.age.value,
+      volume: this.volume.value,
+      perfLevel: this.perfLevel.value,
+      devMode: this.devMode.value,
+      logging: this.logging.value
+    };
+    return payload
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    // RouterOutlet,
+    // SystemTrayComponent,
+    CommonModule,
+    CalendarWidgetComponent,
+    ColorDialogComponent,
+    ColumnViewComponent,
+    CommandLinkEditComponent,
+    ContextMenuComponent,
+    DateEditComponent,
+    DateTimeEditComponent,
+    DialEditComponent,
+    DialogComponent,
+    DialogButtonBoxComponent,
+    DoubleSpinBoxComponent,
+    DragComponent,
+    DropComponent,
+    EditableComboBoxComponent,
+    ErrorMessageComponent,
+    FileDialogComponent,
+    FontComboboxComponent,
+    IconViewComponent,
+    InputDialogComponent,
+    LineComponent,
+    ListViewComponent,
+    MonthDayEditComponent,
+    ProgressDialogComponent,
+    RangeSliderComponent,
+    ScrollBarComponent,
+    ShortcutComponent,
+    SplitterComponent,
+    SplitterHandleComponent,
+    StackedLayoutComponent,
+    StackedWidgetComponent,
+    StatusTipComponent,
+    TableViewComponent,
+    TextBrowserComponent,
+    ToolBoxComponent,
+    ToolTipComponent,
+    TreeViewComponent,
+    WizardComponent,
+    TabViewComponent,
+    GridLayoutComponent,
+    // Daqui pra cima
+    RadioButtonComponent,
+    CheckBoxComponent,
+    RadioGroupComponent,
+    SpinBoxComponent,
+    SliderComponent,
+    SeparatorComponent,
+    FrameComponent,
+    TextEditComponent,
+    StatusBarComponent,
+    MainWindowComponent,
+    ToolBarComponent,
+    ScrollAreaComponent,
+    ProgressBarComponent,
+    LineEditComponent,
+    ComboBoxComponent,
+    MenuBarComponent,
+    CentralWidgetComponent,
+    VBoxLayoutComponent,
+    HBoxLayoutComponent,
+    TabWidgetComponent,
+    MenuComponent,
+    PushButtonComponent,
+    TabComponent,
+    LabelComponent
+],
+  providers: [UserProfileState, QMessageBox],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent implements OnInit {
+
+  screen = { width: 0, height: 0 };
+  progress = 0;
+  sliderValue = 10;
+  desktop = inject(DesktopWidgetService);
+  cdr = inject(ChangeDetectorRef);
+  state = inject(UserProfileState);
+  messageBox = inject(QMessageBox);
+  worker?: Worker;
+  thread = new QThread();
+
+  separator = new Separator();
+
+  newAction = new Action({
+    text: 'New',
+    handler: () => console.log('New clicked'),
+    icon: 'assets/new.png'
+  });
+
+  openAction = new Action({
+    text: 'Open',
+    handler: () => console.log('Open clicked'),
+    icon: 'assets/open.png'
+  });
+
+  saveAction = new Action({
+    text: 'Save',
+    handler: () => this.save(),
+    icon: 'assets/save.png'
+  });
+
+  exitAction = new Action({
+    text: 'Exit',
+    handler: () => console.log('Exit clicked'),
+    icon: 'assets/exit.png'
+  });
+
+  boldAction = new Action({
+    text: 'Bold',
+    checkable: true,
+    handler: () => console.log('Bold toggled')
+  });
+
+  italicAction = new Action({
+    text: 'Italic',
+    checkable: true,
+    handler: () => console.log('Italic toggled')
+  });
+
+  ngOnInit() {
+    this.screen = this.desktop.screenGeometry();
+    this.desktop.screenGeometryChanges().subscribe(geom => {
+      this.screen = geom;
+    });
+  }
+
+  async save() {
+    console.log('Form saved', this.state);
+    const payload = this.state.toObject()
+    const json = JSON.stringify(payload)
+    await this.messageBox.information('Success', `Saved successfully: ${json}`);
+  }
+
+  async deleteProfile() {
+    await this.messageBox.question('Confirm', 'Delete profile?');
+  }
+
+  reset() { this.state.reset() }
+
+  onActivate() {}
+
+  useThread() {
+    this.thread.start(300_000_000, (result) => {
+      console.log('Thread finished with result:', result);
+    });
+  }
+
+  toString(screen: { width: number, height: number }) {
+    return `(${screen.width}, ${screen.height})`
+  }
+}
+<div class="qt-tab-view">
+  <div class="tab-header">
+    <button
+      *ngFor="let tab of tabs; let i = index"
+      class="tab-btn"
+      [class.active]="activeIndex === i"
+      (click)="selectTab(i)"
+    >
+      {{ tab.title }}
+    </button>
+  </div>
+  <div class="tab-content">
+    <ng-content></ng-content>
+  </div>
+</div>.qt-tab-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.qt-tab-view .tab-header {
+  display: flex;
+  background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.qt-tab-view .tab-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.qt-tab-view .tab-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.qt-tab-view .tab-btn.active {
+  border-bottom-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: var(--bg-primary);
+}
+
+.qt-tab-view .tab-content {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}import { NgFor } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+
+
+export interface TabItem {
+  title: string;
+  component?: any;
+  template?: any;
+}
+
+@Component({
+  selector: 'QTabView',
+  standalone: true,
+  imports: [NgFor],
+  templateUrl: './tab-view.component.html',
+  styleUrls: [ './tab-view.component.css' ]
+})
+export class TabViewComponent implements OnInit {
+  @Input() tabs: TabItem[] = [];
+  activeIndex = 0;
+
+  ngOnInit(): void {
+    if (this.tabs.length === 0) {
+      console.warn('TabView: No tabs provided');
+    }
+  }
+
+  selectTab(index: number): void {
+    this.activeIndex = index;
+  }
+}
+<p>line works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QLine',
+  standalone: true,
+  imports: [],
+  templateUrl: './line.component.html',
+  styleUrl: './line.component.css'
+})
+export class LineComponent {
+
+}
+:host {
+  display: inline-flex;
+  user-select: none;
+}
+
+.qt-slider {
+  position: relative;
+  width: 200px;
+  height: 20px;
+  padding: 8px 0;
+}
+
+:host.qt-vertical .qt-slider {
+  width: 20px;
+  height: 200px;
+  padding: 0 8px;
+}
+
+.qt-slider-groove {
+  position: absolute;
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-fast);
+}
+
+.qt-slider:hover .qt-slider-groove {
+  background-color: var(--color-border-medium);
+}
+
+:host:not(.qt-vertical) .qt-slider-groove {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  transform: translateY(-50%);
+}
+
+:host.qt-vertical .qt-slider-groove {
+  left: 50%;
+  bottom: 0;
+  width: 6px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.qt-slider-fill {
+  position: absolute;
+  background-color: var(--color-accent-primary);
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-fast);
+}
+
+:host:not(.qt-vertical) .qt-slider-fill {
+  height: 100%;
+}
+
+:host.qt-vertical .qt-slider-fill {
+  width: 100%;
+  bottom: 0;
+}
+
+.qt-slider-handle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  
+  background-color: white;
+  border: 2px solid var(--color-accent-primary);
+  border-radius: var(--radius-full);
+  
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-slider-handle:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.qt-slider-handle:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 0 4px var(--color-accent-bg);
+}
+
+:host:not(.qt-vertical) .qt-slider-handle {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+:host.qt-vertical .qt-slider-handle {
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+:host.qt-disabled .qt-slider {
+  opacity: 0.5;
+  pointer-events: none;
+}import {
+  Component,
+  Input,
+  HostBinding,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QSlider',
+  standalone: true,
+  templateUrl: './slider.component.html',
+  styleUrls: ['./slider.component.css']
+})
+export class SliderComponent {
+
+  /* =========================
+     Qt-like API
+     ========================= */
+
+  @Input({ required: true })
+  model!: QProperty<number>;
+
+  @Input() min = 0;
+  @Input() max = 100;
+  @Input() step = 1;
+  @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @Input() disabled = false;
+
+  @ViewChild('track', { static: true })
+  track!: ElementRef<HTMLDivElement>;
+
+  /* =========================
+     Interaction
+     ========================= */
+
+  onTrackClick(event: MouseEvent): void {
+    if (this.disabled) return;
+    this.updateValueFromEvent(event);
+  }
+
+  onThumbMouseDown(event: MouseEvent): void {
+    if (this.disabled) return;
+
+    event.preventDefault();
+
+    const move = (e: MouseEvent) => this.updateValueFromEvent(e);
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  }
+
+  private updateValueFromEvent(event: MouseEvent): void {
+    const rect = this.track.nativeElement.getBoundingClientRect();
+
+    const ratio =
+      this.orientation === 'horizontal'
+        ? (event.clientX - rect.left) / rect.width
+        : 1 - (event.clientY - rect.top) / rect.height;
+
+    const raw = this.min + ratio * (this.max - this.min);
+    const stepped = Math.round(raw / this.step) * this.step;
+
+    this.value = this.clamp(stepped);
+  }
+
+  private clamp(v: number): number {
+    return Math.min(this.max, Math.max(this.min, v));
+  }
+
+  /* =========================
+     Binding
+     ========================= */
+
+  get value(): number {
+    return this.model.value;
+  }
+
+  set value(v: number) {
+    this.model.value = v;
+  }
+
+  get percent(): number {
+    return ((this.value - this.min) / (this.max - this.min)) * 100;
+  }
+
+  /* =========================
+     Host bindings
+     ========================= */
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
+  }
+
+  @HostBinding('class.qt-vertical')
+  get isVertical(): boolean {
+    return this.orientation === 'vertical';
+  }
+}
+<div
+  class="qt-slider"
+  (click)="onTrackClick($event)"
+  #track
+>
+  <div
+    class="qt-slider-groove"
+  >
+    <div
+      class="qt-slider-fill"
+      [style.width.%]="orientation === 'horizontal' ? percent : 100"
+      [style.height.%]="orientation === 'vertical' ? percent : 100"
+    ></div>
+  </div>
+
+  <div
+    class="qt-slider-handle"
+    [style.left.%]="orientation === 'horizontal' ? percent : null"
+    [style.bottom.%]="orientation === 'vertical' ? percent : null"
+    (mousedown)="onThumbMouseDown($event)"
+  ></div>
+</div>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-month-day-edit',
+  standalone: true,
+  imports: [],
+  templateUrl: './month-day-edit.component.html',
+  styleUrl: './month-day-edit.component.css'
+})
+export class MonthDayEditComponent {
+
+}
+<p>month-day-edit works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QTableView',
+  standalone: true,
+  imports: [],
+  templateUrl: './table-view.component.html',
+  styleUrl: './table-view.component.css'
+})
+export class TableViewComponent {
+
+}
+.qt-view-container {
+  width: 100%;
+  height: 100%;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  overflow: auto;
+}
+
+.qt-view-header {
+  display: flex;
+  background-color: var(--color-bg-secondary);
+  border-bottom: 2px solid var(--color-border-light);
+  
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.qt-view-header-cell {
+  padding: 12px 16px;
+  
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  
+  border-right: 1px solid var(--color-border-light);
+  cursor: pointer;
+  user-select: none;
+  
+  transition: background-color var(--transition-fast);
+}
+
+.qt-view-header-cell:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-view-header-cell:last-child {
+  border-right: none;
+}
+
+.qt-view-row {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-light);
+  
+  transition: background-color var(--transition-fast);
+}
+
+.qt-view-row:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-view-row.selected {
+  background-color: var(--color-accent-bg);
+}
+
+.qt-view-cell {
+  padding: 12px 16px;
+  
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-right: 1px solid var(--color-border-light);
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qt-view-cell:last-child {
+  border-right: none;
+}<p>table-view works!</p>
+<p>splitter-handle works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QSplitterHandle',
+  standalone: true,
+  imports: [],
+  templateUrl: './splitter-handle.component.html',
+  styleUrl: './splitter-handle.component.css'
+})
+export class SplitterHandleComponent {
+
+}
+import { Component, ContentChildren, QueryList } from '@angular/core';
+import { MenuComponent } from '../menu/menu.component';
+
+@Component({
+  selector: 'QMenuBar',
+  standalone: true,
+  template: `
+    <div class="qt-menubar">
+      <ng-content></ng-content>
+    </div>
+  `,
+  styleUrls: ['./menu-bar.component.css']
+})
+export class MenuBarComponent {
+
+  @ContentChildren(MenuComponent)
+  menus!: QueryList<MenuComponent>;
+
+  closeAll(): void {
+    this.menus.forEach(m => m.close());
+  }
+}
+.qt-menubar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  
+  height: 40px;
+  padding: 0 12px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QMainWindow',
+  standalone: true,
+  templateUrl: './main-window.component.html',
+  styleUrls: ['./main-window.component.css']
+})
+export class MainWindowComponent {}
+.qt-mainwindow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  
+  background-color: var(--color-bg-primary);
+  overflow: hidden;
+  
+  font-family: var(--font-family);
+}
+
+.qt-mainwindow-menubar,
+.qt-mainwindow-toolbars,
+.qt-mainwindow-statusbar {
+  flex-shrink: 0;
+}
+
+.qt-mainwindow-central {
+  flex: 1;
+  overflow: auto;
+  background-color: var(--color-bg-primary);
+  
+  /* Scrollbar personalizado para área central */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-medium) transparent;
+}
+
+.qt-mainwindow-central::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.qt-mainwindow-central::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.qt-mainwindow-central::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.qt-mainwindow-central::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-dark);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}<div class="qt-mainwindow">
+
+  <div class="qt-mainwindow-menubar">
+    <ng-content select="QMenuBar"></ng-content>
+  </div>
+
+  <div class="qt-mainwindow-toolbars">
+    <ng-content select="QToolBar"></ng-content>
+  </div>
+
+  <div class="qt-mainwindow-central">
+    <ng-content select="QCentralWidget"></ng-content>
+  </div>
+
+  <div class="qt-mainwindow-statusbar">
+    <ng-content select="QStatusBar"></ng-content>
+  </div>
+
+</div>
+.qt-messagebox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.qt-messagebox-window {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.qt-messagebox {
+  min-width: 360px;
+  padding: 24px;
+
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.qt-messagebox-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-full);
+  font-size: 24px;
+}
+
+.qt-messagebox-icon.info {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: var(--color-accent-primary);
+}
+
+.qt-messagebox-icon.warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.qt-messagebox-icon.error {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--color-danger);
+}
+
+.qt-messagebox-icon.success {
+  background-color: rgba(25, 135, 84, 0.1);
+  color: var(--color-success);
+}
+
+.qt-messagebox-content {
+  flex: 1;
+}
+
+.qt-messagebox-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 8px 0;
+}
+
+.qt-messagebox-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.qt-messagebox-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}import {
+  Component,
+  EventEmitter,
+  Output
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  MessageBoxOptions,
+  MessageBoxResult
+} from '../../../core/message-box';
+
+@Component({
+  selector: 'QMessageBox',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './message-box.component.html',
+  styleUrls: ['./message-box.component.css']
+})
+export class MessageBoxComponent {
+
+  options!: MessageBoxOptions;
+
+  @Output()
+  closed = new EventEmitter<MessageBoxResult>();
+
+  close(result: MessageBoxResult): void {
+    this.closed.emit(result);
+  }
+
+  get icon(): string {
+    switch (this.options.type) {
+      case 'information': return 'ℹ️';
+      case 'warning':     return '⚠️';
+      case 'critical':    return '❌';
+      case 'question':    return '❓';
+      case 'success':     return '✔️';
+    }
+  }
+
+  get iconClass(): string {
+    switch (this.options.type) {
+      case 'information': return 'info';
+      case 'warning':     return 'warning';
+      case 'critical':    return 'error';
+      case 'question':    return 'info';
+      case 'success':     return 'success';
+    }
+  }
+
+  label(b: MessageBoxResult): string {
+    switch (b) {
+      case 'ok':     return 'OK';
+      case 'cancel': return 'Cancel';
+      case 'yes':    return 'Yes';
+      case 'no':     return 'No';
+    }
+  }
+}<div
+  class="qt-messagebox-overlay"
+  (click)="close('cancel')"
+>
+
+  <div
+    class="qt-messagebox-window"
+    (click)="$event.stopPropagation()"
+  >
+
+    <div class="qt-messagebox">
+
+      <div class="qt-messagebox-icon" [ngClass]="iconClass">
+        {{ icon }}
+      </div>
+
+      <div class="qt-messagebox-content">
+
+        <h3 class="qt-messagebox-title">
+          {{ options.title }}
+        </h3>
+
+        <p class="qt-messagebox-text">
+          {{ options.text }}
+        </p>
+
+        <div class="qt-messagebox-actions">
+          <button
+            *ngFor="let b of options.buttons"
+            class="qt-btn"
+            (click)="close(b)"
+          >
+            {{ label(b) }}
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QScrollBar',
+  standalone: true,
+  imports: [],
+  templateUrl: './scroll-bar.component.html',
+  styleUrl: './scroll-bar.component.css'
+})
+export class ScrollBarComponent {
+
+}
+<p>scroll-bar works!</p>
+.qt-line-edit {
+  width: 100%;
+  padding: 8px 12px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  outline: none;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-line-edit::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.qt-line-edit:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-line-edit:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.qt-line-edit:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.qt-line-edit.invalid {
+  border-color: var(--color-danger);
+}
+
+.qt-line-edit.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}<input
+  class="qt-line-edit"
+  [type]="inputType"
+  [value]="displayValue"
+  [attr.placeholder]="placeholder"
+  [readOnly]="readOnly"
+  [disabled]="disabled"
+  [style.margin-top.px]="marginTop"
+  [style.margin-bottom.px]="marginBottom"
+  (input)="onInput($event)"
+  (blur)="onBlur()"
+  (keydown.enter)="onEnter()"
+/>
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QLineEdit',
+  standalone: true,
+  templateUrl: './line-edit.component.html',
+  styleUrls: ['./line-edit.component.css']
+})
+export class LineEditComponent {
+
+  /* =========================
+     Qt-like binding
+     ========================= */
+
+  @Input({ required: true })
+  model!: QProperty<string>;
+
+  /* =========================
+     Configuration
+     ========================= */
+
+  @Input() placeholder = '';
+  @Input() readOnly = false;
+  @Input() disabled = false;
+  @Input() maxLength?: number;
+
+  @Input() echoMode: 'normal' | 'password' | 'noecho' = 'normal';
+
+  @Input() validator?: (value: string) => boolean;
+  @Input() inputMask?: RegExp;
+  @Input() marginTop: string | number = '0';
+  @Input() marginBottom: string | number = '0';
+
+  /* =========================
+     Qt-like signals (sem estado)
+     ========================= */
+
+  @Output() textEdited = new EventEmitter<string>();
+  @Output() editingFinished = new EventEmitter<void>();
+  @Output() returnPressed = new EventEmitter<void>();
+
+  private invalid = false;
+
+  /* =========================
+     Derived state
+     ========================= */
+     
+  get inputType(): string {
+    return this.echoMode === 'password' ? 'password' : 'text';
+  }
+
+  get displayValue(): string {
+    if (this.echoMode === 'noecho') return '';
+    return this.model.value;
+  }
+
+  /* =========================
+     Interaction
+     ========================= */
+
+  onInput(event: Event): void {
+    if (this.disabled || this.readOnly) return;
+
+    const newValue = (event.target as HTMLInputElement).value;
+
+    if (this.inputMask && !this.inputMask.test(newValue)) {
+      return;
+    }
+
+    this.model.value = newValue;
+    this.textEdited.emit(newValue);
+  }
+
+  onBlur(): void {
+    if (this.validator && !this.validator(this.model.value)) {
+      this.invalid = true;
+      return;
+    }
+
+    this.invalid = false;
+    this.editingFinished.emit();
+  }
+
+  onEnter(): void {
+    this.returnPressed.emit();
+  }
+}
+import { Component, Input } from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QProgressBar',
+  standalone: true,
+  templateUrl: './progress-bar.component.html',
+  styleUrl: './progress-bar.component.css'
+})
+export class ProgressBarComponent {
+
+  @Input() minimum = 0;
+  @Input() maximum = 100;
+
+  /** Qt-like binding */
+  @Input() model?: QProperty<number>;
+
+  /** fallback literal */
+  @Input() value?: number;
+
+  @Input() showText = true;
+  @Input() busy = false;
+
+  /** valor efetivo */
+  get current(): number {
+    if (this.model) {
+      return this.model.value;
+    }
+    return this.value ?? this.minimum;
+  }
+
+  get percentage(): number {
+    if (this.maximum <= this.minimum) return 0;
+
+    const v = Math.min(
+      this.maximum,
+      Math.max(this.current, this.minimum)
+    );
+
+    return ((v - this.minimum) / (this.maximum - this.minimum)) * 100;
+  }
+
+  get text(): string {
+    return `${Math.round(this.percentage)}%`;
+  }
+}
+<div class="qt-progress-bar">
+
+  <div
+    class="qt-progress-track"
+    [class.qt-busy]="busy">
+
+    @if (!busy) {
+      <div
+        class="qt-progress-fill"
+        [style.width.%]="percentage">
+      </div>
+    }
+
+  </div>
+
+  @if (showText && !busy) {
+    <div class="qt-progress-text">
+      {{ text }}
+    </div>
+  }
+
+</div>:host {
+  display: inline-block;
+  width: 100%;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+}
+
+.qt-progress-bar {
+  position: relative;
+  height: 24px;
+}
+
+.qt-progress-track {
+  position: relative;
+  height: 100%;
+  
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.qt-progress-fill {
+  height: 100%;
+  
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-primary),
+    var(--color-accent-hover)
+  );
+  border-radius: var(--radius-full);
+  
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de brilho/shimmer */
+.qt-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.qt-progress-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Modo busy/indeterminate */
+.qt-progress-track.qt-busy {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 0%,
+    var(--color-border-light) 50%,
+    var(--color-bg-tertiary) 100%
+  );
+  background-size: 200% 100%;
+  animation: busyGradient 1.5s ease-in-out infinite;
+}
+
+@keyframes busyGradient {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.qt-progress-track.qt-busy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  width: 40%;
+  
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent-primary),
+    transparent
+  );
+  
+  animation: busySlide 1.5s ease-in-out infinite;
+}
+
+@keyframes busySlide {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}import {
+  Component,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  Input
+} from '@angular/core';
+import { RadioButtonComponent } from '../radio-button/radio-button.component';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QRadioGroup',
+  template: `<ng-content></ng-content>`,
+  standalone: true
+})
+export class RadioGroupComponent implements AfterContentInit {
+
+  /* =========================
+     Qt-like binding
+     ========================= */
+
+  @Input({ required: true })
+  model!: QProperty<any>;
+
+  @Input() disabled = false;
+
+  @ContentChildren(RadioButtonComponent)
+  radios!: QueryList<RadioButtonComponent>;
+
+  ngAfterContentInit(): void {
+    this.radios.forEach(radio => {
+      radio.registerGroup(this);
+      radio.disabled = this.disabled;
+    });
+
+    this.syncState();
+  }
+
+  /* =========================
+     Called by buttons
+     ========================= */
+
+  select(value: any): void {
+    if (this.disabled) return;
+
+    this.model.value = value;
+    this.syncState();
+  }
+
+  /* =========================
+     Internal
+     ========================= */
+
+  private syncState(): void {
+    if (!this.radios) return;
+
+    const current = this.model.value;
+    this.radios.forEach(radio =>
+      radio.setChecked(radio.value === current)
+    );
+  }
+}
+import { Component, Input, HostBinding } from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QTextEdit',
+  standalone: true,
+  templateUrl: './text-edit.component.html',
+  styleUrls: ['./text-edit.component.css']
+})
+export class TextEditComponent {
+
+  @Input({ required: true })
+  model!: QProperty<string>;
+
+  @Input() placeholder = '';
+  @Input() disabled = false;
+  @Input() readonly = false;
+  @Input() rows = 4;
+
+  /* =========================
+     Value proxy
+     ========================= */
+
+  get value(): string {
+    return this.model.value;
+  }
+
+  set value(v: string) {
+    this.model.value = v;
+  }
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
+  }
+}
+<textarea
+  class="qt-textedit"
+  [attr.placeholder]="placeholder"
+  [attr.rows]="rows"
+  [disabled]="disabled"
+  [readonly]="readonly">
+</textarea>
+.qt-textedit {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  resize: vertical;
+  outline: none;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-textedit::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.qt-textedit:hover:not(:disabled):not(:focus) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-textedit:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.qt-textedit:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.qt-textedit[readonly] {
+  background-color: var(--color-bg-secondary);
+}<p>group-box works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QGroupBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './group-box.component.html',
+  styleUrl: './group-box.component.css'
+})
+export class GroupBoxComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QEditableComboBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './editable-combo-box.component.html',
+  styleUrl: './editable-combo-box.component.css'
+})
+export class EditableComboBoxComponent {
+
+}
+<p>editable-combo-box works!</p>
+import { NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+
+
+@Component({
+  selector: 'QFrame',
+  standalone: true,
+  imports: [NgIf],
+  template: `
+    <div
+      [class]="frameClass"
+      [style]="frameStyle">
+      
+      <!-- HLine -->
+      <div *ngIf="shape === 'hline'" class="qt-separator-horizontal"></div>
+      
+      <!-- VLine -->
+      <div *ngIf="shape === 'vline'" class="qt-separator-vertical"></div>
+      
+      <!-- Box / Panel -->
+      <div *ngIf="shape === 'box' || shape === 'panel'">
+        <ng-content></ng-content>
+      </div>
+      
+    </div>
+  `,
+  styles: [`
+    .qt-frame-box {
+      background-color: var(--color-bg-primary);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-xs);
+    }
+    
+    .qt-frame-panel {
+      background-color: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    
+    .qt-frame-sunken {
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .qt-frame-raised {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .qt-separator-horizontal {
+      width: 100%;
+      height: 1px;
+      margin: 16px 0;
+      background: linear-gradient(90deg, transparent, var(--color-border-light), transparent);
+    }
+    
+    .qt-separator-vertical {
+      width: 1px;
+      height: 100%;
+      margin: 0 16px;
+      background: linear-gradient(180deg, transparent, var(--color-border-light), transparent);
+    }
+  `]
+})
+export class FrameComponent {
+
+  @Input() shape: 'hline' | 'vline' | 'box' | 'panel' = 'box';
+  @Input() shadow: 'plain' | 'sunken' | 'raised' = 'plain';
+  @Input() lineWidth = 1;
+  @Input() margin = 16;
+
+  get frameClass(): string {
+    const classes = [];
+    
+    if (this.shape === 'box') classes.push('qt-frame-box');
+    if (this.shape === 'panel') classes.push('qt-frame-panel');
+    if (this.shadow === 'sunken') classes.push('qt-frame-sunken');
+    if (this.shadow === 'raised') classes.push('qt-frame-raised');
+    
+    return classes.join(' ');
+  }
+
+  get frameStyle(): string {
+    if (this.shape === 'box' || this.shape === 'panel') {
+      return `padding: ${this.margin}px;`;
+    }
+    return '';
+  }
+}
+<div
+  [style.margin-left.px]="marginLeft"
+  [style.margin-right.px]="marginRight"
+  class="qt-spinbox"
+>
+  <input
+    class="qt-spinbox-input"
+    type="text"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="onInput($event)"
+    (keydown)="onKeyDown($event)"
+    (blur)="onBlur()"
+  />
+
+  <div class="qt-spinbox-buttons">
+    <button
+      class="qt-spinbox-btn up"
+      type="button"
+      [disabled]="disabled"
+      (click)="increment()"
+    ></button>
+
+    <button
+      class="qt-spinbox-btn down"
+      type="button"
+      [disabled]="disabled"
+      (click)="decrement()"
+    ></button>
+  </div>
+</div>
+import {
+  Component,
+  HostBinding,
+  Input
+} from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+@Component({
+  selector: 'QSpinBox',
+  standalone: true,
+  templateUrl: './spin-box.component.html',
+  styleUrls: ['./spin-box.component.css']
+})
+export class SpinBoxComponent {
+
+  @Input({ required: true })
+  model!: QProperty<number>;
+
+  @Input()
+  min = 0;
+
+  @Input()
+  max = 100;
+
+  @Input()
+  step = 1;
+
+  @Input()
+  disabled = false;
+
+  @Input()
+  marginLeft: string | number = '0';
+
+  @Input()
+  marginRight: string | number = '0';
+
+  /* =========================
+     Value proxy
+     ========================= */
+
+  get value(): number {
+    return this.model.value;
+  }
+
+  set value(v: number) {
+    this.model.value = this.clamp(v);
+  }
+
+  /* =========================
+     Behavior
+     ========================= */
+
+  increment(): void {
+    if (this.disabled) return;
+    this.value += this.step;
+  }
+
+  decrement(): void {
+    if (this.disabled) return;
+    this.value -= this.step;
+  }
+
+  onInput(event: Event): void {
+    const v = Number(
+      (event.target as HTMLInputElement).value
+    );
+    if (!Number.isNaN(v)) {
+      this.value = v;
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (this.disabled) return;
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.increment();
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.decrement();
+    }
+  }
+
+  onBlur(): void {
+    // Qt-like hook (editingFinished)
+  }
+
+  private clamp(v: number): number {
+    return Math.min(this.max, Math.max(this.min, v));
+  }
+
+  /* =========================
+     Host bindings
+     ========================= */
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
+  }
+}
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.qt-spinbox {
+  display: inline-flex;
+  height: 36px;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.qt-spinbox:hover:not(:has(.qt-spinbox-input:disabled)) {
+  border-color: var(--color-border-dark);
+}
+
+.qt-spinbox:focus-within {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+.qt-spinbox-input {
+  width: 70px;
+  padding: 0 12px;
+  
+  border: none;
+  outline: none;
+  background: transparent;
+  
+  text-align: right;
+  font-size: inherit;
+  color: var(--color-text-primary);
+}
+
+.qt-spinbox-input:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.qt-spinbox-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 24px;
+  border-left: 1px solid var(--color-border-light);
+}
+
+.qt-spinbox-btn {
+  flex: 1;
+  border: none;
+  background-color: var(--color-bg-secondary);
+  padding: 0;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  transition: background-color var(--transition-fast);
+}
+
+.qt-spinbox-btn:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-spinbox-btn:active:not(:disabled) {
+  background-color: var(--color-bg-active);
+}
+
+.qt-spinbox-btn.up::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 5px solid var(--color-text-secondary);
+}
+
+.qt-spinbox-btn.down::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--color-text-secondary);
+}
+
+.qt-spinbox-btn:hover:not(:disabled)::before {
+  border-bottom-color: var(--color-text-primary);
+  border-top-color: var(--color-text-primary);
+}
+
+.qt-spinbox-btn:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-bg-secondary);
+}
+
+.qt-spinbox-btn:disabled::before {
+  border-bottom-color: var(--color-text-disabled);
+  border-top-color: var(--color-text-disabled);
+}
+
+:host.qt-disabled .qt-spinbox {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QErrorMessage',
+  standalone: true,
+  imports: [],
+  templateUrl: './error-message.component.html',
+  styleUrl: './error-message.component.css'
+})
+export class ErrorMessageComponent {
+
+}
+<p>error-message works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QToolBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './tool-box.component.html',
+  styleUrl: './tool-box.component.css'
+})
+export class ToolBoxComponent {
+
+}
+<p>tool-box works!</p>
+.qt-label {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  
+  user-select: none;
+}
+
+.qt-label::selection {
+  background: transparent;
+}
+
+/* Variantes de peso */
+.qt-label.bold {
+  font-weight: 600;
+}
+
+.qt-label.semibold {
+  font-weight: 500;
+}
+
+/* Variantes de tamanho */
+.qt-label.small {
+  font-size: var(--font-size-sm);
+}
+
+.qt-label.large {
+  font-size: var(--font-size-lg);
+}
+
+/* Variantes de cor */
+.qt-label.secondary {
+  color: var(--color-text-secondary);
+}
+
+.qt-label.muted {
+  color: var(--color-text-disabled);
+}
+
+.qt-label.accent {
+  color: var(--color-accent-primary);
+}
+
+.qt-label.danger {
+  color: var(--color-danger);
+}import { Component, Input } from '@angular/core';
+
+export type LabelAlignment =
+  | 'left'
+  | 'center'
+  | 'right'
+  | 'justify';
+
+@Component({
+  selector: 'QLabel',
+  standalone: true,
+  imports: [],
+  templateUrl: './label.component.html',
+  styleUrl: './label.component.css'
+})
+export class LabelComponent {
+
+  @Input() text = '';
+  @Input() alignment: LabelAlignment = 'left';
+  @Input() wordWrap = false;
+  @Input() rich = false;
+  @Input() size: number = 0;
+
+  get textAlign(): string {
+    return this.alignment;
+  }
+
+  get whiteSpace(): string {
+    return this.wordWrap ? 'normal' : 'nowrap';
+  }
+}<div
+  class="qt-label"
+  [style.text-align]="textAlign"
+  [style.white-space]="whiteSpace"
+  [style.font-size.px]="size"
+>
+  @if (rich) {
+    <span [innerHTML]="text"></span>
+  } @else {
+    {{ text }}
+  }
+</div><button
+  [class]="'qt-button qt-button-' + kind"
+  [class.hover]="isHover"
+  [class.pressed]="isPressed"
+  [disabled]="disabled"
+  (click)="onClick($event)"
+  (mouseenter)="isHover = true"
+  (mouseleave)="isHover = false; isPressed = false"
+  (mousedown)="isPressed = true"
+  (mouseup)="isPressed = false"
+>
+  {{ text }}
+</button>
+/* .qt-button {
+  background: var(--btn-primary-bg);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  padding: 6px 14px;
+  min-height: 28px;
+  font-family: 'Segoe UI', 'DejaVu Sans', Arial, sans-serif;
+  font-size: 13px;
+  color: var(--text-primary);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.qt-button:hover:not(:disabled) {
+  background: var(--btn-primary-hover);
+  border-color: var(--border-hover);
+}
+
+.qt-button.pressed:not(:disabled) {
+  background: var(--btn-primary-active);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.qt-button:disabled {
+  background: #efefef;
+  border-color: var(--border-disabled);
+  color: var(--text-secondary);
+  cursor: default;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-primary {
+  background: linear-gradient(to bottom, #5a9fdb, #4a8fd4);
+  color: #ffffff;
+  border-color: #3a7fc4;
+}
+
+.qt-button.qt-button-primary:hover:not(:disabled) {
+  background: linear-gradient(to bottom, #6aafeb, #5a9fdb);
+}
+
+.qt-button.qt-button-destructive {
+  background: linear-gradient(to bottom, #f66, #e44);
+  color: #ffffff;
+  border-color: #c33;
+}
+
+.qt-button.qt-button-ghost {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.qt-button.qt-button-ghost:hover:not(:disabled) {
+  background: rgba(0,0,0,0.05);
+  border-color: var(--border-default);
+} */
+
+.qt-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  padding: 7px 16px;
+  min-height: 32px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+  
+  box-shadow: var(--shadow-xs);
+  transition: all var(--transition-fast);
+}
+
+.qt-button:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-dark);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.qt-button:active:not(:disabled),
+.qt-button.pressed:not(:disabled) {
+  background-color: var(--color-bg-active);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+.qt-button:disabled {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-primary {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: white;
+}
+
+.qt-button.qt-button-primary:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.qt-button.qt-button-primary:active:not(:disabled) {
+  background-color: var(--color-accent-active);
+}
+
+.qt-button.qt-button-destructive {
+  background-color: var(--color-danger);
+  border-color: var(--color-danger);
+  color: white;
+}
+
+.qt-button.qt-button-destructive:hover:not(:disabled) {
+  background-color: var(--color-danger-hover);
+  border-color: var(--color-danger-hover);
+}
+
+.qt-button.qt-button-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.qt-button.qt-button-ghost:hover:not(:disabled) {
+  background-color: var(--color-bg-hover);
+}import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+export type ButtonKind = 'primary' | 'secondary' | 'ghost' | 'destructive' | 'success';
+
+@Component({
+  selector: 'QPushButton',
+  standalone: true,
+  templateUrl: './push-button.component.html',
+  styleUrls: [ './push-button.component.css' ]
+})
+export class PushButtonComponent {
+  @Input() text = '';
+  @Input() kind: ButtonKind = 'primary';
+  @Input() disabled = false;
+  @Output() clicked = new EventEmitter<MouseEvent>();
+
+  isHover = false;
+  isPressed = false;
+
+  onClick(event: MouseEvent): void {
+    if (!this.disabled) {
+      this.clicked.emit(event);
+    }
+  }
+}<p>dial-edit works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDialEdit',
+  standalone: true,
+  imports: [],
+  templateUrl: './dial-edit.component.html',
+  styleUrl: './dial-edit.component.css'
+})
+export class DialEditComponent {
+
+}
+<p>drag works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDrag',
+  standalone: true,
+  imports: [],
+  templateUrl: './drag.component.html',
+  styleUrl: './drag.component.css'
+})
+export class DragComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QRangeSlider',
+  standalone: true,
+  imports: [],
+  templateUrl: './range-slider.component.html',
+  styleUrl: './range-slider.component.css'
+})
+export class RangeSliderComponent {
+
+}
+<p>range-slider works!</p>
+<p>double-spin-box works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDoubleSpinBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './double-spin-box.component.html',
+  styleUrl: './double-spin-box.component.css'
+})
+export class DoubleSpinBoxComponent {
+
+}
+<p>stacked-widget works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QStackedWidget',
+  standalone: true,
+  imports: [],
+  templateUrl: './stacked-widget.component.html',
+  styleUrl: './stacked-widget.component.css'
+})
+export class StackedWidgetComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QCentralWidget',
+  standalone: true,
+  template: `
+    <div class="qt-central-widget">
+        <ng-content></ng-content>
+    </div>
+  `,
+  styleUrls: ['./central-widget.component.css']
+})
+export class CentralWidgetComponent {}
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qt-central-widget {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  
+  background-color: var(--color-bg-primary);
+}<p>input-dialog works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QInputDialog',
+  standalone: true,
+  imports: [],
+  templateUrl: './input-dialog.component.html',
+  styleUrl: './input-dialog.component.css'
+})
+export class InputDialogComponent {
+
+}
+<p>context-menu works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QContextMenu',
+  standalone: true,
+  imports: [],
+  templateUrl: './context-menu.component.html',
+  styleUrl: './context-menu.component.css'
+})
+export class ContextMenuComponent {
+
+}
+.qt-scroll-area {
+  width: 100%;
+  height: 100%;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  overflow: auto;
+}
+
+.qt-scroll-viewport {
+  min-width: 100%;
+  min-height: 100%;
+  padding: 12px;
+}
+
+/* Custom Scrollbar - Moderno */
+.qt-scroll-area::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.qt-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.qt-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--color-border-medium);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.qt-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-dark);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.qt-scroll-area::-webkit-scrollbar-corner {
+  background: transparent;
+}<div
+  class="qt-scroll-area"
+  [style.overflow-x]="overflowX"
+  [style.overflow-y]="overflowY"
+>
+  <div class="qt-scroll-viewport">
+    <ng-content></ng-content>
+  </div>
+</div>import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'QScrollArea',
+  standalone: true,
+  imports: [],
+  templateUrl: './scroll-area.component.html',
+  styleUrl: './scroll-area.component.css'
+})
+export class ScrollAreaComponent {
+
+  @Input() horizontal = true;
+  @Input() vertical = true;
+
+  get overflowX(): string {
+    return this.horizontal ? 'auto' : 'hidden';
+  }
+
+  get overflowY(): string {
+    return this.vertical ? 'auto' : 'hidden';
+  }
+}import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDrop',
+  standalone: true,
+  imports: [],
+  templateUrl: './drop.component.html',
+  styleUrl: './drop.component.css'
+})
+export class DropComponent {
+
+}
+<p>drop works!</p>
+<p>splitter works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QSplitter',
+  standalone: true,
+  imports: [],
+  templateUrl: './splitter.component.html',
+  styleUrl: './splitter.component.css'
+})
+export class SplitterComponent {
+
+}
+<div class="qt-menu-container">
+
+  <div class="qt-menu-title" (click)="toggle()">
+    {{ title }}
+  </div>
+
+  @if (open) {
+    <div class="qt-menu-popup">
+
+      @for (item of actions; track item) {
+
+        @if (item.type === 'separator') {
+          <div class="qt-menu-separator"></div>
+
+        } @else if (instanceOfMenuComponent(item)) {
+          <div class="qt-menu-submenu">
+            {{ item.title }} ▶
+          </div>
+
+        } @else {
+          <div
+            class="qt-menu-item"
+            [class.qt-disabled]="!item.enabled"
+            [class.qt-checked]="item.checkable && item.checked"
+            (click)="onActionClick(item)"
+          >
+            {{ item.text }}
+          </div>
+        }
+
+      }
+
+    </div>
+  }
+
+</div>
+.qt-menu-container {
+  position: relative;
+  user-select: none;
+}
+
+.qt-menu-title {
+  padding: 8px 12px;
+  
+  font-weight: 500;
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-menu-title:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-menu-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  
+  min-width: 180px;
+  padding: 4px;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  
+  animation: slideDown 0.15s ease-out;
+}
+
+.qt-menu-item {
+  padding: 8px 12px;
+  
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.qt-menu-item:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-menu-item.qt-disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.qt-menu-item.qt-checked {
+  font-weight: 500;
+}
+
+.qt-menu-item.qt-checked::before {
+  content: "✓";
+  margin-right: 8px;
+  color: var(--color-accent-primary);
+}
+
+.qt-menu-separator {
+  height: 1px;
+  margin: 4px 8px;
+  background-color: var(--color-border-light);
+}import { Component, Input } from '@angular/core';
+import { Action } from '../../../core/action';
+import { Separator } from '../../../core/separator';
+
+@Component({
+  selector: 'QMenu',
+  standalone: true,
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
+})
+export class MenuComponent {
+
+  type?: string
+  text = '';
+  checked = false;
+  checkable = false;
+  enabled = false;
+
+  @Input({ required: true })
+  title!: string;
+
+  @Input()
+  actions: (Action | MenuComponent)[] = [];
+
+  open = false;
+
+  toggle(): void {
+    this.open = !this.open;
+  }
+
+  close(): void {
+    this.open = false;
+  }
+
+  onActionClick(action: Action | Separator | MenuComponent): void {
+
+    if (action instanceof Action) {
+      action.trigger();
+    }
+    this.close();
+  }
+
+  instanceOfMenuComponent(action: Action | Separator | MenuComponent) {
+    return action instanceof MenuComponent
+  }
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QFontComboBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './font-combobox.component.html',
+  styleUrl: './font-combobox.component.css'
+})
+export class FontComboboxComponent {
+
+}
+<p>font-combobox works!</p>
+import { Component, Input } from '@angular/core';
+import { FrameComponent } from '../frame/frame.component';
+
+@Component({
+  selector: 'QSeparator',
+  standalone: true,
+  imports: [FrameComponent],
+  template: `
+    <QFrame
+      [shape]="shape"
+      shadow="sunken"
+      [lineWidth]="1">
+    </QFrame>
+  `
+})
+export class SeparatorComponent {
+
+  @Input() orientation: 'horizontal' | 'vertical' = 'horizontal';
+
+  get shape(): 'hline' | 'vline' {
+    return this.orientation === 'horizontal' ? 'hline' : 'vline';
+  }
+}
+import {
+  Component,
+  Input,
+  HostBinding
+} from '@angular/core';
+import { QProperty } from '../../../core/property';
+
+export type CheckState = 'unchecked' | 'checked' | 'partial';
+
+@Component({
+  selector: 'QCheckBox',
+  standalone: true,
+  templateUrl: './check-box.component.html',
+  styleUrls: ['./check-box.component.css']
+})
+export class CheckBoxComponent {
+
+  @Input() label = '';
+  @Input() disabled = false;
+  @Input() tristate = false;
+
+  /** Qt-like binding */
+  @Input({ required: true })
+  model!: QProperty<boolean | null>;
+
+  /* =========================
+     State mapping
+     ========================= */
+
+  get state(): CheckState {
+    const v = this.model.value;
+    if (v === true) return 'checked';
+    if (v === false) return 'unchecked';
+    return 'partial';
+  }
+
+  set state(s: CheckState) {
+    this.model.value =
+      s === 'checked'
+        ? true
+        : s === 'unchecked'
+        ? false
+        : null;
+  }
+
+  /* =========================
+     Interaction
+     ========================= */
+
+  toggle(): void {
+    if (this.disabled) return;
+
+    if (this.tristate) {
+      this.state =
+        this.state === 'unchecked'
+          ? 'partial'
+          : this.state === 'partial'
+          ? 'checked'
+          : 'unchecked';
+    } else {
+      this.state =
+        this.state === 'checked'
+          ? 'unchecked'
+          : 'checked';
+    }
+  }
+
+  /* =========================
+     Host bindings
+     ========================= */
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
+  }
+
+  @HostBinding('class.qt-checked')
+  get isChecked(): boolean {
+    return this.state === 'checked';
+  }
+
+  @HostBinding('class.qt-partial')
+  get isPartial(): boolean {
+    return this.state === 'partial';
+  }
+}
+:host {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.qt-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  cursor: pointer;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.qt-checkbox:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-checkbox-indicator {
+  width: 18px;
+  height: 18px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  background-color: var(--color-bg-primary);
+  border: 2px solid var(--color-border-medium);
+  border-radius: var(--radius-sm);
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-checkbox:hover .qt-checkbox-indicator {
+  border-color: var(--color-accent-primary);
+  background-color: var(--color-bg-hover);
+}
+
+:host.qt-checked .qt-checkbox-indicator,
+:host.qt-partial .qt-checkbox-indicator {
+  background-color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+}
+
+.qt-checkbox-check {
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.qt-checkbox-partial {
+  width: 10px;
+  height: 2px;
+  background-color: white;
+  border-radius: 1px;
+}
+
+:host.qt-disabled .qt-checkbox {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:host.qt-disabled .qt-checkbox-indicator {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}<div
+  class="qt-checkbox"
+  role="checkbox"
+  [attr.aria-checked]="state"
+  [attr.aria-disabled]="disabled"
+  (click)="toggle()"
+>
+  <span class="qt-checkbox-indicator">
+    @if (state === 'checked') {
+      <span class="qt-checkbox-check"></span>
+    }
+    @if (state === 'partial') {
+      <span class="qt-checkbox-partial"></span>
+    }
+  </span>
+
+  <span class="qt-checkbox-label">
+    {{ label }}
+  </span>
+</div>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QProgressDialog',
+  standalone: true,
+  imports: [],
+  templateUrl: './progress-dialog.component.html',
+  styleUrl: './progress-dialog.component.css'
+})
+export class ProgressDialogComponent {
+
+}
+<p>progress-dialog works!</p>
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ProgressDialogComponent } from './progress-dialog.component';
+
+describe('ProgressDialogComponent', () => {
+  let component: ProgressDialogComponent;
+  let fixture: ComponentFixture<ProgressDialogComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ProgressDialogComponent]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(ProgressDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QIconView',
+  standalone: true,
+  imports: [],
+  templateUrl: './icon-view.component.html',
+  styleUrl: './icon-view.component.css'
+})
+export class IconViewComponent {
+
+}
+<p>icon-view works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QColorDialog',
+  standalone: true,
+  imports: [],
+  templateUrl: './color-dialog.component.html',
+  styleUrl: './color-dialog.component.css'
+})
+export class ColorDialogComponent {
+
+}
+<p>color-dialog works!</p>
+import { Component, Input } from '@angular/core';
+import { Action } from '../../../core/action';
+
+@Component({
+  selector: 'QToolButton',
+  standalone: true,
+  imports: [],
+  templateUrl: './tool-button.component.html',
+  styleUrl: './tool-button.component.css'
+})
+export class ToolButtonComponent {
+  @Input({ required: true })
+  action!: Action;
+
+  onClick(): void {
+    this.action.trigger();
+  }
+}
+<button
+  class="qt-toolbutton"
+  [class.qt-disabled]="!action.enabled"
+  [class.qt-checked]="action.checkable && action.checked"
+  (click)="onClick()"
+>
+  @if (action.icon) {
+    <img class="qt-toolbutton-icon" [src]="action.icon" />
+  } @else {
+    <span class="qt-toolbutton-text">
+      {{ action.text }}
+    </span>
+  }
+
+</button>
+.qt-toolbutton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  
+  color: var(--color-text-primary);
+  cursor: pointer;
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-toolbutton:hover:not(.qt-disabled) {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-light);
+}
+
+.qt-toolbutton:active:not(.qt-disabled) {
+  background-color: var(--color-bg-active);
+  transform: scale(0.98);
+}
+
+.qt-toolbutton.qt-checked {
+  background-color: var(--color-accent-bg);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.qt-toolbutton.qt-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.qt-toolbutton-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.qt-toolbutton-text {
+  line-height: 1;
+}<div class="qt-statusbar">
+
+  <!-- Left area -->
+  <div class="qt-statusbar-left">
+
+    @if (message) {
+      <span class="qt-statusbar-message">
+        {{ message }}
+      </span>
+    }
+
+    <ng-container *ngFor="let item of leftItems()">
+      <ng-content select="[status-item-{{item.id}}]"></ng-content>
+    </ng-container>
+
+  </div>
+
+  <!-- Spacer -->
+  <div class="qt-statusbar-spacer"></div>
+
+  <!-- Right area -->
+  <div class="qt-statusbar-right">
+    <ng-container *ngFor="let item of rightItems()">
+      <ng-content select="[status-item-{{item.id}}]"></ng-content>
+    </ng-container>
+  </div>
+
+</div>
+import { NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+
+interface StatusItem {
+  id: number;
+  permanent: boolean;
+}
+
+@Component({
+  selector: 'QStatusBar',
+  standalone: true,
+  imports: [NgFor],
+  templateUrl: './status-bar.component.html',
+  styleUrls: ['./status-bar.component.css']
+})
+export class StatusBarComponent {
+
+  private idCounter = 0;
+
+  message: string | null = null;
+  private messageTimer: any = null;
+
+  items: StatusItem[] = [];
+
+  /* =========================
+     Qt API equivalents
+     ========================= */
+
+  showMessage(text: string, timeout = 0): void {
+    this.message = text;
+
+    if (this.messageTimer) {
+      clearTimeout(this.messageTimer);
+      this.messageTimer = null;
+    }
+
+    if (timeout > 0) {
+      this.messageTimer = setTimeout(() => {
+        this.clearMessage();
+      }, timeout);
+    }
+  }
+
+  clearMessage(): void {
+    this.message = null;
+  }
+
+  addWidget(): number {
+    return this.items.push({
+      id: ++this.idCounter,
+      permanent: false
+    });
+  }
+
+  addPermanentWidget(): number {
+    return this.items.push({
+      id: ++this.idCounter,
+      permanent: true
+    });
+  }
+
+  removeWidget(id: number): void {
+    this.items = this.items.filter(i => i.id !== id);
+  }
+
+  /* =========================
+     Internal helpers
+     ========================= */
+
+  leftItems(): StatusItem[] {
+    return this.items.filter(i => !i.permanent);
+  }
+
+  rightItems(): StatusItem[] {
+    return this.items.filter(i => i.permanent);
+  }
+}
+:host {
+  display: block;
+  width: 100%;
+}
+
+.qt-statusbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  height: 32px;
+  padding: 0 16px;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.qt-statusbar-left,
+.qt-statusbar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qt-statusbar-left {
+  flex: 1;
+}
+
+.qt-statusbar-spacer {
+  flex: 1;
+}
+
+.qt-statusbar-message {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Items permanentes com estilo destacado */
+.qt-statusbar-right > * {
+  padding: 4px 8px;
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}<p>stacked-layout works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QStackedLayout',
+  standalone: true,
+  imports: [],
+  templateUrl: './stacked-layout.component.html',
+  styleUrl: './stacked-layout.component.css'
+})
+export class StackedLayoutComponent {
+
+}
+.qt-tab-widget {
+  display: flex;
+  flex-direction: column;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.qt-tab-bar {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.qt-tab {
+  padding: 8px 16px;
+  
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.qt-tab:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.qt-tab.qt-active {
+  background-color: var(--color-bg-primary);
+  color: var(--color-accent-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.qt-tab-content {
+  padding: 16px;
+  background-color: var(--color-bg-primary);
+}
+
+.qt-tab-page {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qt-tab-page[hidden] {
+  display: none;
+}import { NgFor } from '@angular/common';
+import {
+  Component,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  Input
+} from '@angular/core';
+
+
+@Component({
+  selector: 'QTab',
+  standalone: true,
+  template: `
+    <div class="qt-tab-page" [hidden]="!active">
+      <ng-content></ng-content>
+    </div>
+  `
+})
+export class TabComponent {
+  @Input() title = '';
+  active = false;
+}
+
+
+@Component({
+  selector: 'QTabWidget',
+  standalone: true,
+  imports: [NgFor],
+  templateUrl: './tab-widget.component.html',
+  styleUrl: './tab-widget.component.css'
+})
+export class TabWidgetComponent implements AfterContentInit {
+
+  @ContentChildren(TabComponent)
+  tabs!: QueryList<TabComponent>;
+
+  currentIndex = 0;
+
+  ngAfterContentInit(): void {
+    if (this.tabs.length > 0) {
+      this.selectTab(0);
+    }
+  }
+
+  selectTab(index: number): void {
+    this.currentIndex = index;
+    this.tabs.forEach((tab, i) => {
+      tab.active = i === index;
+    });
+  }
+}
+
+
+
+
+<div class="qt-tab-widget">
+
+  <!-- Tab bar -->
+  <div class="qt-tab-bar">
+    <div
+      class="qt-tab"
+      *ngFor="let tab of tabs; let i = index"
+      [class.qt-active]="i === currentIndex"
+      (click)="selectTab(i)"
+    >
+      {{ tab.title }}
+    </div>
+  </div>
+
+  <!-- Pages -->
+  <div class="qt-tab-content">
+    <ng-content></ng-content>
+  </div>
+
+</div>
+<p>column-view works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QColumnView',
+  standalone: true,
+  imports: [],
+  templateUrl: './column-view.component.html',
+  styleUrl: './column-view.component.css'
+})
+export class ColumnViewComponent {
+
+}
+<p>command-link-edit works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QCommandLinkEdit',
+  standalone: true,
+  imports: [],
+  templateUrl: './command-link-edit.component.html',
+  styleUrl: './command-link-edit.component.css'
+})
+export class CommandLinkEditComponent {
+
+}
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostBinding
+} from '@angular/core';
+import { RadioGroupComponent } from '../radio-group/radio-group.component';
+
+@Component({
+  selector: 'QRadioButton',
+  templateUrl: './radio-button.component.html',
+  standalone: true,
+  styleUrls: ['./radio-button.component.css']
+})
+export class RadioButtonComponent {
+
+  @Input() label: string = '';
+  @Input() value: any = null;
+  @Input() disabled: boolean = false;
+
+  @Output() clicked = new EventEmitter<void>();
+  @Output() toggled = new EventEmitter<boolean>();
+
+  checked = false;
+  private group?: RadioGroupComponent;
+
+  registerGroup(group: RadioGroupComponent): void {
+    this.group = group;
+  }
+
+  setChecked(state: boolean): void {
+    this.checked = state;
+  }
+
+  onClick(): void {
+    if (this.disabled || this.checked || !this.group) {
+      return;
+    }
+
+    this.group.select(this.value);
+
+    this.clicked.emit();
+    this.toggled.emit(true);
+  }
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
+  }
+
+  @HostBinding('class.qt-checked')
+  get isChecked(): boolean {
+    return this.checked;
+  }
+}
+<div
+  class="qt-radio"
+  role="radio"
+  [attr.aria-checked]="checked"
+  [attr.aria-disabled]="disabled"
+  (click)="onClick()"
+>
+  <span class="qt-radio-indicator">
+    @if (checked) {
+      <span class="qt-radio-dot"></span>
+    }
+  </span>
+
+  <span class="qt-radio-label">
+    {{ label }}
+  </span>
+</div>
+:host {
+  display: inline-flex;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.qt-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  cursor: pointer;
+  
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.qt-radio:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-radio-indicator {
+  width: 18px;
+  height: 18px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  background-color: var(--color-bg-primary);
+  border: 2px solid var(--color-border-medium);
+  border-radius: var(--radius-full);
+  
+  transition: all var(--transition-fast);
+}
+
+.qt-radio:hover .qt-radio-indicator {
+  border-color: var(--color-accent-primary);
+  background-color: var(--color-bg-hover);
+}
+
+:host.qt-checked .qt-radio-indicator {
+  border-color: var(--color-accent-primary);
+  background-color: var(--color-accent-primary);
+}
+
+.qt-radio-dot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: var(--radius-full);
+}
+
+:host.qt-disabled .qt-radio {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:host.qt-disabled .qt-radio-indicator {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+}<p>shortcut works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QShortcut',
+  standalone: true,
+  imports: [],
+  templateUrl: './shortcut.component.html',
+  styleUrl: './shortcut.component.css'
+})
+export class ShortcutComponent {
+
+}
+<p>time-edit works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QTimeEdit',
+  standalone: true,
+  imports: [],
+  templateUrl: './time-edit.component.html',
+  styleUrl: './time-edit.component.css'
+})
+export class TimeEditComponent {
+
+}
+<p>calendar works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QCalendarWidget',
+  standalone: true,
+  imports: [],
+  templateUrl: './calendar-widget.component.html',
+  styleUrl: './calendar-widget.component.css'
+})
+export class CalendarWidgetComponent {
+
+}
+<p>list-view works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QListView',
+  standalone: true,
+  imports: [],
+  templateUrl: './list-view.component.html',
+  styleUrl: './list-view.component.css'
+})
+export class ListViewComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QFileDialog',
+  standalone: true,
+  imports: [],
+  templateUrl: './file-dialog.component.html',
+  styleUrl: './file-dialog.component.css'
+})
+export class FileDialogComponent {
+
+}
+<p>file-dialog works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QStatusTip',
+  standalone: true,
+  imports: [],
+  templateUrl: './status-tip.component.html',
+  styleUrl: './status-tip.component.css'
+})
+export class StatusTipComponent {
+
+}
+<p>status-tip works!</p>
+:host {
+  display: inline-block;
+  width: 200px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+}
+
+.qt-combobox {
+  position: relative;
+}
+
+.qt-combobox-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  
+  height: 36px;
+  padding: 0 12px;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.qt-combobox-field:hover:not(.qt-disabled .qt-combobox-field) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-hover);
+}
+
+.qt-combobox-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-primary);
+}
+
+.qt-combobox-arrow {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  transition: transform var(--transition-fast);
+}
+
+.qt-combobox.open .qt-combobox-arrow {
+  transform: rotate(180deg);
+}
+
+.qt-combobox-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  
+  max-height: 240px;
+  overflow-y: auto;
+  
+  animation: slideDown 0.15s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qt-combobox-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.qt-combobox-item:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.qt-combobox-item.qt-selected {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-primary);
+  font-weight: 500;
+}
+
+.qt-disabled .qt-combobox-field {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border-light);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}<div class="qt-combobox" [class.qt-disabled]="disabled">
+
+  <div class="qt-combobox-field" (click)="toggle()">
+    <span class="qt-combobox-text">
+      {{ currentText }}
+    </span>
+
+    <span class="qt-combobox-arrow">▾</span>
+  </div>
+
+  @if (open) {
+    <div class="qt-combobox-popup">
+      @for (item of items; track item) {
+        <div
+          class="qt-combobox-item"
+          [class.qt-selected]="items.indexOf(item) === currentIndex"
+          (click)="select(items.indexOf(item))"
+        >
+          {{ item }}
+        </div>
+      }
+    </div>
+  }
+
+</div>import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  forwardRef
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
+
+@Component({
+  selector: 'QComboBox',
+  standalone: true,
+  templateUrl: './combo-box.component.html',
+  styleUrl: './combo-box.component.css',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ComboBoxComponent),
+      multi: true
+    }
+  ]
+})
+export class ComboBoxComponent implements ControlValueAccessor {
+
+  @Input() items: string[] = [];
+  @Input() disabled = false;
+
+  open = false;
+  currentIndex = -1;
+
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  /* =========================
+     ControlValueAccessor
+     ========================= */
+
+  writeValue(value: any): void {
+    this.currentIndex = this.items.indexOf(value);
+    this.cdr.detectChanges()
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this.cdr.detectChanges()
+  }
+
+  /* =========================
+     Interaction
+     ========================= */
+
+  toggle(): void {
+    if (this.disabled) return;
+    this.open = !this.open;
+  }
+
+  select(index: number): void {
+    if (this.disabled) return;
+
+    this.currentIndex = index;
+    this.open = false;
+
+    this.onChange(this.items[index]);
+    this.onTouched();
+  }
+
+  get currentText(): string {
+    return this.currentIndex >= 0
+      ? this.items[this.currentIndex]
+      : '';
+  }
+}<p>dialog-button-box works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDialogButtonBox',
+  standalone: true,
+  imports: [],
+  templateUrl: './dialog-button-box.component.html',
+  styleUrl: './dialog-button-box.component.css'
+})
+export class DialogButtonBoxComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDialog',
+  standalone: true,
+  imports: [],
+  templateUrl: './dialog.component.html',
+  styleUrl: './dialog.component.css'
+})
+export class DialogComponent {
+
+}
+.qt-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  z-index: 9999;
+  
+  animation: fadeIn 0.2s ease-out;
+}
+
+.qt-dialog {
+  min-width: 400px;
+  max-width: 90vw;
+  max-height: 90vh;
+  
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  
+  display: flex;
+  flex-direction: column;
+  
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.qt-dialog-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.qt-dialog-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.qt-dialog-content {
+  padding: 24px;
+  flex: 1;
+  overflow: auto;
+}
+
+.qt-dialog-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border-light);
+  
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}<p>dialog works!</p>
+<p>text-browser works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QTextBrowser',
+  standalone: true,
+  imports: [],
+  templateUrl: './text-browser.component.html',
+  styleUrl: './text-browser.component.css'
+})
+export class TextBrowserComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDateTimeEdit',
+  standalone: true,
+  imports: [],
+  templateUrl: './datetime-edit.component.html',
+  styleUrl: './datetime-edit.component.css'
+})
+export class DateTimeEditComponent {
+
+}
+<p>datetime-edit works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QToolTip',
+  standalone: true,
+  imports: [],
+  templateUrl: './tool-tip.component.html',
+  styleUrl: './tool-tip.component.css'
+})
+export class ToolTipComponent {
+
+}
+<p>tool-tip works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QTreeView',
+  standalone: true,
+  imports: [],
+  templateUrl: './tree-view.component.html',
+  styleUrl: './tree-view.component.css'
+})
+export class TreeViewComponent {
+
+}
+<p>tree-view works!</p>
+<p>tab-bar works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QTabBar',
+  standalone: true,
+  imports: [],
+  templateUrl: './tab-bar.component.html',
+  styleUrl: './tab-bar.component.css'
+})
+export class TabBarComponent {
+
+}
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QDateEdit',
+  standalone: true,
+  imports: [],
+  templateUrl: './date-edit.component.html',
+  styleUrl: './date-edit.component.css'
+})
+export class DateEditComponent {
+
+}
+<p>date-edit works!</p>
+<p>wizard works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QWizard',
+  standalone: true,
+  imports: [],
+  templateUrl: './wizard.component.html',
+  styleUrl: './wizard.component.css'
+})
+export class WizardComponent {
+
+}
+.qt-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  
+  height: 44px;
+  padding: 6px 12px;
+  
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.qt-toolbar-separator {
+  width: 1px;
+  height: 24px;
+  margin: 0 4px;
+  background-color: var(--color-border-light);
+}import { Component, Input } from '@angular/core';
+import { Action } from '../../../core/action';
+import { Separator } from '../../../core/separator';
+import { ToolButtonComponent } from '../tool-button/tool-button.component';
+
+
+@Component({
+  selector: 'QToolBar',
+  standalone: true,
+  templateUrl: './tool-bar.component.html',
+  styleUrls: ['./tool-bar.component.css'],
+  imports: [
+    ToolButtonComponent
+  ]
+})
+export class ToolBarComponent {
+
+  @Input()
+  actions: Action[] = [];
+
+
+  isSeparator(action: Action) {
+    return action instanceof Separator
+  }
+}
+<div class="qt-toolbar">
+
+  @for (action of actions; track action) {
+
+    @if (isSeparator(action)) {
+      <div class="qt-toolbar-separator"></div>
+    } @else {
+      <QToolButton [action]="action"></QToolButton>
+    }
+
+  }
+
+</div>
+import { Component, Input, OnInit } from '@angular/core';
+import { TrayIcon, TrayIconOptions } from '@tauri-apps/api/tray';
+import { Menu, MenuItem } from '@tauri-apps/api/menu';
+import { defaultWindowIcon } from '@tauri-apps/api/app';
+import { listen } from '@tauri-apps/api/event';
+
+export interface TrayItem {
+  id: string,
+  text: string
+}
+
+@Component({ selector: 'QSystemTray', template: '', standalone: true })
+export class SystemTrayComponent implements OnInit {
+
+  private tray?: TrayIcon;
+  @Input()
+  items!: TrayItem[];
+
+  async ngOnInit() {
+    await this.initTray();
+  }
+
+  private async initTray() {
+    const menu = await Menu.new({ items: this.items });
+
+    let icon = await defaultWindowIcon();
+    if (icon) {
+      const options: TrayIconOptions = {
+        icon: icon,
+        menu: menu,
+        tooltip: 'My Angular Tauri App',
+        menuOnLeftClick: true,
+      };
+      this.tray = await TrayIcon.new(options);
+      // Listen menu events
+      await listen('tauri://tray-menu-item-clicked', ({ payload }: any) => {
+        this.handleTrayAction(payload.id);
+      });
+    }
+  }
+
+  private handleTrayAction(actionId: string) {
+    switch (actionId) {
+      case 'show':
+        window.focus();
+        break;
+      case 'settings':
+        // abrir modal/rota de configurações
+        break;
+      case 'quit':
+        window.close();
+        break;
+    }
+  }
+}
+<p>system-tray-icon works!</p>
+<p>button-group works!</p>
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'QButtonGroup',
+  standalone: true,
+  imports: [],
+  templateUrl: './button-group.component.html',
+  styleUrl: './button-group.component.css'
+})
+export class ButtonGroupComponent {
+
+}
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'QHBoxLayout',
+  standalone: true,
+  template: '<div class="qt-hbox-layout" [style]="containerStyle"><ng-content></ng-content></div>',
+  styleUrls: [ './hbox-layout.component.css' ]
+})
+export class HBoxLayoutComponent {
+  @Input() spacing = 0;
+  @Input() margin = 0;
+  @Input() align: 'start' | 'center' | 'end' | 'stretch' | 'between' = 'stretch';
+
+  get containerStyle(): string {
+    const justify = this.align === 'between' ? 'justify-content: space-between;' : '';
+    const alignItems = this.align === 'between' ? 'center' : this.align;
+    return `gap: ${this.spacing}px; padding: ${this.margin}px; align-items: ${alignItems}; ${justify}`;
+  }
+}
+.qt-hbox-layout {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+.qt-hbox-layout > * + * {
+  margin-left: 0;
+}import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'QVBoxLayout',
+  standalone: true,
+  template: '<div class="qt-vbox-layout" [style]="containerStyle"><ng-content></ng-content></div>',
+  styleUrls: [ './vbox-layout.component.css' ]
+})
+export class VBoxLayoutComponent {
+  @Input() spacing = 0;
+  @Input() margin = 0;
+  @Input() align: 'start' | 'center' | 'end' | 'stretch' = 'stretch';
+
+  get containerStyle(): string {
+    return `gap: ${this.spacing}px; padding: ${this.margin}px;`;
+  }
+}.qt-vbox-layout {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  
+  /* Transições suaves para mudanças de tamanho */
+  transition: gap var(--transition-fast);
+}
+
+/* Espaçamento uniforme entre items */
+.qt-vbox-layout > * + * {
+  margin-top: 0;
+}.qt-grid-layout {
+  display: grid;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+/* Auto-fit responsivo como fallback */
+@media (max-width: 768px) {
+  .qt-grid-layout {
+    grid-template-columns: 1fr !important;
+  }
+}import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'QGridLayout',
+  styleUrls: [ './grid-layout.component.css' ],
+  standalone: true,
+  template: `
+    <div
+      class="qt-grid-layout"
+      [style]="containerStyle">
+      <ng-content></ng-content>
+    </div>`,
+})
+export class GridLayoutComponent {
+
+  @Input()
+  columns = 2;
+
+  @Input()
+  spacing = 5;
+
+  @Input()
+  margin = 0;
+
+
+  get containerStyle(): string {
+    return `
+      grid-template-columns: repeat(${this.columns}, 1fr);
+      gap: ${this.spacing}px;
+      padding: ${this.margin}px;
+    `;
+  }
+}.qt-form-layout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  box-sizing: border-box;
+  
+  transition: gap var(--transition-fast);
+}
+
+/* Labels na primeira coluna */
+.qt-form-layout > *:nth-child(odd) {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  padding-right: 12px;
+  text-align: right;
+}
+
+/* Inputs na segunda coluna */
+.qt-form-layout > *:nth-child(even) {
+  min-width: 0; /* Permite que inputs sejam menores que o conteúdo */
+}import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'QFormLayout',
+  template: `
+    <div
+        class="qt-form-layout"
+        [style]="containerStyle">
+            <ng-content></ng-content>
+    </div>
+  `,
+  styleUrls: [ './form-layout.component.css' ]
+})
+export class FormLayoutComponent {
+  @Input() spacing = 5;
+  @Input() margin = 0;
+  @Input() labelSpacing = 10;
+
+  get containerStyle(): string {
+    return `gap: ${this.spacing}px ${this.labelSpacing}px; padding: ${this.margin}px;`;
+  }
+}
+<QMainWindow>
+
+  <QMenuBar>
+    <QMenu
+      title="File"
+      [actions]="[
+        newAction,
+        openAction,
+        saveAction,
+        separator,
+        exitAction
+      ]"
+    />
+
+    <QMenu
+      title="Edit"
+      [actions]="[
+        boldAction,
+        italicAction
+      ]"
+    />
+
+  </QMenuBar>
+
+  <QToolBar
+    [actions]="[
+      newAction,
+      openAction,
+      saveAction,
+      separator,
+      exitAction
+    ]"
+  />
+
+  <QCentralWidget>
+    <QLabel [text]="toString(screen)" />
+    <QHBoxLayout [spacing]="10">
+      <QScrollArea style="width: 80%;">
+
+        <QFrame [margin]="5">
+
+          <QLabel
+          text="User Profile"
+            alignment="center"
+            [size]="20"
+          />
+            
+          <QSeparator />
+            
+          <QLineEdit
+            placeholder="Full Name"
+            [model]="state.name"
+            [marginTop]="5"
+            [marginBottom]="5"
+          />
+            
+          <QPushButton
+            (click)="useThread()"
+            text="Run Heavy Task (QThread)"
+          />
+
+          <QLineEdit
+            placeholder="Email"
+            [model]="state.email"
+            [marginTop]="5"
+            [marginBottom]="5"
+          />
+
+          <QSeparator />
+
+          <QRadioGroup [model]="state.gender">
+
+            <QRadioButton
+                label="Male"
+                value="male"
+            />
+
+            <QRadioButton
+              label="Female"
+              value="female"
+            />
+
+            <QRadioButton
+              label="Other"
+              value="other"
+            />
+
+          </QRadioGroup>
+
+          <QSeparator />
+
+          <QCheckBox
+            label="Receive Newsletters"
+            [model]="state.newsletter"
+            [tristate]="true"
+          />
+
+          <QCheckBox
+            label="Receive Newsletters"
+            [model]="state.newsletter"
+          />
+
+          <QPushButton
+            text="Tela cheia"
+            (clicked)="
+              desktop.toggleFullscreen()
+            "
+          />
+
+          <QSeparator />
+
+          <QSpinBox
+            label="Age"
+            [min]="0"
+            [max]="120"
+            [step]="1"
+            [model]="state.age"
+            [marginLeft]="0"
+            [marginRight]="10"
+          />
+
+          <QSlider
+            label="Volume"
+            [min]="0"
+            [max]="100"
+            [step]="1"
+            [model]="state.volume"
+          />
+
+          <QSeparator />
+
+          <QTextEdit
+            placeholder="Bio"
+            [rows]="4"
+            [model]="state.bio"
+          />
+
+          <QSeparator />
+
+          <QComboBox
+            label="Theme"
+            [items]="[
+              'Light',
+              'Dark',
+              'System'
+            ]"
+          />
+
+          <QSeparator />
+
+          <QHBoxLayout [spacing]="5">
+            <QPushButton
+              text="Save"
+              kind="primary"
+              (clicked)="save()"
+            />
+
+            <QPushButton
+              text="Reset"
+              kind="secondary"
+              (clicked)="reset()"
+            />
+
+            <QPushButton
+              text="Delete"
+              kind="destructive"
+              (clicked)="deleteProfile()"
+            />
+
+          </QHBoxLayout>
+        </QFrame>
+      </QScrollArea>
+
+      <QVBoxLayout
+        [spacing]="10"
+        style="width: 60%;"
+      >
+
+        <QTabWidget>
+          <QTab title="Advanced Settings">
+            <QVBoxLayout [spacing]="10">
+
+              <QLabel
+                text="Developer Options"
+                alignment="center"
+              />
+
+              <QSeparator />
+
+              <QCheckBox
+                label="Enable Developer Mode"
+                [model]="state.devMode"
+                [tristate]="true"
+              />
+
+              <QCheckBox
+                label="Enable Logging"
+                [model]="state.logging"
+              />
+
+              <QSeparator />
+              <QSlider
+                label="Performance Level"
+                [min]="0"
+                [max]="100"
+                [step]="1"
+                [model]="state.perfLevel"
+              />
+            </QVBoxLayout>
+          </QTab>
+
+          <QTab title="Progress">
+            <QVBoxLayout [spacing]="10">
+              <QLabel
+                text="Task Progress"
+                alignment="center"
+              />
+
+              <QSeparator />
+
+              <QProgressBar
+                [minimum]="0"
+                [maximum]="100"
+                [model]="state.perfLevel"
+              />
+            </QVBoxLayout>
+          </QTab>
+        </QTabWidget>
+      </QVBoxLayout>
+    </QHBoxLayout>
+  </QCentralWidget>
+
+  <QStatusBar>
+    <QLabel text="Ready" />
+    <QLabel text="All changes are autosaved" />
+  </QStatusBar>
+
+</QMainWindow>

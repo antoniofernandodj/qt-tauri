@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { GridLayoutComponent } from './components/layouts/grid-layout/grid-layout.component';
 import { HBoxLayoutComponent } from './components/layouts/hbox-layout/hbox-layout.component';
 import { VBoxLayoutComponent } from './components/layouts/vbox-layout/vbox-layout.component';
@@ -67,15 +67,20 @@ import { QMessageBox } from './core/message-box';
 import { QProperty } from './core/property';
 import { Separator } from './core/separator';
 import { DesktopWidgetService } from './services/desktop';
+import { QThread } from './core/qthread';
+import { ButtonGroupComponent } from './components/widgets/button-group/button-group.component';
 // import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
 
 
 export class UserProfileState {
 
   name = new QProperty('');
+  color = new QProperty('');
+  visible = new QProperty(false);
   bio = new QProperty('');
   email = new QProperty('');
   devMode = new QProperty(false);
+  open = new QProperty(false);
   logging = new QProperty(false);
   gender = new QProperty<'male' | 'female' | 'other'>('other');
   newsletter = new QProperty<boolean | null>(false);
@@ -120,6 +125,7 @@ export class UserProfileState {
     // RouterOutlet,
     // SystemTrayComponent,
     CommonModule,
+    ColorDialogComponent,
     CalendarWidgetComponent,
     ColorDialogComponent,
     ColumnViewComponent,
@@ -157,6 +163,7 @@ export class UserProfileState {
     ToolTipComponent,
     TreeViewComponent,
     WizardComponent,
+    ButtonGroupComponent,
     TabViewComponent,
     GridLayoutComponent,
     // Daqui pra cima
@@ -191,6 +198,9 @@ export class UserProfileState {
 })
 export class AppComponent implements OnInit {
 
+  @ViewChild('sizeGroup') sizeGroup!: ButtonGroupComponent;
+
+
   screen = { width: 0, height: 0 };
   progress = 0;
   sliderValue = 10;
@@ -198,6 +208,8 @@ export class AppComponent implements OnInit {
   cdr = inject(ChangeDetectorRef);
   state = inject(UserProfileState);
   messageBox = inject(QMessageBox);
+  worker?: Worker;
+  thread = new QThread();
 
   separator = new Separator();
 
@@ -259,7 +271,43 @@ export class AppComponent implements OnInit {
 
   onActivate() {}
 
+  useThread() {
+    this.thread.start(300_000_000, (result) => {
+      console.log('Thread finished with result:', result);
+    });
+  }
+
   toString(screen: { width: number, height: number }) {
     return `(${screen.width}, ${screen.height})`
   }
+
+  onButtonClick(event: any) {
+
+  }
+
+
+
+  onAlignmentChange(buttonId: number): void {
+    console.log('Botão clicado:', buttonId);
+  }
+
+  onAlignmentToggled(event: { id: number; checked: boolean }): void {
+    console.log('Botão toggled:', event);
+  }
+
+  onStyleClick(buttonId: number): void {
+    console.log('Estilo clicado:', buttonId);
+  } 
+
+  setMediumSize(): void {
+    this.sizeGroup.setCheckedButton(1); // Seleciona o segundo botão (índice 1)
+  }
+
+  getCurrentAlignment(): number | null {
+    return this.sizeGroup.checkedButton();
+  }
+
+  onAccepted() {}
+  onRejected() {}
+  onColorSelected(e: any) {}
 }
