@@ -224,6 +224,29 @@
                 [maximum]="100"
                 [model]="state.perfLevel"
               />
+
+              <QDateTimeEdit
+                [model]="dateTime"
+                [minimum]="minDate"
+                [maximum]="maxDate"
+                (dateTimeChanged)="onDateTimeChanged($event)"
+              />
+
+              <QDateEdit
+                [model]="date"
+                (dateChanged)="onDateChanged($event)"
+              />
+              
+              <QTimeEdit
+                [model]="date"
+                (timeChanged)="onTimeChanged($event)"
+              />
+            
+              <QTableView
+                [model]="tableModel"
+                [selectionModel]="tableModel.selectionModel"
+                (activated)="onActivated($event)"
+              />
             </QVBoxLayout>
           </QTab>
 

@@ -1,1 +1,9 @@
-<p>date-edit works!</p>
+<input
+  type="date"
+  class="qt-date-edit"
+  [value]="value"
+  [readOnly]="readOnly"
+  [disabled]="disabled"
+  (input)="onInput($any($event.target).value)"
+  (blur)="onBlur()"
+/>

@@ -1,5 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { GridLayoutComponent } from './components/layouts/grid-layout/grid-layout.component';
 import { HBoxLayoutComponent } from './components/layouts/hbox-layout/hbox-layout.component';
 import { VBoxLayoutComponent } from './components/layouts/vbox-layout/vbox-layout.component';
@@ -13,7 +11,7 @@ import { ComboBoxComponent } from './components/widgets/combo-box/combo-box.comp
 import { CommandLinkEditComponent } from './components/widgets/command-link-edit/command-link-edit.component';
 import { ContextMenuComponent } from './components/widgets/context-menu/context-menu.component';
 import { DateEditComponent } from './components/widgets/date-edit/date-edit.component';
-import { DateTimeEditComponent } from './components/widgets/datetime-edit/datetime-edit.component';
+import { DateTimeEditComponent } from './components/widgets/date-time-edit/date-time-edit.component';
 import { DialEditComponent } from './components/widgets/dial-edit/dial-edit.component';
 import { DialogButtonBoxComponent } from './components/widgets/dialog-button-box/dialog-button-box.component';
 import { DialogComponent } from './components/widgets/dialog/dialog.component';
@@ -62,17 +60,23 @@ import { ToolBoxComponent } from './components/widgets/tool-box/tool-box.compone
 import { ToolTipComponent } from './components/widgets/tool-tip/tool-tip.component';
 import { TreeViewComponent } from './components/widgets/tree-view/tree-view.component';
 import { WizardComponent } from './components/widgets/wizard/wizard.component';
+import { ButtonGroupComponent } from './components/widgets/button-group/button-group.component';
+import { TimeEditComponent } from './components/widgets/time-edit/time-edit.component';
+import { QObjectState } from './core/qobjectState';
+import { QThread } from './core/qthread';
+import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Action } from './core/action';
 import { QMessageBox } from './core/message-box';
 import { QProperty } from './core/property';
-import { Separator } from './core/separator';
 import { DesktopWidgetService } from './services/desktop';
-import { QThread } from './core/qthread';
-import { ButtonGroupComponent } from './components/widgets/button-group/button-group.component';
+import { Separator } from './core/separator';
+import { CommonModule } from '@angular/common';
+import { QItemSelectionModel, QModelIndex, SimpleTableModel } from './core/qtable-model';
+import { User } from './user';
 // import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
 
 
-export class UserProfileState {
+export class UserProfileState extends QObjectState {
 
   name = new QProperty('');
   color = new QProperty('');
@@ -88,34 +92,8 @@ export class UserProfileState {
   volume = new QProperty(50);
   perfLevel = new QProperty(50);
 
-  reset() {
-    this.name.value = '';
-    this.bio.value = '';
-    this.logging.value = false;
-    this.devMode.value = false;
-    this.email.value = '';
-    this.gender.value = 'other';
-    this.newsletter.value = false;
-    this.age.value = 0;
-    this.volume.value = 50;
-    this.perfLevel.value = 50;
-  }
+  constructor() { super() }
 
-  toObject() {
-    const payload = {
-      name: this.name.value,
-      email: this.email.value,
-      bio: this.bio.value,
-      gender: this.gender.value,
-      newsletter: this.newsletter.value,
-      age: this.age.value,
-      volume: this.volume.value,
-      perfLevel: this.perfLevel.value,
-      devMode: this.devMode.value,
-      logging: this.logging.value
-    };
-    return payload
-  }
 }
 
 @Component({
@@ -125,14 +103,10 @@ export class UserProfileState {
     // RouterOutlet,
     // SystemTrayComponent,
     CommonModule,
-    ColorDialogComponent,
     CalendarWidgetComponent,
-    ColorDialogComponent,
     ColumnViewComponent,
     CommandLinkEditComponent,
     ContextMenuComponent,
-    DateEditComponent,
-    DateTimeEditComponent,
     DialEditComponent,
     DialogComponent,
     DialogButtonBoxComponent,
@@ -163,10 +137,16 @@ export class UserProfileState {
     ToolTipComponent,
     TreeViewComponent,
     WizardComponent,
-    ButtonGroupComponent,
     TabViewComponent,
     GridLayoutComponent,
     // Daqui pra cima
+    ColorDialogComponent,
+    ButtonGroupComponent,
+    ColorDialogComponent,
+    DateEditComponent,
+    DateTimeEditComponent,
+    TimeEditComponent,
+    DateTimeEditComponent,
     RadioButtonComponent,
     CheckBoxComponent,
     RadioGroupComponent,
@@ -200,7 +180,6 @@ export class AppComponent implements OnInit {
 
   @ViewChild('sizeGroup') sizeGroup!: ButtonGroupComponent;
 
-
   screen = { width: 0, height: 0 };
   progress = 0;
   sliderValue = 10;
@@ -210,7 +189,22 @@ export class AppComponent implements OnInit {
   messageBox = inject(QMessageBox);
   worker?: Worker;
   thread = new QThread();
+  date = new QProperty<Date>(new Date());
 
+  dateTime = new QProperty<Date>(new Date());
+  minDate = new Date(2024, 0, 1, 0, 0);   // 01/01/2024 00:00
+  maxDate = new Date(2026, 11, 31, 23, 59); // 31/12/2026 23:59
+  
+
+  tableModel = new SimpleTableModel<User>(
+    [
+      { id: 1, name: 'Alice', email: 'alice@mail.com', age: 28 },
+      { id: 2, name: 'Bob', email: 'bob@mail.com', age: 35 },
+      { id: 3, name: 'Carol', email: 'carol@mail.com', age: 22 },
+    ],
+    ['id', 'name', 'email', 'age']
+  );
+  
   separator = new Separator();
 
   newAction = new Action({
@@ -285,8 +279,6 @@ export class AppComponent implements OnInit {
 
   }
 
-
-
   onAlignmentChange(buttonId: number): void {
     console.log('Botão clicado:', buttonId);
   }
@@ -307,7 +299,36 @@ export class AppComponent implements OnInit {
     return this.sizeGroup.checkedButton();
   }
 
-  onAccepted() {}
-  onRejected() {}
-  onColorSelected(e: any) {}
+  onAccepted() {
+    console.log('Color selected:', this.state.color.value)
+  }
+
+  onRejected() {
+    this.state.color.value = ''
+  }
+
+  onDateTimeChanged(e: any) {
+    console.log(e)
+  }
+
+  onDateChanged(e: any) {
+    console.log(e)
+  }
+
+  onTimeChanged(e: any) {
+    console.log(e)
+  }
+
+  onColorSelected(color: string) {
+    this.state.color.value = color
+  }
+
+  onActivated(index: QModelIndex) {
+    console.log('Activated:', index);
+    console.log(
+      'Value:',
+      this.tableModel.data(index.row, index.column)
+    );
+  }
+
 }

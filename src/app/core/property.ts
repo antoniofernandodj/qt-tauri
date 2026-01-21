@@ -1,10 +1,12 @@
-import { signal, WritableSignal } from '@angular/core';
+import { signal, WritableSignal } from "@angular/core";
 
 export class QProperty<T> {
 
   private readonly _signal: WritableSignal<T>;
+  private readonly _initial: T;
 
   constructor(initial: T) {
+    this._initial = initial;
     this._signal = signal(initial);
   }
 
@@ -16,8 +18,8 @@ export class QProperty<T> {
     this._signal.set(v);
   }
 
-  update(fn: (v: T) => T) {
-    this._signal.update(fn);
+  reset(): void {
+    this._signal.set(this._initial);
   }
 
   asSignal() {

@@ -83,7 +83,6 @@ export class QMessageBox {
      ========================= */
 
   information(title: string, text: string): Promise<void> {
-    console.log('teste')
     return this.show({
       title,
       text,

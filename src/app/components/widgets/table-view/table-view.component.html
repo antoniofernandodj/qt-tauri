@@ -1,1 +1,22 @@
-<p>table-view works!</p>
+<table class="qt-table">
+    <thead>
+      <tr>
+        <th *ngFor="let c of [].constructor(model.columnCount()); let col = index">
+          {{ model.headerData(col) }}
+        </th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let r of [].constructor(model.rowCount()); let row = index">
+        <td
+          *ngFor="let c of [].constructor(model.columnCount()); let col = index"
+          (click)="onCellClick(row, col)"
+          [class.selected]="selectionModel.isSelected(row, col)"
+        >
+          {{ model.data(row, col) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

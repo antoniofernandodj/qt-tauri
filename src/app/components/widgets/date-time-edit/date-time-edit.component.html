@@ -1,0 +1,24 @@
+<div class="qt-date-time-edit">
+
+  <input
+    type="date"
+    class="qt-date-time-section"
+    [value]="dateValue"
+    [readOnly]="readOnly"
+    [disabled]="disabled"
+    (input)="onDateInput($any($event.target).value)"
+    (blur)="onBlur()"
+  />
+
+  <input
+    type="time"
+    class="qt-date-time-section"
+    step="60"
+    [value]="timeValue"
+    [readOnly]="readOnly"
+    [disabled]="disabled"
+    (input)="onTimeInput($any($event.target).value)"
+    (blur)="onBlur()"
+  />
+
+</div>

@@ -1,0 +1,28 @@
+.qt-date-edit {
+    width: 100%;
+    padding: 8px 12px;
+  
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+  
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-medium);
+    border-radius: var(--radius-md);
+  
+    color: var(--color-text-primary);
+    outline: none;
+  
+    transition: all var(--transition-fast);
+  }
+  
+  .qt-date-edit:focus {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px var(--color-accent-bg);
+  }
+  
+  .qt-date-edit:disabled {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--color-border-light);
+    color: var(--color-text-disabled);
+  }
+  

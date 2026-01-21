@@ -7,12 +7,12 @@ import {
 import { QProperty } from '../../../core/property';
 
 @Component({
-  selector: 'QTimeEdit',
+  selector: 'QDateTimeEdit',
   standalone: true,
-  templateUrl: './time-edit.component.html',
-  styleUrls: ['./time-edit.component.css']
+  templateUrl: './date-time-edit.component.html',
+  styleUrls: ['./date-time-edit.component.css']
 })
-export class TimeEditComponent {
+export class DateTimeEditComponent {
 
   /* =========================
      Qt-like binding
@@ -31,20 +31,23 @@ export class TimeEditComponent {
   @Input() readOnly = false;
   @Input() disabled = false;
 
-  @Input() stepSeconds = 60;
-
   /* =========================
      Qt-like signals
      ========================= */
 
-  @Output() timeChanged = new EventEmitter<Date>();
+  @Output() dateTimeChanged = new EventEmitter<Date>();
   @Output() editingFinished = new EventEmitter<void>();
 
   /* =========================
-     Derived value
+     Derived values
      ========================= */
 
-  get value(): string {
+  get dateValue(): string {
+    const d = this.model.value;
+    return `${d.getFullYear()}-${this.pad(d.getMonth() + 1)}-${this.pad(d.getDate())}`;
+  }
+
+  get timeValue(): string {
     const d = this.model.value;
     return `${this.pad(d.getHours())}:${this.pad(d.getMinutes())}`;
   }
@@ -53,7 +56,19 @@ export class TimeEditComponent {
      Interaction
      ========================= */
 
-  onInput(v: string): void {
+  onDateInput(v: string): void {
+    if (this.disabled || this.readOnly) return;
+
+    const [y, m, d] = v.split('-').map(Number);
+    const cur = this.model.value;
+
+    const next = new Date(cur);
+    next.setFullYear(y, m - 1, d);
+
+    this.commit(next);
+  }
+
+  onTimeInput(v: string): void {
     if (this.disabled || this.readOnly) return;
 
     const [h, m] = v.split(':').map(Number);
@@ -77,7 +92,7 @@ export class TimeEditComponent {
     if (this.isOutOfRange(d)) return;
 
     this.model.value = d;
-    this.timeChanged.emit(d);
+    this.dateTimeChanged.emit(d);
   }
 
   private isOutOfRange(d: Date): boolean {

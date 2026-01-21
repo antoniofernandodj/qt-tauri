@@ -43,4 +43,5 @@ export class ProgressBarComponent {
   get text(): string {
     return `${Math.round(this.percentage)}%`;
   }
+
 }
