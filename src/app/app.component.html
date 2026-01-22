@@ -1,4 +1,4 @@
-<!--
+
 
   <QMainWindow>
   
@@ -309,6 +309,43 @@
                 (clicked)="state.visible.value = !state.visible.value"
               />
             </QTab>
+
+  
+            <QTab title="StackedWidget">
+
+              <QStackedWidget [currentIndex]="tab.value" #stacked>
+                <QStackedWidgetPage>
+                  Página 1
+                </QStackedWidgetPage>
+                <QStackedWidgetPage>
+                  Página 2
+                </QStackedWidgetPage>
+              </QStackedWidget>
+              
+              <QPushButton
+                (clicked)="tab.value = 0"
+                text="1"
+              />
+              
+              <QPushButton
+                (clicked)="tab.value = 1"
+                text="2"
+              />
+              
+              <QFrame>
+                
+                <QToolBox [currentIndex]="0">
+                  <QToolBoxItem title="Tools" icon="assets/tools.png">
+                    Conteúdo das ferramentas
+                  </QToolBoxItem>
+                  <QToolBoxItem title="Settings">
+                    Configurações aqui
+                  </QToolBoxItem>
+                </QToolBox>
+
+              </QFrame>
+
+            </QTab>
           </QTabWidget>
         </QVBoxLayout>
       </QHBoxLayout>
@@ -321,36 +358,4 @@
   
   </QMainWindow>
   
--->
-<!-- 
-<QStackedWidget [currentIndex]="tab.value" #stacked>
-  <QStackedWidgetPage>
-    Página 1
-  </QStackedWidgetPage>
-  <QStackedWidgetPage>
-    Página 2
-  </QStackedWidgetPage>
-</QStackedWidget>
 
-<QPushButton
-  (clicked)="tab.value = 0"
-  text="1"
-/>
-
-<QPushButton
-  (clicked)="tab.value = 1"
-  text="2"
-/> -->
-
-<QFrame>
-  
-  <QToolBox [currentIndex]="0">
-    <QToolBoxItem title="Tools" icon="assets/tools.png">
-      Conteúdo das ferramentas
-    </QToolBoxItem>
-    <QToolBoxItem title="Settings">
-      Configurações aqui
-    </QToolBoxItem>
-  </QToolBox>
-
-</QFrame>
