@@ -47,8 +47,8 @@ import { SliderComponent } from './components/widgets/slider/slider.component';
 import { SpinBoxComponent } from './components/widgets/spin-box/spin-box.component';
 import { SplitterHandleComponent } from './components/widgets/splitter-handle/splitter-handle.component';
 import { SplitterComponent } from './components/widgets/splitter/splitter.component';
-import { StackedLayoutComponent } from './components/widgets/stacked-layout/stacked-layout.component';
-import { StackedWidgetComponent } from './components/widgets/stacked-widget/stacked-widget.component';
+import { StackedLayoutItemComponent } from './components/widgets/stacked-layout/stacked-layout.component';
+import { StackedWidgetComponent, StackedWidgetPageComponent } from './components/widgets/stacked-widget/stacked-widget.component';
 import { StatusBarComponent } from './components/widgets/status-bar/status-bar.component';
 import { StatusTipComponent } from './components/widgets/status-tip/status-tip.component';
 import { TabComponent, TabWidgetComponent } from './components/widgets/tab-widget/tab-widget.component';
@@ -56,7 +56,7 @@ import { TableViewComponent } from './components/widgets/table-view/table-view.c
 import { TextBrowserComponent } from './components/widgets/text-browser/text-browser.component';
 import { TextEditComponent } from './components/widgets/text-edit/text-edit.component';
 import { ToolBarComponent } from './components/widgets/tool-bar/tool-bar.component';
-import { ToolBoxComponent } from './components/widgets/tool-box/tool-box.component';
+import { ToolBoxComponent, ToolBoxItemComponent } from './components/widgets/tool-box/tool-box.component';
 import { ToolTipComponent } from './components/widgets/tool-tip/tool-tip.component';
 import { TreeViewComponent } from './components/widgets/tree-view/tree-view.component';
 import { WizardComponent } from './components/widgets/wizard/wizard.component';
@@ -93,7 +93,6 @@ export class UserProfileState extends QObjectState {
   perfLevel = new QProperty(50);
 
   constructor() { super() }
-
 }
 
 @Component({
@@ -128,12 +127,14 @@ export class UserProfileState extends QObjectState {
     ShortcutComponent,
     SplitterComponent,
     SplitterHandleComponent,
-    StackedLayoutComponent,
-    StackedWidgetComponent,
     StatusTipComponent,
     TableViewComponent,
     TextBrowserComponent,
+    StackedLayoutItemComponent,
+    StackedWidgetPageComponent,
+    ToolBoxItemComponent,
     ToolBoxComponent,
+    StackedWidgetComponent,
     ToolTipComponent,
     TreeViewComponent,
     WizardComponent,
@@ -195,6 +196,7 @@ export class AppComponent implements OnInit {
   minDate = new Date(2024, 0, 1, 0, 0);   // 01/01/2024 00:00
   maxDate = new Date(2026, 11, 31, 23, 59); // 31/12/2026 23:59
   
+  tab = new QProperty(0);
 
   tableModel = new SimpleTableModel<User>(
     [

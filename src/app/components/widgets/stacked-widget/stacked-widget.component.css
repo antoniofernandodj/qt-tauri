@@ -1,0 +1,25 @@
+.qt-stacked-widget {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .qt-stacked-page {
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  .qt-stacked-page[hidden] {
+    display: none;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

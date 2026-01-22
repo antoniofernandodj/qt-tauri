@@ -1,9 +1,30 @@
+<!--
 
-<QMainWindow>
-
-  <QMenuBar>
-    <QMenu
-      title="File"
+  <QMainWindow>
+  
+    <QMenuBar>
+      <QMenu
+        title="File"
+        [actions]="[
+          newAction,
+          openAction,
+          saveAction,
+          separator,
+          exitAction
+        ]"
+      />
+  
+      <QMenu
+        title="Edit"
+        [actions]="[
+          boldAction,
+          italicAction
+        ]"
+      />
+  
+    </QMenuBar>
+  
+    <QToolBar
       [actions]="[
         newAction,
         openAction,
@@ -12,311 +33,324 @@
         exitAction
       ]"
     />
-
-    <QMenu
-      title="Edit"
-      [actions]="[
-        boldAction,
-        italicAction
-      ]"
-    />
-
-  </QMenuBar>
-
-  <QToolBar
-    [actions]="[
-      newAction,
-      openAction,
-      saveAction,
-      separator,
-      exitAction
-    ]"
-  />
-
-  <QCentralWidget>
-    <QLabel [text]="toString(screen)" />
-    <QHBoxLayout [spacing]="10">
-      <QScrollArea style="width: 80%;">
-
-        <QFrame [margin]="5">
-
-          <QLabel
-          text="User Profile"
-            alignment="center"
-            [size]="20"
-          />
-            
-          <QSeparator />
-            
-          <QLineEdit
-            placeholder="Full Name"
-            [model]="state.name"
-            [marginTop]="5"
-            [marginBottom]="5"
-          />
-            
-          <QPushButton
-            (click)="useThread()"
-            text="Run Heavy Task (QThread)"
-          />
-
-          <QLineEdit
-            placeholder="Email"
-            [model]="state.email"
-            [marginTop]="5"
-            [marginBottom]="5"
-          />
-
-          <QSeparator />
-
-          <QRadioGroup [model]="state.gender">
-
-            <QRadioButton
-                label="Male"
-                value="male"
-            />
-
-            <QRadioButton
-              label="Female"
-              value="female"
-            />
-
-            <QRadioButton
-              label="Other"
-              value="other"
-            />
-
-          </QRadioGroup>
-
-          <QSeparator />
-
-          <QCheckBox
-            label="Receive Newsletters"
-            [model]="state.newsletter"
-            [tristate]="true"
-          />
-
-          <QCheckBox
-            label="Receive Newsletters"
-            [model]="state.newsletter"
-          />
-
-          <QPushButton
-            text="Tela cheia"
-            (clicked)="
-              desktop.toggleFullscreen()
-            "
-          />
-
-          <QSeparator />
-
-          <QSpinBox
-            label="Age"
-            [min]="0"
-            [max]="120"
-            [step]="1"
-            [model]="state.age"
-            [marginLeft]="0"
-            [marginRight]="10"
-          />
-
-          <QSlider
-            label="Volume"
-            [min]="0"
-            [max]="100"
-            [step]="1"
-            [model]="state.volume"
-          />
-
-          <QSeparator />
-
-          <QTextEdit
-            placeholder="Bio"
-            [rows]="4"
-            [model]="state.bio"
-          />
-
-          <QSeparator />
-
-          <QComboBox
-            label="Theme"
-            [items]="[
-              'Light',
-              'Dark',
-              'System'
-            ]"
-          />
-
-          <QSeparator />
-
-          <QHBoxLayout [spacing]="5">
-            <QPushButton
-              text="Save"
-              kind="primary"
-              (clicked)="save()"
-            />
-
-            <QPushButton
-              text="Reset"
-              kind="secondary"
-              (clicked)="reset()"
-            />
-
-            <QPushButton
-              text="Delete"
-              kind="destructive"
-              (clicked)="deleteProfile()"
-            />
-
-          </QHBoxLayout>
-        </QFrame>
-      </QScrollArea>
-
-      <QVBoxLayout
-        [spacing]="10"
-        style="width: 60%;"
-      >
-
-        <QTabWidget>
-          <QTab title="Advanced Settings">
-            <QVBoxLayout [spacing]="10">
-
-              <QLabel
-                text="Developer Options"
-                alignment="center"
-              />
-
-              <QSeparator />
-
-              <QCheckBox
-                label="Enable Developer Mode"
-                [model]="state.devMode"
-                [tristate]="true"
-              />
-
-              <QCheckBox
-                label="Enable Logging"
-                [model]="state.logging"
-              />
-
-              <QSeparator />
-              <QSlider
-                label="Performance Level"
-                [min]="0"
-                [max]="100"
-                [step]="1"
-                [model]="state.perfLevel"
-              />
-            </QVBoxLayout>
-          </QTab>
-
-          <QTab title="Progress">
-            <QVBoxLayout [spacing]="10">
-              <QLabel
-                text="Task Progress"
-                alignment="center"
-              />
-
-              <QSeparator />
-
-              <QProgressBar
-                [minimum]="0"
-                [maximum]="100"
-                [model]="state.perfLevel"
-              />
-
-              <QDateTimeEdit
-                [model]="dateTime"
-                [minimum]="minDate"
-                [maximum]="maxDate"
-                (dateTimeChanged)="onDateTimeChanged($event)"
-              />
-
-              <QDateEdit
-                [model]="date"
-                (dateChanged)="onDateChanged($event)"
-              />
-              
-              <QTimeEdit
-                [model]="date"
-                (timeChanged)="onTimeChanged($event)"
-              />
-            
-              <QTableView
-                [model]="tableModel"
-                [selectionModel]="tableModel.selectionModel"
-                (activated)="onActivated($event)"
-              />
-            </QVBoxLayout>
-          </QTab>
-
-          <QTab title="ButtonsExample">
-
-            <QLabel text="Alinhamento de Texto:" />
-            <QButtonGroup 
-              [exclusive]="true" 
-              (buttonClicked)="onAlignmentChange($event)"
-              (buttonToggled)="onAlignmentToggled($event)"
-            >
-              <QPushButton text="Esquerda" kind="secondary" />
-              <QPushButton text="Centro" kind="secondary" />
-              <QPushButton text="Direita" kind="secondary" />
-              <QPushButton text="Justificar" kind="secondary" />
-            </QButtonGroup>
-
-            <QSeparator />
-
-            <QLabel text="Estilos de Texto:" />
-            <QButtonGroup 
-              [exclusive]="false"
-              (buttonClicked)="onStyleClick($event)"
-            >
-              <QPushButton text="B" kind="secondary" />
-              <QPushButton text="I" kind="secondary" />
-              <QPushButton text="U" kind="secondary" />
-            </QButtonGroup>
   
-            <QColorDialog
-              [model]="state.color"
-              [visible]="state.visible"
-              (accepted)="onAccepted()"
-              (rejected)="onRejected()"
-              (colorSelected)="onColorSelected($event)"
+    <QCentralWidget>
+      <QLabel [text]="toString(screen)" />
+      <QHBoxLayout [spacing]="10">
+        <QScrollArea style="width: 80%;">
+  
+          <QFrame [margin]="5">
+  
+            <QLabel
+            text="User Profile"
+              alignment="center"
+              [size]="20"
             />
-
+              
             <QSeparator />
-
-            <QLabel text="Tamanho:" />
-            <QButtonGroup 
-              #sizeGroup
-              [exclusive]="true"
-            >
-              <QPushButton text="Pequeno" kind="secondary" />
-              <QPushButton text="Médio" kind="secondary" />
-              <QPushButton text="Grande" kind="secondary" />
-            </QButtonGroup>
-
-            <QPushButton 
-              text="Definir Médio" 
-              (clicked)="sizeGroup.setCheckedButton(1)"
+              
+            <QLineEdit
+              placeholder="Full Name"
+              [model]="state.name"
+              [marginTop]="5"
+              [marginBottom]="5"
             />
-
+              
+            <QPushButton
+              (click)="useThread()"
+              text="Run Heavy Task (QThread)"
+            />
+  
+            <QLineEdit
+              placeholder="Email"
+              [model]="state.email"
+              [marginTop]="5"
+              [marginBottom]="5"
+            />
+  
             <QSeparator />
-
-            <QPushButton 
-              text="Toggle color visible" 
-              (clicked)="state.visible.value = !state.visible.value"
+  
+            <QRadioGroup [model]="state.gender">
+  
+              <QRadioButton
+                  label="Male"
+                  value="male"
+              />
+  
+              <QRadioButton
+                label="Female"
+                value="female"
+              />
+  
+              <QRadioButton
+                label="Other"
+                value="other"
+              />
+  
+            </QRadioGroup>
+  
+            <QSeparator />
+  
+            <QCheckBox
+              label="Receive Newsletters"
+              [model]="state.newsletter"
+              [tristate]="true"
             />
-          </QTab>
-        </QTabWidget>
-      </QVBoxLayout>
-    </QHBoxLayout>
-  </QCentralWidget>
+  
+            <QCheckBox
+              label="Receive Newsletters"
+              [model]="state.newsletter"
+            />
+  
+            <QPushButton
+              text="Tela cheia"
+              (clicked)="
+                desktop.toggleFullscreen()
+              "
+            />
+  
+            <QSeparator />
+  
+            <QSpinBox
+              label="Age"
+              [min]="0"
+              [max]="120"
+              [step]="1"
+              [model]="state.age"
+              [marginLeft]="0"
+              [marginRight]="10"
+            />
+  
+            <QSlider
+              label="Volume"
+              [min]="0"
+              [max]="100"
+              [step]="1"
+              [model]="state.volume"
+            />
+  
+            <QSeparator />
+  
+            <QTextEdit
+              placeholder="Bio"
+              [rows]="4"
+              [model]="state.bio"
+            />
+  
+            <QSeparator />
+  
+            <QComboBox
+              label="Theme"
+              [items]="[
+                'Light',
+                'Dark',
+                'System'
+              ]"
+            />
+  
+            <QSeparator />
+  
+            <QHBoxLayout [spacing]="5">
+              <QPushButton
+                text="Save"
+                kind="primary"
+                (clicked)="save()"
+              />
+  
+              <QPushButton
+                text="Reset"
+                kind="secondary"
+                (clicked)="reset()"
+              />
+  
+              <QPushButton
+                text="Delete"
+                kind="destructive"
+                (clicked)="deleteProfile()"
+              />
+  
+            </QHBoxLayout>
+          </QFrame>
+        </QScrollArea>
+  
+        <QVBoxLayout
+          [spacing]="10"
+          style="width: 60%;"
+        >
+  
+          <QTabWidget>
+            <QTab title="Advanced Settings">
+              <QVBoxLayout [spacing]="10">
+  
+                <QLabel
+                  text="Developer Options"
+                  alignment="center"
+                />
+  
+                <QSeparator />
+  
+                <QCheckBox
+                  label="Enable Developer Mode"
+                  [model]="state.devMode"
+                  [tristate]="true"
+                />
+  
+                <QCheckBox
+                  label="Enable Logging"
+                  [model]="state.logging"
+                />
+  
+                <QSeparator />
+                <QSlider
+                  label="Performance Level"
+                  [min]="0"
+                  [max]="100"
+                  [step]="1"
+                  [model]="state.perfLevel"
+                />
+              </QVBoxLayout>
+            </QTab>
+  
+            <QTab title="Progress">
+              <QVBoxLayout [spacing]="10">
+                <QLabel
+                  text="Task Progress"
+                  alignment="center"
+                />
+  
+                <QSeparator />
+  
+                <QProgressBar
+                  [minimum]="0"
+                  [maximum]="100"
+                  [model]="state.perfLevel"
+                />
+  
+                <QDateTimeEdit
+                  [model]="dateTime"
+                  [minimum]="minDate"
+                  [maximum]="maxDate"
+                  (dateTimeChanged)="onDateTimeChanged($event)"
+                />
+  
+                <QDateEdit
+                  [model]="date"
+                  (dateChanged)="onDateChanged($event)"
+                />
+                
+                <QTimeEdit
+                  [model]="date"
+                  (timeChanged)="onTimeChanged($event)"
+                />
+              
+                <QTableView
+                  [model]="tableModel"
+                  [selectionModel]="tableModel.selectionModel"
+                  (activated)="onActivated($event)"
+                />
+              </QVBoxLayout>
+            </QTab>
+  
+            <QTab title="ButtonsExample">
+  
+              <QLabel text="Alinhamento de Texto:" />
+              <QButtonGroup 
+                [exclusive]="true" 
+                (buttonClicked)="onAlignmentChange($event)"
+                (buttonToggled)="onAlignmentToggled($event)"
+              >
+                <QPushButton text="Esquerda" kind="secondary" />
+                <QPushButton text="Centro" kind="secondary" />
+                <QPushButton text="Direita" kind="secondary" />
+                <QPushButton text="Justificar" kind="secondary" />
+              </QButtonGroup>
+  
+              <QSeparator />
+  
+              <QLabel text="Estilos de Texto:" />
+              <QButtonGroup 
+                [exclusive]="false"
+                (buttonClicked)="onStyleClick($event)"
+              >
+                <QPushButton text="B" kind="secondary" />
+                <QPushButton text="I" kind="secondary" />
+                <QPushButton text="U" kind="secondary" />
+              </QButtonGroup>
+    
+              <QColorDialog
+                [model]="state.color"
+                [visible]="state.visible"
+                (accepted)="onAccepted()"
+                (rejected)="onRejected()"
+                (colorSelected)="onColorSelected($event)"
+              />
+  
+              <QSeparator />
+  
+              <QLabel text="Tamanho:" />
+              <QButtonGroup 
+                #sizeGroup
+                [exclusive]="true"
+              >
+                <QPushButton text="Pequeno" kind="secondary" />
+                <QPushButton text="Médio" kind="secondary" />
+                <QPushButton text="Grande" kind="secondary" />
+              </QButtonGroup>
+  
+              <QPushButton 
+                text="Definir Médio" 
+                (clicked)="sizeGroup.setCheckedButton(1)"
+              />
+  
+              <QSeparator />
+  
+              <QPushButton 
+                text="Toggle color visible" 
+                (clicked)="state.visible.value = !state.visible.value"
+              />
+            </QTab>
+          </QTabWidget>
+        </QVBoxLayout>
+      </QHBoxLayout>
+    </QCentralWidget>
+  
+    <QStatusBar>
+      <QLabel text="Ready" />
+      <QLabel text="All changes are autosaved" />
+    </QStatusBar>
+  
+  </QMainWindow>
+  
+-->
+<!-- 
+<QStackedWidget [currentIndex]="tab.value" #stacked>
+  <QStackedWidgetPage>
+    Página 1
+  </QStackedWidgetPage>
+  <QStackedWidgetPage>
+    Página 2
+  </QStackedWidgetPage>
+</QStackedWidget>
 
-  <QStatusBar>
-    <QLabel text="Ready" />
-    <QLabel text="All changes are autosaved" />
-  </QStatusBar>
+<QPushButton
+  (clicked)="tab.value = 0"
+  text="1"
+/>
 
-</QMainWindow>
+<QPushButton
+  (clicked)="tab.value = 1"
+  text="2"
+/> -->
 
+<QFrame>
+  
+  <QToolBox [currentIndex]="0">
+    <QToolBoxItem title="Tools" icon="assets/tools.png">
+      Conteúdo das ferramentas
+    </QToolBoxItem>
+    <QToolBoxItem title="Settings">
+      Configurações aqui
+    </QToolBoxItem>
+  </QToolBox>
+
+</QFrame>

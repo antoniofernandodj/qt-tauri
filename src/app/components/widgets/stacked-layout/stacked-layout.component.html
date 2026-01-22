@@ -1,1 +1,9 @@
-<p>stacked-layout works!</p>
+<div class="qt-stacked-layout" [style]="containerStyle">
+    <div
+      *ngFor="let item of itemsArray; let i = index"
+      class="qt-stacked-layout-item"
+      [hidden]="i !== currentIndex"
+    >
+      <ng-container *ngTemplateOutlet="item.template.first"></ng-container>
+    </div>
+</div>

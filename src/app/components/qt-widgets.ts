@@ -56,7 +56,7 @@ import { TableViewComponent } from './widgets/table-view/table-view.component';
 import { TextBrowserComponent } from './widgets/text-browser/text-browser.component';
 import { TextEditComponent } from './widgets/text-edit/text-edit.component';
 import { ToolBarComponent } from './widgets/tool-bar/tool-bar.component';
-import { ToolBoxComponent } from './widgets/tool-box/tool-box.component';
+import { ToolBoxComponent, ToolBoxItemComponent } from './widgets/tool-box/tool-box.component';
 import { ToolTipComponent } from './widgets/tool-tip/tool-tip.component';
 import { TreeViewComponent } from './widgets/tree-view/tree-view.component';
 import { WizardComponent } from './widgets/wizard/wizard.component';
@@ -65,6 +65,10 @@ import { TimeEditComponent } from './widgets/time-edit/time-edit.component';
 
 
 export const QtWidgets = [
+    StackedLayoutComponent,
+    StackedWidgetComponent,
+    ToolBoxComponent,
+    ToolBoxItemComponent,
     GridLayoutComponent,
     HBoxLayoutComponent,
     VBoxLayoutComponent,
