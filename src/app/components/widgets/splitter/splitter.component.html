@@ -1,1 +1,30 @@
-<p>splitter works!</p>
+<div class="qt-splitter">
+
+    @for (pane of paneArray; track $index) {
+      
+      <!-- Pane -->
+      <div
+        #paneElement
+        class="qt-splitter-pane-wrapper"
+        [style]="getPaneStyle($index)"
+      >
+        <ng-content select="QSplitterPane"></ng-content>
+      </div>
+  
+      <!-- Handle (exceto depois do último pane) -->
+      @if ($index < paneArray.length - 1) {
+        <div
+          #handleElement
+          class="qt-splitter-handle"
+          [class.qt-dragging]="isDragging && currentHandleIndex === $index"
+          [style.width]="orientation === 'horizontal' ? handleSize : '100%'"
+          [style.height]="orientation === 'vertical' ? handleSize : '100%'"
+          (mousedown)="onHandleMouseDown($event, $index)"
+        >
+          <div class="qt-splitter-handle-grip"></div>
+        </div>
+      }
+  
+    }
+  
+  </div>

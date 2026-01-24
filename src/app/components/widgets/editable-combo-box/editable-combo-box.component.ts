@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './editable-combo-box.component.html',
   styleUrl: './editable-combo-box.component.css'
 })
-export class EditableComboBoxComponent {
-
-}
+export class EditableComboBoxComponent { }

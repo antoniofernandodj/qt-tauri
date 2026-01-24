@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 /bazel-out
+*.keystore
+node_modules/
 
 # Node
 /node_modules

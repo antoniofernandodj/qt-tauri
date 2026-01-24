@@ -1,0 +1,26 @@
+:host {
+    display: inline-block;
+    user-select: none;
+  }
+  
+  .qt-drag-container {
+    cursor: grab;
+    transition: all var(--transition-fast);
+    border-radius: var(--radius-md);
+  }
+  
+  .qt-drag-container:hover:not(.qt-disabled) {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .qt-drag-container.qt-dragging {
+    cursor: grabbing;
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  
+  .qt-drag-container.qt-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }

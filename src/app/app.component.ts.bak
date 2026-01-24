@@ -241,15 +241,74 @@ export class AppComponent implements OnInit {
   dateTime = new QProperty<Date>(new Date());
   minDate = new Date(2024, 0, 1, 0, 0);   // 01/01/2024 00:00
   maxDate = new Date(2026, 11, 31, 23, 59); // 31/12/2026 23:59
-
-  separator = new Separator()
   
   tab = new QProperty(0);
+
+  tableModel = new SimpleTableModel<User>(
+    [
+      { id: 1, name: 'Alice', email: 'alice@mail.com', age: 28 },
+      { id: 2, name: 'Bob', email: 'bob@mail.com', age: 35 },
+      { id: 3, name: 'Carol', email: 'carol@mail.com', age: 22 },
+    ],
+    ['id', 'name', 'email', 'age']
+  );
+
+  tabs: TabItem[] = [
+    { title: 'Geral', component: GeralComponent },
+    { title: 'Detalhes', component: DetalhesComponent }
+  ];
+
+  // Dados para exemplo de IDE
+  files = [
+    { name: 'app.component.ts', icon: '📄' },
+    { name: 'styles.css', icon: '🎨' },
+    { name: 'package.json', icon: '📦' }
+  ];
+  
+  selectedFile = this.files[0];
+  terminalOutput = [
+    '$ npm install',
+    'Installing dependencies...',
+    'Done!',
+    '$ npm start',
+    'Server running on http://localhost:4200'
+  ];
+  separator = new Separator();
 
   newAction = new Action({
     text: 'New',
     handler: () => console.log('New clicked'),
     icon: 'assets/new.png'
+  });
+
+  openAction = new Action({
+    text: 'Open',
+    handler: () => console.log('Open clicked'),
+    icon: 'assets/open.png'
+  });
+
+  saveAction = new Action({
+    text: 'Save',
+    handler: () => this.save(),
+    icon: 'assets/save.png'
+  });
+
+  exitAction = new Action({
+    text: 'Exit',
+    handler: () => console.log('Exit clicked'),
+    icon: 'assets/exit.png'
+  });
+
+  boldAction = new Action({
+    text: 'Bold',
+    checkable: true,
+    handler: () => console.log('Bold toggled')
+  });
+
+  italicAction = new Action({
+    text: 'Italic',
+    checkable: true,
+    handler: () => console.log('Italic toggled')
   });
 
   ngOnInit() {
@@ -258,8 +317,6 @@ export class AppComponent implements OnInit {
       this.screen = geom;
     });
   }
-
-  async void0() { }
 
   async save() {
     console.log('Form saved', this.state);
@@ -273,5 +330,102 @@ export class AppComponent implements OnInit {
   }
 
   reset() { this.state.reset() }
+
+  onActivate() {}
+
+  useThread() {
+    this.thread.start(300_000_000, (result) => {
+      console.log('Thread finished with result:', result);
+    });
+  }
+
+  toString(screen: { width: number, height: number }) {
+    return `(${screen.width}, ${screen.height})`
+  }
+
+  onButtonClick(event: any) {
+
+  }
+
+  onAlignmentChange(buttonId: number): void {
+    console.log('Botão clicado:', buttonId);
+  }
+
+  onAlignmentToggled(event: { id: number; checked: boolean }): void {
+    console.log('Botão toggled:', event);
+  }
+
+  onStyleClick(buttonId: number): void {
+    console.log('Estilo clicado:', buttonId);
+  } 
+
+  setMediumSize(): void {
+    this.sizeGroup.setCheckedButton(1); // Seleciona o segundo botão (índice 1)
+  }
+
+  getCurrentAlignment(): number | null {
+    return this.sizeGroup.checkedButton();
+  }
+
+  onAccepted() {
+    console.log('Color selected:', this.state.color.value)
+  }
+
+  onRejected() {
+    this.state.color.value = ''
+  }
+
+  onDateTimeChanged(e: any) {
+    console.log(e)
+  }
+
+  onDateChanged(e: any) {
+    console.log(e)
+  }
+
+  onTimeChanged(e: any) {
+    console.log(e)
+  }
+
+  onColorSelected(color: string) {
+    this.state.color.value = color
+  }
+
+  onActivated(index: QModelIndex) {
+    console.log('Activated:', index);
+    console.log(
+      'Value:',
+      this.tableModel.data(index.row, index.column)
+    );
+  }
+
+  droppedItems: string[] = [];
+  
+  onDragStart(event: DragStartEvent): void {
+    console.log('Drag started:', event.data);
+  }
+  
+  onDragEnd(): void {
+    console.log('Drag ended');
+  }
+  
+  onDrop(event: DropEvent): void {
+    console.log('Dropped:', event);
+    this.droppedItems.push(
+      `${event.data.type}: ${JSON.stringify(event.data.data)}`
+    );
+  }
+  
+  onTextDrop(event: DropEvent): void {
+    console.log('Text dropped:', event.data.data);
+  }
+  
+  onImageDrop(event: DropEvent): void {
+    console.log('Image dropped:', event.data.data);
+  }
+
+  selectFile(file: any): void {
+    this.selectedFile = file;
+  }
 
 }

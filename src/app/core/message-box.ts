@@ -39,16 +39,8 @@ export class QMessageBox {
 
     return new Promise(resolve => {
 
-      /* =========================
-         Create host element
-         ========================= */
-
       const host = document.createElement('div');
       document.body.appendChild(host);
-
-      /* =========================
-         Create component
-         ========================= */
 
       const ref = createComponent(MessageBoxComponent, {
         environmentInjector: this.injector,
@@ -57,15 +49,7 @@ export class QMessageBox {
 
       ref.instance.options = options;
 
-      /* =========================
-         Attach to app
-         ========================= */
-
       this.appRef.attachView(ref.hostView);
-
-      /* =========================
-         Handle close
-         ========================= */
 
       ref.instance.closed.subscribe(result => {
         resolve(result);
@@ -78,35 +62,31 @@ export class QMessageBox {
     });
   }
 
-  /* =========================
-     Public API
-     ========================= */
-
-  information(title: string, text: string): Promise<void> {
-    return this.show({
+  async information(title: string, text: string): Promise<void> {
+    await this.show({
       title,
       text,
       type: 'information',
       buttons: ['ok']
-    }).then(() => {});
+    });
   }
 
-  warning(title: string, text: string): Promise<void> {
-    return this.show({
+  async warning(title: string, text: string): Promise<void> {
+    await this.show({
       title,
       text,
       type: 'warning',
       buttons: ['ok']
-    }).then(() => {});
+    });
   }
 
-  critical(title: string, text: string): Promise<void> {
-    return this.show({
+  async critical(title: string, text: string): Promise<void> {
+    await this.show({
       title,
       text,
       type: 'critical',
       buttons: ['ok']
-    }).then(() => {});
+    });
   }
 
   async question(

@@ -1,0 +1,49 @@
+.sidebar,
+.main-content,
+.header-pane,
+.content-pane,
+.footer-pane,
+.file-explorer,
+.editor,
+.terminal,
+.properties {
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.file-explorer ul,
+.properties ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.file-explorer li,
+.properties li {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.file-explorer li:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.editor pre {
+  background-color: var(--color-bg-secondary);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.terminal {
+  background-color: #1e1e1e;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+}
+
+.terminal p {
+  margin: 4px 0;
+}
