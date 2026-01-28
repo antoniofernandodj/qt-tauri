@@ -9,9 +9,10 @@ export type ButtonKind = 'primary' | 'secondary' | 'ghost' | 'destructive' | 'su
   styleUrls: ['./push-button.component.css']
 })
 export class PushButtonComponent {
-  @Input() text = '';
+  @Input() text: string = '';
   @Input() kind: ButtonKind = 'primary';
   @Input() disabled = false;
+  @Input() spacing: number = 2;
   @Output() clicked = new EventEmitter<MouseEvent>();
 
   // Estados visuais

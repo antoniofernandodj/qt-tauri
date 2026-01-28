@@ -13,20 +13,24 @@ import { QProperty } from '../../../core/property';
 })
 export class SpinBoxComponent {
 
-  @Input({ required: true })
-  model!: QProperty<number>;
-
+  
   @Input()
   min = 0;
+
+  @Input()
+  startValue = 0;
 
   @Input()
   max = 100;
 
   @Input()
   step = 1;
-
+  
   @Input()
   disabled = false;
+  
+  @Input({ required: false })
+  model: QProperty<number> = new QProperty(this.startValue);
 
   @Input()
   marginLeft: string | number = '0';

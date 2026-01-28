@@ -65,7 +65,7 @@
   max-height: 240px;
   overflow-y: auto;
   
-  animation: slideDown 0.15s ease-out;
+  animation: slideDown 0.17s ease-out;
 }
 
 @keyframes slideDown {

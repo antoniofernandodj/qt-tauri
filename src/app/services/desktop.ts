@@ -68,14 +68,6 @@ export class DesktopWidgetService {
     return !!document.fullscreenElement;
   }
 
-  toggleFullscreen(): void {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  }
-
   mousePosition(): Observable<{ x: number; y: number }> {
     return new Observable(subscriber => {
       const handler = (event: MouseEvent) => subscriber.next({ x: event.clientX, y: event.clientY });

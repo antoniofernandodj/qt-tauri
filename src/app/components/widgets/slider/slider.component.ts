@@ -21,8 +21,8 @@ export class SliderComponent {
      Qt-like API
      ========================= */
 
-  @Input({ required: true })
-  model!: QProperty<number>;
+  @Input({ required: false })
+  model: QProperty<number> = new QProperty(0);
 
   @Input() min = 0;
   @Input() max = 100;

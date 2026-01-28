@@ -4,6 +4,7 @@
   [class.pressed]="isPressed"
   [class.qt-checked]="isChecked"
   [disabled]="disabled"
+  [style.margin]="spacing + 'px'"
   (click)="onClick($event)"
   (mouseenter)="isHover = true"
   (mouseleave)="isHover = false; isPressed = false"

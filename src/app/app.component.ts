@@ -73,6 +73,7 @@ import { Separator } from './core/separator';
 import { CommonModule } from '@angular/common';
 import { QItemSelectionModel, QModelIndex, SimpleTableModel } from './core/qtable-model';
 import { User } from './user';
+import { SafeAreaComponent } from './components/widgets/safe-area/safe-area.component';
 // import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
 
 
@@ -181,6 +182,7 @@ export class DetalhesComponent {}
     SplitterComponent,
     // checar depois
   
+    SafeAreaComponent,
     GridLayoutComponent,
     StackedWidgetPageComponent,
     TableViewComponent,
@@ -225,6 +227,11 @@ export class DetalhesComponent {}
 })
 export class AppComponent implements OnInit {
 
+
+  qProperty(item: any) {
+    return new QProperty(item)
+  }
+
   @ViewChild('sizeGroup') sizeGroup!: ButtonGroupComponent;
 
   screen = { width: 0, height: 0 };
@@ -260,6 +267,7 @@ export class AppComponent implements OnInit {
   }
 
   async void0() { }
+  async void(e: any) {}
 
   async save() {
     console.log('Form saved', this.state);

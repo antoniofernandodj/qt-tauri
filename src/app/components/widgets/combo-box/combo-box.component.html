@@ -1,4 +1,11 @@
-<div class="qt-combobox" [class.qt-disabled]="disabled">
+<div
+  class="qt-combobox"
+  [class.qt-disabled]="disabled + 'px'"
+  [style.margin-top]="marginTop + 'px'"
+  [style.margin-bottom]="marginBottom + 'px'"
+  [style.margin-left]="marginLeft + 'px'"
+  [style.margin-right]="marginRight + 'px'"
+>
 
   <div class="qt-combobox-field" (click)="toggle()">
     <span class="qt-combobox-text">

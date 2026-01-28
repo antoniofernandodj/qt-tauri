@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  HostBinding,
   Input,
   forwardRef
 } from '@angular/core';
@@ -24,10 +25,27 @@ import {
 })
 export class ComboBoxComponent implements ControlValueAccessor {
 
-  @Input() items: string[] = [];
-  @Input() disabled = false;
+  @Input()
+  items: string[] = [];
+
+  @Input()
+  disabled = false;
 
   open = false;
+
+  @Input()
+  marginTop: number = 1;
+
+  @Input()
+  marginBottom: number = 1;
+
+  @Input()
+  marginLeft: number = 1;
+
+  @Input()
+  marginRight: number = 1;
+
+  @Input()
   currentIndex = -1;
 
   private onChange = (_: any) => {};
@@ -80,5 +98,10 @@ export class ComboBoxComponent implements ControlValueAccessor {
     return this.currentIndex >= 0
       ? this.items[this.currentIndex]
       : '';
+  }
+
+  @HostBinding('class.qt-disabled')
+  get isDisabled(): boolean {
+    return this.disabled;
   }
 }

@@ -9,8 +9,8 @@ import { QProperty } from '../../../core/property';
 })
 export class TextEditComponent {
 
-  @Input({ required: true })
-  model!: QProperty<string>;
+  @Input({ required: false })
+  model: QProperty<string> = new QProperty('');
 
   @Input() placeholder = '';
   @Input() disabled = false;

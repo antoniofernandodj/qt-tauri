@@ -19,8 +19,8 @@ export class RadioGroupComponent implements AfterContentInit {
      Qt-like binding
      ========================= */
 
-  @Input({ required: true })
-  model!: QProperty<any>;
+  @Input({ required: false })
+  model: QProperty<any> = new QProperty('RadioGroup');
 
   @Input() disabled = false;
 
@@ -30,7 +30,6 @@ export class RadioGroupComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this.radios.forEach(radio => {
       radio.registerGroup(this);
-      radio.disabled = this.disabled;
     });
 
     this.syncState();

@@ -13,8 +13,12 @@ export class LineEditComponent {
      Qt-like binding
      ========================= */
 
-  @Input({ required: true })
-  model!: QProperty<string>;
+  @Input()
+  startValue: string = ''
+
+  @Input({ required: false })
+  model: QProperty<string> = new QProperty(this.startValue);
+
 
   /* =========================
      Configuration

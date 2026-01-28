@@ -15,15 +15,27 @@ import { RadioGroupComponent } from '../radio-group/radio-group.component';
 })
 export class RadioButtonComponent {
 
-  @Input() label: string = '';
-  @Input() value: any = null;
-  @Input() disabled: boolean = false;
+  @Input()
+  label: string = '';
 
-  @Output() clicked = new EventEmitter<void>();
-  @Output() toggled = new EventEmitter<boolean>();
+  @Input()
+  value: any = null;
+
+  @Input()
+  disabled: boolean = false;
+
+  @Output()
+  clicked = new EventEmitter<void>();
+
+  @Output()
+  toggled = new EventEmitter<boolean>();
 
   checked = false;
   private group?: RadioGroupComponent;
+
+  get effectiveDisabled(): boolean {
+    return this.disabled || !!this.group?.disabled;
+  }
 
   registerGroup(group: RadioGroupComponent): void {
     this.group = group;
@@ -34,19 +46,22 @@ export class RadioButtonComponent {
   }
 
   onClick(): void {
-    if (this.disabled || this.checked || !this.group) {
-      return;
-    }
+    console.log(JSON.stringify({'this.effectiveDisabled': this.effectiveDisabled}));
+
+    if (this.effectiveDisabled) return;
+    if (this.checked) return;
+    if (!this.group) return;
 
     this.group.select(this.value);
 
     this.clicked.emit();
     this.toggled.emit(true);
+    alert(JSON.stringify(this.disabled))
   }
 
   @HostBinding('class.qt-disabled')
   get isDisabled(): boolean {
-    return this.disabled;
+    return this.effectiveDisabled;
   }
 
   @HostBinding('class.qt-checked')

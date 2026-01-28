@@ -1,6 +1,5 @@
- 
-
-  <QMainWindow>
+<!---
+<QMainWindow>
   
     <QMenuBar>
       <QMenu
@@ -26,12 +25,12 @@
   
     <QCentralWidget>
       <QHBoxLayout [spacing]="10">
-        <QScrollArea style="width: 80%;">
+        <QScrollArea style="width: 100%;">
   
           <QFrame [margin]="5">
   
             <QLabel
-            text="User Profile"
+              text="User Profile"
               alignment="center"
               [size]="20"
             />
@@ -84,13 +83,6 @@
             <QCheckBox
               label="Receive Newsletters"
               [model]="state.newsletter"
-            />
-  
-            <QPushButton
-              text="Tela cheia"
-              (clicked)="
-                desktop.toggleFullscreen()
-              "
             />
   
             <QSeparator />
@@ -157,184 +149,210 @@
           </QFrame>
         </QScrollArea>
   
-        <QVBoxLayout
-          [spacing]="10"
-          style="width: 60%;"
-        >
-  
-          <QTabWidget>
-            <QTab title="Advanced Settings">
-              <QVBoxLayout [spacing]="10">
-  
-                <QLabel
-                  text="Developer Options"
-                  alignment="center"
-                />
-  
-                <QSeparator />
-  
-                <QCheckBox
-                  label="Enable Developer Mode"
-                  [model]="state.devMode"
-                  [tristate]="true"
-                />
-  
-                <QCheckBox
-                  label="Enable Logging"
-                  [model]="state.logging"
-                />
-  
-                <QSeparator />
-                <QSlider
-                  label="Performance Level"
-                  [min]="0"
-                  [max]="100"
-                  [step]="1"
-                  [model]="state.perfLevel"
-                />
-              </QVBoxLayout>
-            </QTab>
-  
-            <QTab title="Progress">
-              <QVBoxLayout [spacing]="10">
-                <QLabel
-                  text="Task Progress"
-                  alignment="center"
-                />
-  
-                <QSeparator />
-  
-                <QProgressBar
-                  [minimum]="0"
-                  [maximum]="100"
-                  [model]="state.perfLevel"
-                />
-  
-                <QDateTimeEdit
-                  [model]="dateTime"
-                  [minimum]="minDate"
-                  [maximum]="maxDate"
-                  (dateTimeChanged)="void($event)"
-                />
-  
-                <QDateEdit
-                  [model]="date"
-                  (dateChanged)="void($event)"
-                />
-                
-                <QTimeEdit
-                  [model]="date"
-                  (timeChanged)="void($event)"
-                />
-              
-              </QVBoxLayout>
-            </QTab>
-  
-            <QTab title="ButtonsExample">
-  
-              <QLabel text="Alinhamento de Texto:" />
-              <QButtonGroup 
-                [exclusive]="true" 
-                (buttonClicked)="void($event)"
-                (buttonToggled)="void($event)"
-              >
-                <QPushButton text="Esquerda" kind="secondary" />
-                <QPushButton text="Centro" kind="secondary" />
-                <QPushButton text="Direita" kind="secondary" />
-                <QPushButton text="Justificar" kind="secondary" />
-              </QButtonGroup>
-  
-              <QSeparator />
-  
-              <QLabel text="Estilos de Texto:" />
-              <QButtonGroup 
-                [exclusive]="false"
-                (buttonClicked)="void($event)"
-              >
-                <QPushButton text="B" kind="secondary" />
-                <QPushButton text="I" kind="secondary" />
-                <QPushButton text="U" kind="secondary" />
-              </QButtonGroup>
-    
-              <QColorDialog
-                [model]="state.color"
-                [visible]="state.visible"
-                (accepted)="void0()"
-                (rejected)="void0()"
-                (colorSelected)="void($event)"
-              />
-  
-              <QSeparator />
-  
-              <QLabel text="Tamanho:" />
-              <QButtonGroup 
-                #sizeGroup
-                [exclusive]="true"
-              >
-                <QPushButton text="Pequeno" kind="secondary" />
-                <QPushButton text="Médio" kind="secondary" />
-                <QPushButton text="Grande" kind="secondary" />
-              </QButtonGroup>
-  
-              <QPushButton 
-                text="Definir Médio" 
-                (clicked)="sizeGroup.setCheckedButton(1)"
-              />
-  
-              <QSeparator />
-  
-              <QPushButton 
-                text="Toggle color visible" 
-                (clicked)="state.visible.value = !state.visible.value"
-              />
-            </QTab>
-
-  
-            <QTab title="StackedWidget">
-
-              <QStackedWidget [currentIndex]="tab.value" #stacked>
-                <QStackedWidgetPage>
-                  Página 1
-                </QStackedWidgetPage>
-                <QStackedWidgetPage>
-                  Página 2
-                </QStackedWidgetPage>
-              </QStackedWidget>
-              
-              <QPushButton
-                (clicked)="tab.value = 0"
-                text="1"
-              />
-              
-              <QPushButton
-                (clicked)="tab.value = 1"
-                text="2"
-              />
-              
-              <QFrame>
-                
-                <QToolBox [currentIndex]="0">
-                  <QToolBoxItem title="Tools" icon="assets/tools.png">
-                    Conteúdo das ferramentas
-                  </QToolBoxItem>
-                  <QToolBoxItem title="Settings">
-                    Configurações aqui
-                  </QToolBoxItem>
-                </QToolBox>
-
-              </QFrame>
-
-            </QTab>
-          </QTabWidget>
-        </QVBoxLayout>
       </QHBoxLayout>
+      
     </QCentralWidget>
   
     <QStatusBar>
       <QLabel text="Ready" />
-      <QLabel text="All changes are autosaved" />
     </QStatusBar>
-
-
   
-  </QMainWindow>
+</QMainWindow>
+-->
+
+<QHBoxLayout [align]="'center'">
+
+  <QVBoxLayout>
+    <QLabel [text]="'Buttons'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QHBoxLayout [align]="'between'" [spacing]="20">
+        <QPushButton [text]="'Explicit width'" />
+        <QPushButton [text]="'Highlighted'" />
+        <QPushButton [text]="'Checkable'" />
+      </QHBoxLayout>
+      <QPushButton [text]="'Default'" />
+      <QPushButton [text]="'Disabled'" />
+      <QPushButton [text]="'Explicit height'" />
+    </QFrame>
+  </QVBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'Sliders'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QSlider
+        [min]="0"
+        [max]="100"
+        [step]="1"
+        [orientation]="'horizontal'"
+        [disabled]="false"
+      />
+      <QSlider
+        [min]="0"
+        [max]="100"
+        [step]="1"
+        [orientation]="'vertical'"
+        [disabled]="false"
+      />
+    </QFrame>
+  </QVBoxLayout>
+
+
+
+</QHBoxLayout>
+
+
+<QHBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'Radio Buttons'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QHBoxLayout [align]="'between'" [spacing]="20">
+        <QRadioGroup>
+          <QRadioButton [label]="'Default'" [value]="'v1'" />
+          <QRadioButton [label]="'Default'" [value]="'v2'" />
+          <QRadioButton [label]="'Default'" [value]="'v3'" />
+        </QRadioGroup>
+        <QRadioGroup>
+          <QRadioButton [label]="'Disabled'" [value]="'v1'" [disabled]="true" />
+          <QRadioButton [label]="'Disabled'" [value]="'v2'" [disabled]="true" />
+          <QRadioButton [label]="'Disabled'" [value]="'v3'" [disabled]="true" />
+        </QRadioGroup>
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'Checkboxes'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QVBoxLayout>
+        <QCheckBox [label]="'Default'" />
+        <QCheckBox [label]="'Disabled'" [disabled]="true" />
+        <QCheckBox [label]="'Tristate'" [tristate]="true" />
+      </QVBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'SpinBoxes'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QVBoxLayout>
+        <QSpinBox [min]="0" [max]="1000" [step]="1" [startValue]="500" />
+        <QSpinBox [min]="0" [max]="1000" [step]="1" [disabled]="true" />
+      </QVBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'ComboBoxes'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QVBoxLayout>
+
+        <QComboBox
+          [items]="['Default', 'Disabled']"
+          [currentIndex]="0"
+          [marginTop]="3"
+          [marginBottom]="3"
+        />
+
+        <QComboBox
+          [items]="['Default', 'Disabled']"
+          [disabled]="true"
+          [currentIndex]="1"
+          [marginTop]="3"
+          [marginBottom]="3"
+        />
+
+        <QComboBox
+          [items]="['Default', 'Disabled']"
+          [currentIndex]="0"
+          [marginTop]="3"
+          [marginBottom]="3"
+        />
+
+        <QComboBox
+          [items]="['Default', 'Disabled']"
+          [disabled]="true"
+          [currentIndex]="1"
+          [marginTop]="3"
+          [marginBottom]="3"
+        />
+
+      </QVBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+
+</QHBoxLayout>
+
+<QHBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'TextFields'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QVBoxLayout>
+
+        <QLineEdit
+          [placeholder]="'Text here...'"
+          [startValue]="'Default'"
+        />
+
+        <QLineEdit
+          [placeholder]="'Text here...'"
+          [startValue]="'Focused'"
+        />
+
+        <QLineEdit
+          [placeholder]="'Text here...'"
+          [startValue]="'Disabled'"
+          [disabled]="true"
+        />
+
+        <QLineEdit
+          [placeholder]="'Placeholder text...'"
+          [startValue]="''"
+        />
+
+      </QVBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+
+  <QVBoxLayout>
+    <QLabel [text]="'TextAreas'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QHBoxLayout>
+        <QScrollArea>
+
+          <QTextEdit
+            [placeholder]="'Text here...'"
+          />
+        </QScrollArea>
+
+        <QFrame>
+          <QScrollArea>
+            <QTextEdit
+              [placeholder]="'Text here...'"
+            />
+          </QScrollArea>
+        </QFrame>
+
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+</QHBoxLayout>
+
+
+<QHBoxLayout>
+
+  <QVBoxLayout>
+    <QLabel [text]="'ProgressBars'" [size]="15"/>
+    <QFrame [margin]="25">
+      <QHBoxLayout [width]="700" [height]="100" [align]="'center'">
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(50)" />
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(0)" />
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(100)" />
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+</QHBoxLayout>

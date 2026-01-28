@@ -20,8 +20,8 @@ export class CheckBoxComponent {
   @Input() tristate = false;
 
   /** Qt-like binding */
-  @Input({ required: true })
-  model!: QProperty<boolean | null>;
+  @Input({ required: false })
+  model: QProperty<boolean | null> = new QProperty(false)
 
   /* =========================
      State mapping
