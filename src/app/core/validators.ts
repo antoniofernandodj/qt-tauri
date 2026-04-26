@@ -12,7 +12,7 @@ export interface ValidationState<T = any> {
 
 export const Validators = {
   required: <T>(value: T) => 
-    (value === null || value === undefined || value === '') ? 'Obrigatório' : null,
+    (value === null || value === undefined || String(value).trim() === '') ? 'Obrigatório' : null,
 
   minLength: (min: number): ValidatorFn<string> => 
     (value) => (value?.length < min ? `Mínimo ${min} caracteres` : null),
