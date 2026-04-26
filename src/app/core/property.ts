@@ -1,4 +1,6 @@
-import { signal, WritableSignal } from "@angular/core";
+import { effect, signal, WritableSignal } from "@angular/core";
+import { Observable } from "rxjs/internal/Observable";
+import { ValidatorFn, ValidationState } from "./validators";
 
 /**
  * @class QProperty
@@ -29,7 +31,7 @@ import { signal, WritableSignal } from "@angular/core";
  * <QSpinBox [model]="age" />
  * ```
  */
-export class QProperty<T> {
+export class QPropertyBase<T> {
 
   private readonly _signal: WritableSignal<T>;
   private readonly _initial: T;
@@ -53,5 +55,86 @@ export class QProperty<T> {
 
   asSignal() {
     return this._signal;
+  }
+
+  get changes(): Observable<T> {
+    return new Observable(observer => {
+      const e = effect(() => observer.next(this.value));
+      return () => e.destroy();
+    });
+  }
+  
+}
+
+
+// B. Adicionar suporte a propriedades computadas
+class QComputed<T> {
+  constructor(private readonly _compute: () => T) {}
+  get value(): T { return this._compute(); }
+  // C. Adicionar operador de mudança (change$) para integração com RxJS se necessário
+  get changes(): Observable<T> {
+    return new Observable(observer => {
+      const e = effect(() => observer.next(this.value));
+      return () => e.destroy();
+    });
+  }
+}
+
+
+
+
+
+
+export class QProperty<T> extends QPropertyBase<T> {
+  private _validators: ValidatorFn<T>[] = [];
+  private _errors: string[] = [];
+  private _isTouched = false;
+  private _isDirty = false;
+
+  constructor(initial: T, validators: ValidatorFn<T>[] = []) {
+    super(initial);
+    this._validators = validators;
+    this._validate(); // Valida o valor inicial
+  }
+
+  override get value(): T {
+    return super.value;
+  }
+
+  override set value(v: T) {
+    const old = this.value;
+    super.value = v;
+    this._isDirty = v !== old;
+    this._validate();
+  }
+
+  markAsTouched(): void { this._isTouched = true; }
+
+  private _validate(): void {
+    const error = this._validators
+      .map(fn => fn(this.value))
+      .filter((msg): msg is string => msg !== null);
+    
+    this._errors = error;
+  }
+
+  get validation(): ValidationState<T> {
+    return {
+      errors: this._errors,
+      isValid: this._errors.length === 0,
+      isDirty: this._isDirty,
+      isTouched: this._isTouched
+    };
+  }
+
+  get error(): string | null {
+    return this._errors[0] ?? null;
+  }
+
+  override reset(): void {
+    super.reset();
+    this._isDirty = false;
+    this._isTouched = false;
+    this._validate();
   }
 }

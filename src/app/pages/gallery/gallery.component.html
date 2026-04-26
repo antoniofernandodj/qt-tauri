@@ -161,4 +161,42 @@
     </QFrame>
   </QVBoxLayout>
 
+  <!-- Row 6: QProperty Validators -->
+  <QVBoxLayout [spacing]="4">
+    <QLabel [text]="'QProperty — Validators'" [size]="13"/>
+    <QFrame [margin]="12">
+      <QHBoxLayout [spacing]="16" [align]="'start'">
+
+        <QVBoxLayout [spacing]="6" [flex]="1">
+          <QLabel [text]="'Usuário (obrigatório, mín. 3 chars)'" />
+          <QLineEdit [model]="loginForm.username" [placeholder]="'Digite o usuário...'" />
+          @if (loginForm.username.validation.isTouched && loginForm.username.error) {
+            <QErrorMessage [message]="loginForm.username.error" />
+          }
+
+          <QLabel [text]="'Email (obrigatório, formato válido)'" />
+          <QLineEdit [model]="loginForm.email" [placeholder]="'email@exemplo.com'" />
+          @if (loginForm.email.validation.isTouched && loginForm.email.error) {
+            <QErrorMessage [message]="loginForm.email.error" />
+          }
+
+          <QHBoxLayout [spacing]="6">
+            <QPushButton [text]="'Enviar'" [kind]="loginForm.isValid ? 'primary' : 'secondary'" (clicked)="submitForm()" />
+            <QPushButton [text]="'Reset'" (clicked)="resetForm()" />
+          </QHBoxLayout>
+        </QVBoxLayout>
+
+        <QVBoxLayout [spacing]="4" [flex]="1">
+          <QLabel [text]="'Estado — loginForm'" />
+          <QLabel [text]="'isValid: ' + loginForm.isValid" />
+          <QLabel [text]="'username.isDirty: ' + loginForm.username.validation.isDirty" />
+          <QLabel [text]="'username.isTouched: ' + loginForm.username.validation.isTouched" />
+          <QLabel [text]="'username.error: ' + (loginForm.username.error ?? '—')" />
+          <QLabel [text]="'email.error: ' + (loginForm.email.error ?? '—')" />
+        </QVBoxLayout>
+
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
 </QVBoxLayout>

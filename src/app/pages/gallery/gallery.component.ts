@@ -65,9 +65,16 @@ import { SafeAreaComponent } from '../../components/widgets/safe-area/safe-area.
 import { Component, OnInit } from '@angular/core';
 import { QMessageBox } from '../../core/message-box';
 import { QProperty } from '../../core/property';
+import { QObjectState } from '../../core/qobjectState';
+import { Validators } from '../../core/validators';
 import { CommonModule } from '@angular/common';
 import { invoke } from '@tauri-apps/api/core';
 import { RouterLink } from '@angular/router';
+
+class LoginFormState extends QObjectState {
+  username = new QProperty('', [Validators.required, Validators.minLength(3)]);
+  email    = new QProperty('', [Validators.required, Validators.email]);
+}
 
 @Component({
   selector: 'app-gallery',
@@ -108,6 +115,11 @@ export class GalleryComponent implements OnInit {
   stacked: string | null = null;
   number = new QProperty('0');
   op: string | null = null;
+
+  loginForm = new LoginFormState();
+
+  submitForm(): void { this.loginForm.markAllAsTouched(); }
+  resetForm(): void  { this.loginForm.reset(); }
 
   async calc(v: number) {
     if (this.number.value === '0') { this.number.value = v.toString(); return; }

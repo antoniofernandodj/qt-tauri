@@ -108,6 +108,8 @@ export class LineEditComponent {
   }
 
   onBlur(): void {
+    this.model.markAsTouched();
+
     if (this.validator && !this.validator(this.model.value)) {
       this.invalid = true;
       return;

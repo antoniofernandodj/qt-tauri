@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'QErrorMessage',
   standalone: true,
-  imports: [],
   templateUrl: './error-message.component.html',
   styleUrl: './error-message.component.css'
 })
 export class ErrorMessageComponent {
-
+  @Input() message: string | null = null;
 }

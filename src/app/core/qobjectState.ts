@@ -52,8 +52,26 @@ export class QObjectState {
     reset(): void {
       this.forEachProperty(p => p.reset());
     }
-  
+
     toObject(): Record<string, unknown> {
       return this.mapProperties(p => p.value);
+    }
+
+    get isValid(): boolean {
+      let valid = true;
+      this.forEachProperty(p => { if (!p.validation.isValid) valid = false; });
+      return valid;
+    }
+
+    markAllAsTouched(): void {
+      this.forEachProperty(p => p.markAsTouched());
+    }
+
+    errors(): Record<string, string | null> {
+      const out: Record<string, string | null> = {};
+      Object.entries(this).forEach(([key, v]) => {
+        if (v instanceof QProperty) out[key] = v.error;
+      });
+      return out;
     }
   }

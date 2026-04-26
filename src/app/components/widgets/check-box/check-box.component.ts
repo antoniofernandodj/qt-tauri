@@ -50,7 +50,7 @@ export class CheckBoxComponent {
 
   /** Qt-like binding */
   @Input({ required: false })
-  model: QProperty<boolean | null> = new QProperty(false)
+  model: QProperty<boolean | null> = new QProperty<boolean | null>(false)
 
   /* =========================
      State mapping
