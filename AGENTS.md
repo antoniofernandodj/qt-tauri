@@ -41,7 +41,7 @@ make copy
 
 **`core/`** — framework primitives:
 - `QProperty<T>` — wraps Angular `signal()` with a `.value` getter/setter and `reset()`. The reactive primitive used by all widget inputs.
-- `QObjectState` — base class for grouped state. Subclass it and declare fields as `QProperty` instances; `reset()` and `toObject()` iterate them automatically.
+- `QObjectState` — `@Injectable()` base class for grouped state. Subclass it, declare fields as `QProperty` instances, and register via `providers: [MyState]` at the component level; `inject(MyState)` returns the scoped instance. Provides `reset()`, `toObject()`, `isValid`, `markAllAsTouched()`, and `errors()`.
 - `QThread` — thin wrapper around Web Workers (`heavy.worker.ts`) for offloading expensive work.
 - `QTableModel` / `QItemSelectionModel` / `QModelIndex` — Qt-style table model abstraction used by `TableViewComponent`.
 - `QMessageBox` — injectable service for `information`/`question`/`warning` dialogs.

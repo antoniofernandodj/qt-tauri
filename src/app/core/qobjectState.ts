@@ -1,3 +1,4 @@
+import { Injectable } from "@angular/core";
 import { QProperty } from "./property";
 
 /**
@@ -16,16 +17,27 @@ import { QProperty } from "./property";
  *
  * @usage
  * ```ts
+ * // 1. Declare the state class — @Injectable() is inherited from QObjectState
  * class MyState extends QObjectState {
  *   name = new QProperty('');
- *   age = new QProperty(0);
+ *   age  = new QProperty(0);
  * }
- * 
- * const state = new MyState();
- * state.reset(); // Reseta ambos
- * const data = state.toObject(); // { name: '', age: 0 }
+ *
+ * // 2. Register at component level so each instance gets its own state
+ * @Component({ providers: [MyState], ... })
+ * export class MyComponent {
+ *   state = inject(MyState);
+ *
+ *   submit() {
+ *     this.state.markAllAsTouched();
+ *     if (!this.state.isValid) return;
+ *     const data = this.state.toObject(); // { name: '', age: 0 }
+ *     this.state.reset();
+ *   }
+ * }
  * ```
  */
+@Injectable()
 export class QObjectState {
     protected forEachProperty(fn: (p: QProperty<any>) => void): void {
       Object.values(this).forEach(v => {

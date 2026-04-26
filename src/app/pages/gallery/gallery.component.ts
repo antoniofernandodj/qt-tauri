@@ -62,7 +62,7 @@ import { WizardComponent } from '../../components/widgets/wizard/wizard.componen
 import { ButtonGroupComponent } from '../../components/widgets/button-group/button-group.component';
 import { TimeEditComponent } from '../../components/widgets/time-edit/time-edit.component';
 import { SafeAreaComponent } from '../../components/widgets/safe-area/safe-area.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { QMessageBox } from '../../core/message-box';
 import { QProperty } from '../../core/property';
 import { QObjectState } from '../../core/qobjectState';
@@ -104,7 +104,7 @@ class LoginFormState extends QObjectState {
     VBoxLayoutComponent, HBoxLayoutComponent, TabWidgetComponent, MenuComponent,
     PushButtonComponent, TabComponent, LabelComponent,
   ],
-  providers: [QMessageBox],
+  providers: [QMessageBox, LoginFormState],
   templateUrl: './gallery.component.html',
 })
 export class GalleryComponent implements OnInit {
@@ -116,37 +116,23 @@ export class GalleryComponent implements OnInit {
   number = new QProperty('0');
   op: string | null = null;
 
-  loginForm = new LoginFormState();
+  loginForm  = inject(LoginFormState);
+  msgBox     = inject(QMessageBox);
 
-  submitForm(): void { this.loginForm.markAllAsTouched(); }
-  resetForm(): void  { this.loginForm.reset(); }
-
-  async calc(v: number) {
-    if (this.number.value === '0') { this.number.value = v.toString(); return; }
-    this.number.value = this.number.value + v.toString();
+  async submitForm(): Promise<void> {
+    this.loginForm.markAllAsTouched();
+    if (!this.loginForm.isValid) {
+      await this.msgBox.warning('Formulário inválido', 'Corrija os erros antes de enviar.');
+      return;
+    }
+    const { username, email } = this.loginForm.toObject();
+    await this.msgBox.information('Enviado', `Usuário: ${username}\nEmail: ${email}`);
+    this.loginForm.reset();
   }
+
+  resetForm(): void { this.loginForm.reset(); }
 
   clear() { this.number.value = '0'; this.stacked = null; }
-
-  operator(op: string) {
-    this.op = op;
-    this.stacked = this.number.value;
-    this.number.value = '0';
-  }
-
-  async enter() {
-    let l = parseFloat(this.stacked || '0');
-    let r = parseFloat(this.number.value);
-    let result = 0;
-    if (this.op === '-') result = l - r;
-    else if (this.op === '+') result = l + r;
-    else if (this.op === 'x') result = l * r;
-    else if (this.op === '/') result = l / r;
-    this.number.value = result.toString();
-    this.stacked = null;
-    this.op = null;
-    await invoke('insert', { v: result.toString(), o: '' });
-  }
 
   async ngOnInit() {}
 }
