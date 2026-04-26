@@ -2,6 +2,18 @@
    DESIGN SYSTEM - Variáveis Globais
    ============================================ */
 
+/* Navigation link used across pages */
+.qt-nav-back {
+  display: block;
+  padding: 5px 10px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-secondary);
+}
+.qt-nav-back:hover { color: var(--color-text-primary); }
+
 :root {
   /* Colors - Modern neutral palette */
   --color-bg-primary: #ffffff;
@@ -57,6 +69,12 @@
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Button surface (light mode) */
+  --button-bg:          linear-gradient(180deg, #e8e8e8, #d8d8d8);
+  --button-bg-hover:    linear-gradient(180deg, #f0f0f0, #e2e2e2);
+  --button-bg-active:   linear-gradient(180deg, #c8c8c8, #d4d4d4);
+  --button-bg-disabled: linear-gradient(180deg, #e4e4e4, #dcdcdc);
 }
 
 /* Reset básico */
@@ -101,7 +119,7 @@ body {
   }
 }
 
-/* Dark mode support (opcional) */
+/* Dark mode support */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg-primary: #1e1e1e;
@@ -109,16 +127,22 @@ body {
     --color-bg-tertiary: #3d3d3d;
     --color-bg-hover: #383838;
     --color-bg-active: #424242;
-    
+
     --color-border-light: #404040;
     --color-border-medium: #505050;
     --color-border-dark: #606060;
-    
+
     --color-text-primary: #e4e4e4;
     --color-text-secondary: #a0a0a0;
     --color-text-disabled: #606060;
-    
+
     --color-accent-bg: rgba(13, 110, 253, 0.2);
+
+    /* Button surface (dark mode) */
+    --button-bg:          linear-gradient(180deg, hsl(0,0%,28%), hsl(0,0%,22%));
+    --button-bg-hover:    linear-gradient(180deg, hsl(0,0%,33%), hsl(0,0%,27%));
+    --button-bg-active:   linear-gradient(180deg, hsl(0,0%,19%), hsl(0,0%,24%));
+    --button-bg-disabled: linear-gradient(180deg, hsl(0,0%,20%), hsl(0,0%,17%));
   }
 }
 

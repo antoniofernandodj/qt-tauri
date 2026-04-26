@@ -8,7 +8,7 @@ import { CheckBoxComponent } from './widgets/check-box/check-box.component';
 import { ColorDialogComponent } from './widgets/color-dialog/color-dialog.component';
 import { ColumnViewComponent } from './widgets/column-view/column-view.component';
 import { ComboBoxComponent } from './widgets/combo-box/combo-box.component';
-import { CommandLinkEditComponent } from './widgets/command-link-edit/command-link-edit.component';
+import { CommandLinkButtonComponent } from './widgets/command-link-button/command-link-button.component';
 import { ContextMenuComponent } from './widgets/context-menu/context-menu.component';
 import { DateEditComponent } from './widgets/date-edit/date-edit.component';
 import { DateTimeEditComponent } from './widgets/date-time-edit/date-time-edit.component';
@@ -79,7 +79,7 @@ export const QtWidgets = [
     ColorDialogComponent,
     ColumnViewComponent,
     ComboBoxComponent,
-    CommandLinkEditComponent,
+    CommandLinkButtonComponent,
     ContextMenuComponent,
     DateEditComponent,
     DateTimeEditComponent,

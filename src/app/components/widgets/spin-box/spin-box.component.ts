@@ -5,6 +5,38 @@ import {
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QSpinBox
+ * @description
+ * Um widget que permite ao usuário escolher um valor inteiro clicando em botões de incremento/decremento ou digitando o valor.
+ * Equivalente ao QSpinBox do Qt.
+ *
+ * @purpose
+ * Fornecer entrada numérica precisa com limites controlados.
+ *
+ * @solves
+ * - **Erros de Tipo**: Impede a entrada de caracteres não numéricos.
+ * - **Fora de Intervalo**: Garante que o valor nunca ultrapasse os limites `min` e `max` definidos.
+ * - **Facilidade de Uso**: Os botões Up/Down facilitam ajustes finos sem a necessidade de teclado.
+ *
+ * @usage
+ * ```html
+ * <QSpinBox 
+ *   [min]="1" 
+ *   [max]="10" 
+ *   prefix="Item: "
+ *   [model]="state.quantity"
+ * ></QSpinBox>
+ * ```
+ *
+ * @prop {QProperty<number>} model - Binding do valor numérico.
+ * @prop {number} min - Valor mínimo.
+ * @prop {number} max - Valor máximo.
+ * @prop {number} step - Quantidade a somar/subtrair a cada clique.
+ * @prop {string} prefix - Texto fixo antes do número.
+ * @prop {string} suffix - Texto fixo depois do número (ex: " px").
+ * @emit {number} valueChanged - Disparado quando o valor é alterado.
+ */
 @Component({
   selector: 'QSpinBox',
   standalone: true,

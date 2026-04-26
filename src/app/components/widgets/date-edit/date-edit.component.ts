@@ -6,6 +6,39 @@ import {
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QDateEdit
+ * @description
+ * Um widget para edição de datas com base em um campo de texto formatado.
+ * Equivalente ao QDateEdit do Qt.
+ *
+ * @purpose
+ * Fornecer uma entrada de dados precisa para datas, permitindo a edição individual de ano, mês e dia,
+ * com suporte a restrições de intervalo (mínimo/máximo).
+ *
+ * @solves
+ * - **Validação de Data**: Impede a inserção de datas inválidas ou fora de um intervalo permitido através das propriedades `minimum` e `maximum`.
+ * - **Sincronização reativa**: Garante que as mudanças no widget reflitam imediatamente no objeto de estado via `QProperty`.
+ * - **Fluxo de Edição**: Fornece sinais claros (`dateChanged`, `editingFinished`) para que a aplicação possa reagir ao final da entrada de dados.
+ *
+ * @usage
+ * ```html
+ * <QDateEdit
+ *   [model]="birthDate"
+ *   [minimum]="minDate"
+ *   [maximum]="maxDate"
+ *   (dateChanged)="onDateUpdate($event)">
+ * </QDateEdit>
+ * ```
+ *
+ * @prop {QProperty<Date>} model - Propriedade reativa que armazena o objeto Date sendo editado.
+ * @prop {Date} minimum - A data mínima permitida para seleção/edição.
+ * @prop {Date} maximum - A data máxima permitida para seleção/edição.
+ * @prop {boolean} readOnly - Se verdadeiro, o valor pode ser visto mas não alterado.
+ * @prop {boolean} disabled - Se verdadeiro, desabilita a interação e altera a aparência visual.
+ * @emit {Date} dateChanged - Disparado sempre que a data é alterada e validada.
+ * @emit {void} editingFinished - Disparado quando o foco sai do widget (blur).
+ */
 @Component({
   selector: 'QDateEdit',
   standalone: true,

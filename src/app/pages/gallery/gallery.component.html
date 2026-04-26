@@ -1,0 +1,164 @@
+<a routerLink="/" class="qt-nav-back">← Home</a>
+
+<QVBoxLayout [spacing]="6" [margin]="8">
+
+  <!-- Row 1: Buttons + Sliders -->
+  <QHBoxLayout [spacing]="8" [align]="'start'">
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'Buttons'" [size]="13"/>
+      <QFrame [margin]="12">
+        <QVBoxLayout [spacing]="4">
+          <QHBoxLayout [spacing]="4">
+            <QPushButton [text]="'Default'" />
+            <QPushButton [text]="'Disabled'" [disabled]="true" />
+          </QHBoxLayout>
+          <QPushButton [text]="'Explicit height'" />
+          <QHBoxLayout [spacing]="4">
+            <QPushButton [text]="'Explicit width'" />
+            <QPushButton [text]="'Highlighted'" [kind]="'primary'" />
+            <QPushButton [text]="'Checkable'" />
+          </QHBoxLayout>
+          <QCommandLinkButton 
+            text="Command Link" 
+            description="With a description text" 
+          />
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'Sliders'" [size]="13"/>
+      <QFrame [margin]="12">
+        <QHBoxLayout [spacing]="12" [align]="'center'">
+          <QSlider [min]="0" [max]="100" [step]="1" [orientation]="'horizontal'" />
+          <QSlider [min]="0" [max]="100" [step]="1" [orientation]="'vertical'" />
+        </QHBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+  </QHBoxLayout>
+
+
+  <!-- Row 2: RadioButtons + Checkboxes + SpinBoxes + ComboBoxes -->
+  <QHBoxLayout [spacing]="8" [align]="'start'">
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'Radio Buttons'" [size]="13"/>
+      <QFrame [margin]="8">
+        <QVBoxLayout [spacing]="2">
+          <QRadioGroup>
+            <QRadioButton [label]="'Default'" [value]="'v1'" />
+            <QRadioButton [label]="'Default'" [value]="'v2'" />
+            <QRadioButton [label]="'Default'" [value]="'v3'" />
+          </QRadioGroup>
+          <QRadioGroup>
+            <QRadioButton [label]="'Disabled'" [value]="'v1'" [disabled]="true" />
+            <QRadioButton [label]="'Disabled'" [value]="'v2'" [disabled]="true" />
+            <QRadioButton [label]="'Disabled'" [value]="'v3'" [disabled]="true" />
+          </QRadioGroup>
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'Checkboxes'" [size]="13"/>
+      <QFrame [margin]="8">
+        <QVBoxLayout [spacing]="4">
+          <QCheckBox [label]="'Default'" />
+          <QCheckBox [label]="'Disabled'" [disabled]="true" />
+          <QCheckBox [label]="'Tri-state'" [tristate]="true" />
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'SpinBoxes'" [size]="13"/>
+      <QFrame [margin]="8">
+        <QVBoxLayout [spacing]="6">
+          <QSpinBox [min]="0" [max]="1000" [step]="1" [startValue]="500" />
+          <QSpinBox [min]="0" [max]="1000" [step]="1" [disabled]="true" />
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'ComboBoxes'" [size]="13"/>
+      <QFrame [margin]="8">
+        <QVBoxLayout [spacing]="4">
+          <QComboBox [items]="['Default', 'Option 2']" [currentIndex]="0" />
+          <QComboBox [items]="['Disabled', 'Option 2']" [disabled]="true" [currentIndex]="0" />
+          <QComboBox [items]="['Default', 'Option 2']" [currentIndex]="0" />
+          <QComboBox [items]="['Disabled', 'Option 2']" [disabled]="true" [currentIndex]="0" />
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+  </QHBoxLayout>
+
+
+  <!-- Row 3: TextFields + TextAreas -->
+  <QHBoxLayout [spacing]="8" [align]="'start'">
+
+    <QVBoxLayout [spacing]="4" [flex]="1">
+      <QLabel [text]="'TextFields'" [size]="13"/>
+      <QFrame [margin]="12">
+        <QVBoxLayout [spacing]="4">
+          <QLineEdit [placeholder]="'Text here...'" [startValue]="'Default'" />
+          <QLineEdit [placeholder]="'Text here...'" [startValue]="'Focused'" />
+          <QLineEdit [placeholder]="'Text here...'" [startValue]="'Disabled'" [disabled]="true" />
+          <QLineEdit [placeholder]="'Placeholder text...'" [startValue]="''" />
+        </QVBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+    <QVBoxLayout [spacing]="4" [flex]="2">
+      <QLabel [text]="'TextAreas'" [size]="13"/>
+      <QFrame [margin]="12">
+        <QHBoxLayout [spacing]="8">
+
+          <!-- Inside ScrollView -->
+          <QScrollArea>
+            <QTextEdit [placeholder]="'Inside ScrollView – Lorem ipsum dolor sit amet...'"/>
+          </QScrollArea>
+
+          <!-- Inside Frame and ScrollView -->
+          <QFrame [margin]="4" style="flex: 1; min-width: 0;">
+            <QScrollArea>
+              <QTextEdit [placeholder]="'Inside Frame and ScrollView – Lorem ipsum dolor sit amet...'"/>
+            </QScrollArea>
+          </QFrame>
+
+        </QHBoxLayout>
+      </QFrame>
+    </QVBoxLayout>
+
+  </QHBoxLayout>
+
+
+  <!-- Row 4: ProgressBars -->
+  <QVBoxLayout [spacing]="4">
+    <QLabel [text]="'ProgressBars'" [size]="13"/>
+    <QFrame [margin]="12">
+      <QHBoxLayout [spacing]="8" [align]="'center'">
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(50)" />
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(0)" />
+        <QProgressBar [minimum]="0" [maximum]="100" [model]="qProperty(100)" />
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+  <!-- Row 5: Calendar -->
+  <QVBoxLayout [spacing]="4">
+    <QLabel [text]="'Calendar'" [size]="13"/>
+    <QFrame [margin]="12">
+      <QHBoxLayout [spacing]="8" [align]="'start'">
+        <QCalendarWidget [model]="selectedDate" />
+        <QVBoxLayout [spacing]="4">
+          <QLabel [text]="'Selected: ' + (selectedDate.value | date:'mediumDate')" />
+        </QVBoxLayout>
+      </QHBoxLayout>
+    </QFrame>
+  </QVBoxLayout>
+
+</QVBoxLayout>

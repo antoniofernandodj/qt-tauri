@@ -9,6 +9,36 @@ import {
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QSlider
+ * @description
+ * Um widget de controle deslizante que permite ao usuário escolher um valor movendo um controle ao longo de uma trilha.
+ * Equivalente ao QSlider do Qt.
+ *
+ * @purpose
+ * Fornecer uma forma intuitiva e visual de ajustar valores numéricos dentro de um intervalo fixo.
+ *
+ * @solves
+ * - **Ajustes Rápidos**: Permite mudanças grosseiras de valor mais rapidamente do que digitando em um LineEdit ou SpinBox.
+ * - **Visualização de Escala**: Dá ao usuário uma noção clara de onde o valor atual se situa em relação aos limites mínimo e máximo.
+ *
+ * @usage
+ * ```html
+ * <QSlider 
+ *   [min]="0" 
+ *   [max]="100" 
+ *   [model]="state.volume"
+ *   orientation="horizontal"
+ * ></QSlider>
+ * ```
+ *
+ * @prop {QProperty<number>} model - Binding do valor numérico.
+ * @prop {number} min - Valor mínimo permitido.
+ * @prop {number} max - Valor máximo permitido.
+ * @prop {number} step - Incremento por clique/movimento.
+ * @prop {'horizontal' | 'vertical'} orientation - Direção do slider.
+ * @emit {number} valueChanged - Disparado enquanto o slider é movido.
+ */
 @Component({
   selector: 'QSlider',
   standalone: true,

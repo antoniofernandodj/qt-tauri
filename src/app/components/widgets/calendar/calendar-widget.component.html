@@ -1,1 +1,41 @@
-<p>calendar works!</p>
+<div class="qt-calendar">
+  <!-- Navigation Header -->
+  <div class="qt-calendar-navbar">
+    <div class="qt-calendar-prev-buttons">
+      <button class="qt-nav-button" (click)="showPreviousYear()" title="Previous Year">&lt;&lt;</button>
+      <button class="qt-nav-button" (click)="showPreviousMonth()" title="Previous Month">&lt;</button>
+    </div>
+
+    <div class="qt-calendar-title">
+      <span class="qt-month-label">{{ currentMonthName }}</span>
+      <span class="qt-year-label">{{ currentYear }}</span>
+    </div>
+
+    <div class="qt-calendar-next-buttons">
+      <button class="qt-nav-button" (click)="showNextMonth()" title="Next Month">&gt;</button>
+      <button class="qt-nav-button" (click)="showNextYear()" title="Next Year">&gt;&gt;</button>
+    </div>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="qt-calendar-grid">
+    <!-- Day Headers -->
+    @for (day of weekDays; track day) {
+      <div class="qt-calendar-header-cell">{{ day }}</div>
+    }
+
+    <!-- Days -->
+    @for (item of calendarGrid(); track item.date.getTime()) {
+      <div 
+        class="qt-calendar-cell"
+        [class.qt-calendar-cell-other-month]="!item.isCurrentMonth"
+        [class.qt-calendar-cell-today]="item.isToday"
+        [class.qt-calendar-cell-selected]="item.isSelected"
+        (click)="setSelectedDate(item.date)"
+        (dblclick)="onDateDoubleClick(item.date)"
+      >
+        {{ item.date.getDate() }}
+      </div>
+    }
+  </div>
+</div>

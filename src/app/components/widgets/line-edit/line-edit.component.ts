@@ -1,6 +1,37 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QLineEdit
+ * @description
+ * Um editor de texto de linha única. Equivalente ao QLineEdit do Qt.
+ * Suporta máscaras de entrada (implicitamente via HTML5), placeholders e modo senha.
+ *
+ * @purpose
+ * Capturar dados curtos do usuário (nomes, senhas, números de telefone) com feedback imediato.
+ *
+ * @solves
+ * - **Entrada de Texto Suja**: Permite limpar o campo rapidamente ou limitar o tamanho do texto via `maxLength`.
+ * - **Exposição de Dados Sensíveis**: Resolve a necessidade de esconder caracteres em campos de senha via `isPassword`.
+ * - **Reatividade Transparente**: Integra-se ao `QProperty` para atualizar o estado apenas no momento da digitação ou ao perder o foco (blur).
+ *
+ * @usage
+ * ```html
+ * <QLineEdit 
+ *   [model]="state.username" 
+ *   placeholder="Digite seu usuário"
+ *   maxLength="20"
+ * ></QLineEdit>
+ * ```
+ *
+ * @prop {QProperty<string>} model - Binding de dados. O valor é atualizado em tempo real.
+ * @prop {string} placeholder - Texto exibido quando o campo está vazio.
+ * @prop {boolean} isPassword - Se verdadeiro, oculta os caracteres digitados.
+ * @prop {boolean} readOnly - Permite seleção de texto mas impede edição.
+ * @prop {boolean} disabled - Desabilita totalmente a interação.
+ * @emit {string} textChanged - Disparado a cada tecla digitada.
+ * @emit {void} editingFinished - Disparado quando o usuário pressiona Enter ou o campo perde o foco.
+ */
 @Component({
   selector: 'QLineEdit',
   standalone: true,

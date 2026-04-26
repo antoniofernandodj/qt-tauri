@@ -1,5 +1,34 @@
 import { Component, Input } from '@angular/core';
 
+/**
+ * @component QHBoxLayout
+ * @description
+ * Um gerenciador de layout que organiza widgets horizontalmente em uma única linha.
+ * Equivalente ao QHBoxLayout do Qt.
+ *
+ * @purpose
+ * Fornecer um sistema de alinhamento horizontal previsível que respeita o fluxo de design
+ * do Qt Fusion, onde o espaçamento entre elementos é fixo e controlado em um eixo X.
+ *
+ * @solves
+ * - **Alinhamento Horizontal**: Simplifica a criação de barras de ferramentas, linhas de botões e formulários horizontais.
+ * - **Gerenciamento de Espaço**: Controla o gap entre os elementos sem a necessidade de classes utilitárias de CSS.
+ * - **Responsividade Interna**: Permite que os filhos se comportem de forma consistente (esticar ou centralizar) no eixo vertical (Y).
+ *
+ * @usage
+ * ```html
+ * <QHBoxLayout [spacing]="5" [margin]="10" align="center">
+ *   <QPushButton text="Cancelar"></QPushButton>
+ *   <QPushButton text="Aplicar" kind="primary"></QPushButton>
+ * </QHBoxLayout>
+ * ```
+ *
+ * @prop {number} spacing - Espaço em pixels entre cada widget filho.
+ * @prop {number} margin - Padding interno do container em pixels.
+ * @prop {'start' | 'center' | 'end' | 'stretch' | 'between'} align - Alinhamento dos itens no eixo transversal e distribuição no eixo principal.
+ * @prop {string | number} width - Largura explícita do layout.
+ * @prop {string | number} height - Altura explícita do layout.
+ */
 @Component({
   selector: 'QHBoxLayout',
   standalone: true,

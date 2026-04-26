@@ -23,6 +23,35 @@ export class TabComponent {
 }
 
 
+/**
+ * @component QTabWidget
+ * @description
+ * Um widget de stack que fornece uma barra de abas no topo para alternar entre diferentes páginas de conteúdo.
+ * Equivalente ao QTabWidget do Qt.
+ *
+ * @purpose
+ * Economizar espaço na tela organizando o conteúdo em abas sobrepostas.
+ *
+ * @solves
+ * - **Complexidade de Interface**: Divide diálogos ou janelas complexas em seções gerenciáveis.
+ * - **Navegação Intuitiva**: Fornece uma metáfora visual clara (abas de pasta) para troca de contexto.
+ * - **Sincronização de Estado**: Gerencia automaticamente qual "página" deve estar visível com base na aba clicada.
+ *
+ * @usage
+ * ```html
+ * <QTabWidget>
+ *   <QTab label="Geral">
+ *     <content-geral />
+ *   </QTab>
+ *   <QTab label="Avançado">
+ *     <content-avancado />
+ *   </QTab>
+ * </QTabWidget>
+ * ```
+ *
+ * @prop {number} currentIndex - Índice da aba ativa.
+ * @emit {number} currentChanged - Disparado quando o usuário troca de aba.
+ */
 @Component({
   selector: 'QTabWidget',
   standalone: true,

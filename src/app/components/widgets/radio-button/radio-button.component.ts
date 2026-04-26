@@ -7,6 +7,32 @@ import {
 } from '@angular/core';
 import { RadioGroupComponent } from '../radio-group/radio-group.component';
 
+/**
+ * @component QRadioButton
+ * @description
+ * Um botão de opção que permite ao usuário escolher uma única opção de um conjunto.
+ * Equivalente ao QRadioButton do Qt.
+ *
+ * @purpose
+ * Fornecer uma interface para seleção mútua exclusiva. Geralmente usado dentro de um QRadioGroup.
+ *
+ * @solves
+ * - **Seleção Exclusiva**: Quando agrupado, garante que apenas uma opção seja selecionada por vez, disparando o desmarcar das outras automaticamente.
+ * - **Feedback de Estado**: Mostra claramente qual opção está ativa através de um indicador visual circular.
+ *
+ * @usage
+ * ```html
+ * <QRadioGroup>
+ *   <QRadioButton label="Opção A" value="a" [model]="state.choice"></QRadioButton>
+ *   <QRadioButton label="Opção B" value="b" [model]="state.choice"></QRadioButton>
+ * </QRadioGroup>
+ * ```
+ *
+ * @prop {string} label - O texto exibido ao lado do botão.
+ * @prop {any} value - O valor associado a esta opção.
+ * @prop {QProperty<any>} model - Propriedade que armazena o valor selecionado do grupo.
+ * @prop {boolean} disabled - Desabilita a interação.
+ */
 @Component({
   selector: 'QRadioButton',
   templateUrl: './radio-button.component.html',

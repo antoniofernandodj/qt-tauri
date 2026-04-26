@@ -5,15 +5,15 @@
 
 .qt-slider {
   position: relative;
-  width: 200px;
-  height: 20px;
-  padding: 8px 0;
+  width: 130px;
+  height: 18px;
+  padding: 6px 0;
 }
 
 :host.qt-vertical .qt-slider {
-  width: 20px;
-  height: 200px;
-  padding: 0 8px;
+  width: 18px;
+  height: 100px;
+  padding: 0 6px;
 }
 
 .qt-slider-groove {

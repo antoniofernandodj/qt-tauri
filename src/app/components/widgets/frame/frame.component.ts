@@ -25,11 +25,23 @@ import { Component, Input } from '@angular/core';
     </div>
   `,
   styles: [`
+    :host {
+      display: block;
+    }
+
     .qt-frame-box {
+      display: flex;
+      flex-direction: column;
       background-color: var(--color-bg-secondary);
       border: 1px solid var(--color-border-light);
       border-radius: 3px;
       padding: 16px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .qt-frame-box > div {
+      display: contents;
     }
 
     .qt-frame-panel {
@@ -37,6 +49,8 @@ import { Component, Input } from '@angular/core';
       border: 1px solid var(--color-border-light);
       border-radius: 3px;
       padding: 16px;
+      height: 100%;
+      box-sizing: border-box;
     }
     
     .qt-frame-sunken {

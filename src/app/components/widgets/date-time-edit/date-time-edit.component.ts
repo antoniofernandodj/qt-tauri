@@ -18,8 +18,8 @@ export class DateTimeEditComponent {
      Qt-like binding
      ========================= */
 
-  @Input({ required: true })
-  model!: QProperty<Date>;
+  @Input()
+  model: QProperty<Date> = new QProperty(new Date(2018, 9, 11, 9, 38));
 
   /* =========================
      Configuration

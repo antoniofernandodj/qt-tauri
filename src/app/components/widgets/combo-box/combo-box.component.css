@@ -1,6 +1,7 @@
 :host {
-  display: inline-block;
-  width: 200px;
+  display: block;
+  width: 100%;
+  min-width: 0;
   font-family: var(--font-family);
   font-size: var(--font-size-base);
 }

@@ -7,6 +7,35 @@ import { QProperty } from '../../../core/property';
 
 export type CheckState = 'unchecked' | 'checked' | 'partial';
 
+/**
+ * @component QCheckBox
+ * @description
+ * Um widget que oferece uma opção do tipo "liga/desliga" ou um estado de seleção múltipla.
+ * Equivalente ao QCheckBox do Qt.
+ *
+ * @purpose
+ * Permitir que o usuário faça escolhas binárias (sim/não) ou selecione múltiplos itens em uma lista,
+ * com suporte opcional para um terceiro estado "parcial" (tristate).
+ *
+ * @solves
+ * - **Estados Ambíguos**: O suporte a `tristate` resolve a necessidade de indicar seleções parciais em árvores de arquivos ou listas de permissões.
+ * - **Sincronização reativa**: Integra-se ao `QProperty` para refletir mudanças de estado instantaneamente em outros componentes vinculados.
+ * - **Acessibilidade Visual**: Mantém o estilo visual consistente do Qt Fusion para indicadores de seleção.
+ *
+ * @usage
+ * ```html
+ * <!-- Uso básico -->
+ * <QCheckBox label="Lembrar Senha" [model]="rememberMe"></QCheckBox>
+ *
+ * <!-- Com estado parcial (Tristate) -->
+ * <QCheckBox label="Selecionar Todos" [tristate]="true" [model]="selectAll"></QCheckBox>
+ * ```
+ *
+ * @prop {string} label - O texto exibido ao lado da caixa de seleção.
+ * @prop {boolean} disabled - Se verdadeiro, desabilita a interação com o widget.
+ * @prop {boolean} tristate - Se verdadeiro, permite o estado "parcial" (null no modelo).
+ * @prop {QProperty<boolean | null>} model - Propriedade reativa que armazena o estado: true (checked), false (unchecked), null (partial).
+ */
 @Component({
   selector: 'QCheckBox',
   standalone: true,

@@ -1,0 +1,24 @@
+<div class="qt-command-link-button" (click)="onClick($event)">
+  <div class="qt-command-link-icon-container">
+    @if (icon) {
+      <img [src]="icon" class="qt-command-link-icon" alt="icon" />
+    } @else {
+      <!-- Default Qt-style right arrow -->
+      <svg
+        class="qt-command-link-default-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    }
+  </div>
+  <div class="qt-command-link-content">
+    <div class="qt-command-link-text">{{ text }}</div>
+    <div class="qt-command-link-description">{{ description }}</div>
+  </div>
+</div>

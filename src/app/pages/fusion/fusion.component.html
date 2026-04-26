@@ -1,0 +1,77 @@
+<a routerLink="/" class="qt-nav-back">← Home</a>
+
+<QVBoxLayout [spacing]="6" [margin]="8">
+
+  <!-- Top bar: style selector + checkboxes -->
+  <QHBoxLayout [spacing]="12" [align]="'center'">
+    <QLabel [text]="'Style:'" [size]="13"/>
+    <QComboBox [items]="styleItems" [currentIndex]="0" style="width: 110px;" />
+    <QCheckBox [label]="'Use style\'s standard palette'" />
+    <QCheckBox [label]="'Disable widgets'" />
+  </QHBoxLayout>
+
+  <!-- Main area: left + right columns -->
+  <QHBoxLayout [spacing]="8" [align]="'start'">
+
+    <!-- LEFT COLUMN -->
+    <QVBoxLayout [spacing]="6" [flex]="1">
+
+      <!-- Group 1 -->
+      <QGroupBox [title]="'Group 1'">
+        <QVBoxLayout [spacing]="4">
+          <QRadioGroup>
+            <QRadioButton [label]="'Radio button 1'" [value]="'r1'" />
+            <QRadioButton [label]="'Radio button 2'" [value]="'r2'" />
+            <QRadioButton [label]="'Radio button 3'" [value]="'r3'" />
+          </QRadioGroup>
+          <QCheckBox [label]="'Tri-state check box'" [tristate]="true" />
+        </QVBoxLayout>
+      </QGroupBox>
+
+      <!-- Tab Widget -->
+      <QTabWidget>
+        <QTab [title]="'Table'">
+          <QTableView [model]="tableModel" />
+        </QTab>
+        <QTab [title]="'Text Edit'">
+          <QScrollArea>
+            <QTextEdit [placeholder]="'Enter text here...'"/>
+          </QScrollArea>
+        </QTab>
+      </QTabWidget>
+
+    </QVBoxLayout>
+
+    <!-- RIGHT COLUMN -->
+    <QVBoxLayout [spacing]="6" [flex]="1">
+
+      <!-- Group 2 -->
+      <QGroupBox [title]="'Group 2'">
+        <QVBoxLayout [spacing]="4">
+          <QPushButton [text]="'Default Push Button'" />
+          <QPushButton [text]="'Toggle Push Button'" />
+          <QPushButton [text]="'Flat Push Button'" [kind]="'ghost'" />
+        </QVBoxLayout>
+      </QGroupBox>
+
+      <!-- Group 3 -->
+      <QGroupBox [title]="'Group 3'" [checkable]="true">
+        <QVBoxLayout [spacing]="6">
+          <QLineEdit [placeholder]="'Password'" [echoMode]="'password'" [startValue]="'secret'" />
+          <QSpinBox [min]="0" [max]="999" [step]="1" [startValue]="50" />
+          <QDateTimeEdit />
+          <QHBoxLayout [spacing]="8" [align]="'center'">
+            <QSlider [min]="0" [max]="100" [step]="1" [orientation]="'horizontal'" [model]="sliderValue"/>
+            <QDialEdit [min]="0" [max]="100" [model]="dialValue"/>
+          </QHBoxLayout>
+        </QVBoxLayout>
+      </QGroupBox>
+
+    </QVBoxLayout>
+
+  </QHBoxLayout>
+
+  <!-- Progress bar -->
+  <QProgressBar [minimum]="0" [maximum]="100" [model]="progress"/>
+
+</QVBoxLayout>

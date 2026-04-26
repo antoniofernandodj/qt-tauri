@@ -3,6 +3,16 @@ export interface QModelIndex {
     column: number;
   }
   
+  /**
+   * @class QTableModel
+   * @description
+   * Interface abstrata que define como o QTableView interage com os dados.
+   * Equivalente ao QAbstractTableModel do Qt.
+   *
+   * @purpose
+   * Fornecer uma camada de abstração entre a visualização (TableView) e a estrutura de dados real.
+   * Isso permite que você altere como os dados são armazenados sem mudar como eles são exibidos.
+   */
   export abstract class QTableModel<T = any> {
   
     abstract rowCount(): number;
@@ -20,6 +30,19 @@ export interface QModelIndex {
   }
   
 
+  /**
+   * @class SimpleTableModel
+   * @description
+   * Uma implementação pronta para uso do QTableModel para dados estáticos ou simples baseados em arrays de objetos.
+   *
+   * @usage
+   * ```ts
+   * const model = new SimpleTableModel(
+   *   [{ id: 1, name: 'John' }, { id: 2, name: 'Jane' }],
+   *   ['id', 'name']
+   * );
+   * ```
+   */
   export class SimpleTableModel<T extends object> extends QTableModel<T> {
 
     selectionModel: QItemSelectionModel
