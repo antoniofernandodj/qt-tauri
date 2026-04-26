@@ -8,6 +8,17 @@ import {
 import { NgFor } from '@angular/common';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QStackedWidgetPage
+ * @description
+ * Representa uma página individual dentro de um QStackedWidget.
+ *
+ * @purpose
+ * Agrupar widgets que devem ser exibidos ou ocultados como uma única unidade dentro do widget empilhado.
+ *
+ * @solves
+ * - **Gerenciamento de Visibilidade**: Resolve o problema de esconder/mostrar grupos de elementos complexos via propriedade `[hidden]`.
+ */
 @Component({
   selector: 'QStackedWidgetPage',
   standalone: true,
@@ -21,6 +32,26 @@ export class StackedWidgetPageComponent {
   active = false;
 }
 
+/**
+ * @component QStackedWidget
+ * @description
+ * Um widget de container que exibe uma página por vez de uma pilha de páginas.
+ * Equivalente ao QStackedWidget do Qt.
+ *
+ * @purpose
+ * Gerenciar coleções de widgets onde apenas um contexto deve estar ativo no momento.
+ *
+ * @solves
+ * - **Economia de Espaço**: Permite reutilizar a mesma área da tela para diferentes funções da aplicação.
+ *
+ * @usage
+ * ```html
+ * <QStackedWidget [currentIndex]="activeTab">
+ *    <QStackedWidgetPage>Conteúdo A</QStackedWidgetPage>
+ *    <QStackedWidgetPage>Conteúdo B</QStackedWidgetPage>
+ * </QStackedWidget>
+ * ```
+ */
 @Component({
   selector: 'QStackedWidget',
   standalone: true,

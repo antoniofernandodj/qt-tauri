@@ -6,6 +6,27 @@ import {
 } from '@angular/core';
 import { QProperty } from '../../../core/property';
 
+/**
+ * @component QTimeEdit
+ * @description
+ * Um widget para editar horários. Equivalente ao QTimeEdit do Qt.
+ *
+ * @purpose
+ * Fornecer uma interface de entrada específica para horas e minutos, garantindo que o valor seja um objeto Date válido.
+ *
+ * @solves
+ * - **Validação de Tempo**: Impede a entrada de horários inválidos (ex: 25:61).
+ * - **Precisão de Dados**: Garante que o modelo receba um objeto Date com as horas e minutos corretos, mantendo o dia original.
+ *
+ * @usage
+ * ```html
+ * <QTimeEdit [model]="state.startTime"></QTimeEdit>
+ * ```
+ * 
+ * @prop {QProperty<Date>} model - Binding de dados contendo o horário.
+ * @prop {Date} minimum - Horário mínimo permitido.
+ * @prop {Date} maximum - Horário máximo permitido.
+ */
 @Component({
   selector: 'QTimeEdit',
   standalone: true,

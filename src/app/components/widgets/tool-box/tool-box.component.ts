@@ -9,6 +9,17 @@ import {
   EventEmitter
 } from '@angular/core';
 
+/**
+ * @component QToolBoxItem
+ * @description
+ * Representa uma aba/seção individual dentro de um QToolBox.
+ *
+ * @purpose
+ * Agrupar widgets em categorias colapsáveis com cabeçalhos clicáveis e ícones opcionais.
+ *
+ * @solves
+ * - **Eficiência de Espaço Vertical**: Permite empilhar múltiplas seções de ferramentas, mantendo apenas uma aberta por vez para economizar espaço vertical.
+ */
 @Component({
   selector: 'QToolBoxItem',
   standalone: true,
@@ -115,6 +126,27 @@ export class ToolBoxItemComponent {
   }
 }
 
+/**
+ * @component QToolBox
+ * @description
+ * Fornece uma coluna de abas empilhadas (gavetas), onde a página atual é exibida abaixo da aba clicada.
+ * Equivalente ao QToolBox do Qt.
+ *
+ * @purpose
+ * Organizar múltiplas ferramentas ou categorias de itens em uma lista vertical expansível.
+ *
+ * @usage
+ * ```html
+ * <QToolBox [currentIndex]="0">
+ *   <QToolBoxItem title="Arquivos" icon="assets/open.png">
+ *      <file-explorer />
+ *   </QToolBoxItem>
+ *   <QToolBoxItem title="Edição">
+ *      <edit-tools />
+ *   </QToolBoxItem>
+ * </QToolBox>
+ * ```
+ */
 @Component({
   selector: 'QToolBox',
   standalone: true,

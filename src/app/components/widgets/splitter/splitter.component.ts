@@ -15,6 +15,18 @@ interface PaneSize {
   size: number;
 }
 
+/**
+ * @component QSplitterPane
+ * @description
+ * Um container de painel individual para ser usado dentro de um QSplitter.
+ *
+ * @purpose
+ * Definir as propriedades de dimensionamento e comportamento de uma seção específica do splitter.
+ *
+ * @solves
+ * - **Controle de Dimensão**: Permite definir tamanhos iniciais, mínimos e máximos para cada painel de forma independente.
+ * - **Comportamento de Colapso**: Define se um painel pode ser completamente escondido ao ser redimensionado além do seu limite mínimo.
+ */
 @Component({
   selector: 'QSplitterPane',
   standalone: true,
@@ -43,6 +55,31 @@ export class SplitterPaneComponent {
   @Input() collapsible = false;
 }
 
+/**
+ * @component QSplitter
+ * @description
+ * Um widget que gerencia a divisão de espaço entre dois ou mais widgets, permitindo que o usuário redimensione as áreas arrastando uma alça.
+ * Equivalente ao QSplitter do Qt.
+ *
+ * @purpose
+ * Permitir que o usuário controle dinamicamente a proporção de espaço entre diferentes seções da interface.
+ *
+ * @solves
+ * - **Rigidez de Layout**: Resolve o problema de layouts fixos que não se adaptam às necessidades momentâneas do usuário (ex: aumentar a área de código e diminuir o explorador de arquivos).
+ * - **Multi-painéis**: Suporta múltiplos painéis e orientações (horizontal/vertical).
+ *
+ * @usage
+ * ```html
+ * <QSplitter orientation="horizontal">
+ *   <QSplitterPane [initialSize]="30">
+ *     <sidebar-content />
+ *   </QSplitterPane>
+ *   <QSplitterPane>
+ *     <main-content />
+ *   </QSplitterPane>
+ * </QSplitter>
+ * ```
+ */
 @Component({
   selector: 'QSplitter',
   standalone: true,

@@ -6,6 +6,26 @@ interface StatusItem {
   permanent: boolean;
 }
 
+/**
+ * @component QStatusBar
+ * @description
+ * Uma barra horizontal na parte inferior de uma aplicação para exibir informações de status.
+ * Equivalente ao QStatusBar do Qt.
+ *
+ * @purpose
+ * Fornecer feedback não intrusivo ao usuário sobre o estado da aplicação ou progresso de operações.
+ *
+ * @solves
+ * - **Feedback de Operação**: Resolve a necessidade de mostrar mensagens temporárias (ex: "Arquivo salvo") sem interromper o fluxo do usuário com diálogos.
+ * - **Informação Permanente**: Permite adicionar widgets fixos (como indicadores de conexão ou status de caps lock) no lado direito.
+ *
+ * @usage
+ * ```ts
+ * @ViewChild(StatusBarComponent) statusBar!: StatusBarComponent;
+ * 
+ * this.statusBar.showMessage("Processando...", 3000);
+ * ```
+ */
 @Component({
   selector: 'QStatusBar',
   standalone: true,
