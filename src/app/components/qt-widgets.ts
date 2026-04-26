@@ -46,9 +46,7 @@ export { ShortcutComponent } from './widgets/shortcut/shortcut.component';
 export { SliderComponent } from './widgets/slider/slider.component';
 export { SpinBoxComponent } from './widgets/spin-box/spin-box.component';
 export { SplitterHandleComponent } from './widgets/splitter-handle/splitter-handle.component';
-export { SplitterComponent } from './widgets/splitter/splitter.component';
 export { StackedLayoutComponent } from './widgets/stacked-layout/stacked-layout.component';
-export { StackedWidgetComponent } from './widgets/stacked-widget/stacked-widget.component';
 export { StatusBarComponent } from './widgets/status-bar/status-bar.component';
 export { StatusTipComponent } from './widgets/status-tip/status-tip.component';
 export { TabComponent, TabWidgetComponent } from './widgets/tab-widget/tab-widget.component';
@@ -62,5 +60,8 @@ export { TreeViewComponent } from './widgets/tree-view/tree-view.component';
 export { WizardComponent } from './widgets/wizard/wizard.component';
 export { ButtonGroupComponent } from './widgets/button-group/button-group.component';
 export { TimeEditComponent } from './widgets/time-edit/time-edit.component';
-
+export { SplitterComponent, SplitterPaneComponent } from './widgets/splitter/splitter.component';
+export { StackedLayoutItemComponent } from './widgets/stacked-layout/stacked-layout.component';
+export { StackedWidgetComponent, StackedWidgetPageComponent } from './widgets/stacked-widget/stacked-widget.component';
+export { SafeAreaComponent } from './widgets/safe-area/safe-area.component';
 

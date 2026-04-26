@@ -1,3 +1,7 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import {
     DialEditComponent,
     DateTimeEditComponent,
@@ -60,21 +64,22 @@ import {
     WizardComponent,
     ButtonGroupComponent,
     TimeEditComponent,
-    SplitterHandleComponent
+    SplitterHandleComponent,
+    SplitterComponent,
+    SplitterPaneComponent,
+    StackedLayoutItemComponent,
+    StackedWidgetPageComponent,
+    SafeAreaComponent,
+    StackedWidgetComponent
 } from '../../components/qt-widgets';
 
+import {
+  QMessageBox,
+  QObjectState,
+  QProperty,
+  Validators
+} from '../../core/index';
 
-import { SplitterComponent, SplitterPaneComponent } from '../../components/widgets/splitter/splitter.component';
-import { StackedLayoutItemComponent } from '../../components/widgets/stacked-layout/stacked-layout.component';
-import { StackedWidgetComponent, StackedWidgetPageComponent } from '../../components/widgets/stacked-widget/stacked-widget.component';
-import { SafeAreaComponent } from '../../components/widgets/safe-area/safe-area.component';
-import { Component, OnInit } from '@angular/core';
-import { QMessageBox } from '../../core/message-box';
-import { QProperty } from '../../core/property';
-import { QObjectState } from '../../core/qobjectState';
-import { Validators } from '../../core/validators';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 
 class LoginFormState extends QObjectState {
@@ -122,7 +127,7 @@ export class GalleryComponent implements OnInit {
   number = new QProperty('0');
   op: string | null = null;
 
-  constructor(private loginForm: LoginFormState, private msgBox: QMessageBox) {}
+  constructor(protected loginForm: LoginFormState, private msgBox: QMessageBox) {}
 
   async submitForm(): Promise<void> {
     this.loginForm.markAllAsTouched();
