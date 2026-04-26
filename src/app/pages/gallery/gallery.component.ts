@@ -68,7 +68,6 @@ import { QProperty } from '../../core/property';
 import { QObjectState } from '../../core/qobjectState';
 import { Validators } from '../../core/validators';
 import { CommonModule } from '@angular/common';
-import { invoke } from '@tauri-apps/api/core';
 import { RouterLink } from '@angular/router';
 
 class LoginFormState extends QObjectState {
