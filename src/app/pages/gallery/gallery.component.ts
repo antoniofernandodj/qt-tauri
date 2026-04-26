@@ -115,8 +115,7 @@ export class GalleryComponent implements OnInit {
   number = new QProperty('0');
   op: string | null = null;
 
-  loginForm  = inject(LoginFormState);
-  msgBox     = inject(QMessageBox);
+  constructor(private loginForm: LoginFormState, private msgBox: QMessageBox) {}
 
   async submitForm(): Promise<void> {
     this.loginForm.markAllAsTouched();
