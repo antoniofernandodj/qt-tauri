@@ -7,62 +7,27 @@
 
 .qt-progress-bar {
   position: relative;
-  height: 24px;
+  height: 20px;
 }
 
 .qt-progress-track {
   position: relative;
   height: 100%;
-  
+
   background-color: var(--color-bg-tertiary);
-  border-radius: var(--radius-full);
-  
+  border: 1px solid var(--color-border-medium);
+  border-radius: 2px;
+
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .qt-progress-fill {
   height: 100%;
-  
-  background: linear-gradient(
-    90deg,
-    var(--color-accent-primary),
-    var(--color-accent-hover)
-  );
-  border-radius: var(--radius-full);
-  
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  position: relative;
-  overflow: hidden;
-}
 
-/* Efeito de brilho/shimmer */
-.qt-progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  
-  animation: shimmer 2s infinite;
-}
+  background-color: var(--color-accent-primary);
+  border-radius: 2px;
 
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  transition: width 0.2s ease;
 }
 
 .qt-progress-text {
@@ -71,38 +36,21 @@
   left: 0;
   right: 0;
   bottom: 0;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  font-weight: 600;
+
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
-  
+  font-weight: 500;
+  color: var(--color-text-primary);
+
   pointer-events: none;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 /* Modo busy/indeterminate */
 .qt-progress-track.qt-busy {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-tertiary) 0%,
-    var(--color-border-light) 50%,
-    var(--color-bg-tertiary) 100%
-  );
-  background-size: 200% 100%;
-  animation: busyGradient 1.5s ease-in-out infinite;
-}
-
-@keyframes busyGradient {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  overflow: hidden;
 }
 
 .qt-progress-track.qt-busy::before {
@@ -110,24 +58,15 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -100%;
+  left: -40%;
   width: 40%;
-  
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-accent-primary),
-    transparent
-  );
-  
-  animation: busySlide 1.5s ease-in-out infinite;
+
+  background-color: var(--color-accent-primary);
+
+  animation: busySlide 1.4s ease-in-out infinite;
 }
 
 @keyframes busySlide {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
+  0%   { left: -40%; }
+  100% { left: 100%; }
 }

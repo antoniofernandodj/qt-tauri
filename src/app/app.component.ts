@@ -74,6 +74,7 @@ import { CommonModule } from '@angular/common';
 import { QItemSelectionModel, QModelIndex, SimpleTableModel } from './core/qtable-model';
 import { User } from './user';
 import { SafeAreaComponent } from './components/widgets/safe-area/safe-area.component';
+import { invoke } from '@tauri-apps/api/core';
 // import { SystemTrayComponent } from './components/widgets/system-tray-icon/system-tray-icon.component';
 
 
@@ -93,25 +94,7 @@ export class UserProfileState extends QObjectState {
   volume = new QProperty(50);
   perfLevel = new QProperty(50);
 
-  constructor() { super() }
 }
-
-@Component({
-  selector: 'app-geral',
-  standalone: true,
-  template: `
-    <section class="tab-section">
-      <h3>Geral</h3>
-      <p>Informações gerais do módulo.</p>
-    </section>
-  `,
-  styles: [`
-    .tab-section {
-      padding: 16px;
-    }
-  `]
-})
-export class GeralComponent {}
 
 
 @Component({
@@ -232,54 +215,99 @@ export class AppComponent implements OnInit {
     return new QProperty(item)
   }
 
-  @ViewChild('sizeGroup') sizeGroup!: ButtonGroupComponent;
+  // @ViewChild('sizeGroup') sizeGroup!: ButtonGroupComponent;
 
-  screen = { width: 0, height: 0 };
-  progress = 0;
-  sliderValue = 10;
-  desktop = inject(DesktopWidgetService);
-  cdr = inject(ChangeDetectorRef);
-  state = inject(UserProfileState);
-  messageBox = inject(QMessageBox);
-  worker?: Worker;
-  thread = new QThread();
-  date = new QProperty<Date>(new Date());
+  // screen = { width: 0, height: 0 };
+  // progress = 0;
+  // sliderValue = 10;
+  // desktop = inject(DesktopWidgetService);
+  // cdr = inject(ChangeDetectorRef);
+  // state = inject(UserProfileState);
+  // messageBox = inject(QMessageBox);
+  // worker?: Worker;
+  // thread = new QThread();
+  // date = new QProperty<Date>(new Date());
 
-  dateTime = new QProperty<Date>(new Date());
-  minDate = new Date(2024, 0, 1, 0, 0);   // 01/01/2024 00:00
-  maxDate = new Date(2026, 11, 31, 23, 59); // 31/12/2026 23:59
+  // dateTime = new QProperty<Date>(new Date());
+  // minDate = new Date(2024, 0, 1, 0, 0);   // 01/01/2024 00:00
+  // maxDate = new Date(2026, 11, 31, 23, 59); // 31/12/2026 23:59
 
-  separator = new Separator()
+  // separator = new Separator()
   
-  tab = new QProperty(0);
+  // tab = new QProperty(0);
 
-  newAction = new Action({
-    text: 'New',
-    handler: () => console.log('New clicked'),
-    icon: 'assets/new.png'
-  });
+  // newAction = new Action({
+  //   text: 'New',
+  //   handler: () => console.log('New clicked'),
+  //   icon: 'assets/new.png'
+  // });
 
-  ngOnInit() {
-    this.screen = this.desktop.screenGeometry();
-    this.desktop.screenGeometryChanges().subscribe(geom => {
-      this.screen = geom;
-    });
+  stacked: string | null = null
+  number = new QProperty('0');
+  op: string | null = null
+
+  async calc(v: number) {
+    if (this.number.value === '0') {
+      this.number.value = v.toString()
+      return
+    }
+
+    this.number.value = this.number.value + v.toString();
   }
 
-  async void0() { }
-  async void(e: any) {}
-
-  async save() {
-    console.log('Form saved', this.state);
-    const payload = this.state.toObject()
-    const json = JSON.stringify(payload)
-    await this.messageBox.information('Success', `Saved successfully: ${json}`);
+  clear() {
+    this.number.value = '0';
+    this.stacked = null;
   }
 
-  async deleteProfile() {
-    await this.messageBox.question('Confirm', 'Delete profile?');
+  operator(op: string) {
+    this.op = op
+    this.stacked = this.number.value
+    this.number.value = '0'
   }
 
-  reset() { this.state.reset() }
+  async enter() {
+    let l = parseFloat(this.stacked || '0')
+    let r = parseFloat(this.number.value)
+    let result = 0;
+    if (this.op == '-') {
+      result = l - r;
+    } else if (this.op == '+') {
+      result = l + r;
+    } else if (this.op == 'x') {
+      result = l * r;
+    } else if (this.op == '/') {
+      result = l / r;
+    }
+
+    this.number.value = result.toString();
+    this.stacked  = null;
+    this.op = null;
+
+    await invoke('insert', {v: result.toString(), o: ""})
+  }
+
+  async ngOnInit() {
+    // this.screen = this.desktop.screenGeometry();
+    // this.desktop.screenGeometryChanges().subscribe(geom => {
+    //   this.screen = geom;
+    // });
+  }
+
+  // async void0() { }
+  // async void(e: any) {}
+
+  // async save() {
+  //   console.log('Form saved', this.state);
+  //   const payload = this.state.toObject()
+  //   const json = JSON.stringify(payload)
+  //   await this.messageBox.information('Success', `Saved successfully: ${json}`);
+  // }
+
+  // async deleteProfile() {
+  //   await this.messageBox.question('Confirm', 'Delete profile?');
+  // }
+
+  // reset() { this.state.reset() }
 
 }

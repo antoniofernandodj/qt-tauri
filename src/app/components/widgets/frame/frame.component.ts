@@ -26,17 +26,16 @@ import { Component, Input } from '@angular/core';
   `,
   styles: [`
     .qt-frame-box {
-      background-color: var(--color-bg-primary);
+      background-color: var(--color-bg-secondary);
       border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-md);
+      border-radius: 3px;
       padding: 16px;
-      box-shadow: var(--shadow-xs);
     }
-    
+
     .qt-frame-panel {
       background-color: var(--color-bg-secondary);
       border: 1px solid var(--color-border-light);
-      border-radius: var(--radius-md);
+      border-radius: 3px;
       padding: 16px;
     }
     

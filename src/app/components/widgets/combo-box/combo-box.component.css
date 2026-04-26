@@ -14,16 +14,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  
-  height: 36px;
-  padding: 0 12px;
-  
-  background-color: var(--color-bg-primary);
+
+  height: 26px;
+  padding: 0 8px;
+
+  background: linear-gradient(180deg, var(--color-bg-hover), var(--color-bg-secondary));
   border: 1px solid var(--color-border-medium);
-  border-radius: var(--radius-md);
-  
+  border-radius: 3px;
+
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast);
 }
 
 .qt-combobox-field:hover:not(.qt-disabled .qt-combobox-field) {
@@ -51,21 +51,19 @@
 
 .qt-combobox-popup {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
-  
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
-  
-  box-shadow: var(--shadow-lg);
+
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-medium);
+  border-radius: 3px;
+
+  box-shadow: var(--shadow-md);
   z-index: 1000;
-  
+
   max-height: 240px;
   overflow-y: auto;
-  
-  animation: slideDown 0.17s ease-out;
 }
 
 @keyframes slideDown {

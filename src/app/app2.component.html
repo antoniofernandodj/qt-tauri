@@ -1,0 +1,161 @@
+<QMainWindow>
+  
+    <QMenuBar>
+      <QMenu
+        title="File"
+        [actions]="[
+          newAction,
+        ]"
+      />
+  
+      <QMenu
+        title="Edit"
+        [actions]="[]"
+      />
+  
+    </QMenuBar>
+  
+    <QToolBar
+      [actions]="[
+        newAction,
+        separator,
+      ]"
+    />
+  
+    <QCentralWidget>
+      <QHBoxLayout [spacing]="10">
+        <QScrollArea style="width: 100%;">
+  
+          <QFrame [margin]="5">
+  
+            <QLabel
+              text="User Profile"
+              alignment="center"
+              [size]="20"
+            />
+              
+            <QSeparator />
+              
+            <QLineEdit
+              placeholder="Full Name"
+              [model]="state.name"
+              [marginTop]="5"
+              [marginBottom]="5"
+            />
+  
+            <QLineEdit
+              placeholder="Email"
+              [model]="state.email"
+              [marginTop]="5"
+              [marginBottom]="5"
+            />
+  
+            <QSeparator />
+  
+            <QRadioGroup [model]="state.gender">
+  
+              <QRadioButton
+                  label="Male"
+                  value="male"
+              />
+  
+              <QRadioButton
+                label="Female"
+                value="female"
+              />
+  
+              <QRadioButton
+                label="Other"
+                value="other"
+              />
+  
+            </QRadioGroup>
+  
+            <QSeparator />
+  
+            <QCheckBox
+              label="Receive Newsletters"
+              [model]="state.newsletter"
+              [tristate]="true"
+            />
+  
+            <QCheckBox
+              label="Receive Newsletters"
+              [model]="state.newsletter"
+            />
+  
+            <QSeparator />
+  
+            <QSpinBox
+              label="Age"
+              [min]="0"
+              [max]="120"
+              [step]="1"
+              [model]="state.age"
+              [marginLeft]="0"
+              [marginRight]="10"
+            />
+  
+            <QSlider
+              label="Volume"
+              [min]="0"
+              [max]="100"
+              [step]="1"
+              [model]="state.volume"
+            />
+  
+            <QSeparator />
+  
+            <QTextEdit
+              placeholder="Bio"
+              [rows]="4"
+              [model]="state.bio"
+            />
+  
+            <QSeparator />
+  
+            <QComboBox
+              label="Theme"
+              [items]="[
+                'Light',
+                'Dark',
+                'System'
+              ]"
+            />
+  
+            <QSeparator />
+  
+            <QHBoxLayout [spacing]="5">
+              <QPushButton
+                text="Save"
+                kind="primary"
+                (clicked)="save()"
+              />
+  
+              <QPushButton
+                text="Reset"
+                kind="secondary"
+                (clicked)="reset()"
+              />
+  
+              <QPushButton
+                text="Delete"
+                kind="destructive"
+                (clicked)="deleteProfile()"
+              />
+  
+            </QHBoxLayout>
+          </QFrame>
+        </QScrollArea>
+  
+      </QHBoxLayout>
+      
+    </QCentralWidget>
+  
+    <QStatusBar>
+      <QLabel text="Ready" />
+    </QStatusBar>
+  
+</QMainWindow>
+
+
