@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { VBoxLayoutComponent } from '../../components/layouts/vbox-layout/vbox-layout.component';
@@ -29,7 +29,7 @@ import { QProperty } from '../../core/property';
   selector: 'app-fusion',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, RouterLink,
+    CommonModule, FormsModule,
     VBoxLayoutComponent, HBoxLayoutComponent,
     PushButtonComponent, RadioButtonComponent, RadioGroupComponent,
     CheckBoxComponent, LineEditComponent, SpinBoxComponent,
@@ -41,19 +41,11 @@ import { QProperty } from '../../core/property';
   templateUrl: './fusion.component.html',
   styles: [`
     :host { display: block; }
-    .qt-nav-back {
-      display: inline-block;
-      padding: 4px 10px;
-      font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      border-bottom: 1px solid var(--color-border-light);
-      width: 100%;
-    }
-    .qt-nav-back:hover { color: var(--color-text-primary); }
   `]
 })
 export class FusionComponent {
+  private router = inject(Router);
+
   styleItems = ['Fusion', 'Windows', 'macOS', 'Breeze'];
   usePalette = true;
   disableWidgets = false;
@@ -72,4 +64,6 @@ export class FusionComponent {
     ],
     ['col1', 'col2']
   );
+
+  goHome(): void { this.router.navigate(['/']); }
 }

@@ -1,0 +1,83 @@
+<QMainWindow>
+  <QToolBar [actions]="[
+      addAction,
+      clearDoneAction,
+      resetAction
+    ]"
+  />
+
+  <QCentralWidget>
+    <QVBoxLayout [spacing]="16" [margin]="0">
+      <QHBoxLayout [spacing]="16" [align]="'end'">
+        <QVBoxLayout [spacing]="3" [flex]="1">
+          <QLabel [text]="'Todo'" [size]="22" />
+          <QLabel [text]="'Lista de tarefas em estilo Qt Fusion'" />
+        </QVBoxLayout>
+        <QFrame shape="box" [margin]="7" style="min-width: 92px; text-align: right;">
+          <QVBoxLayout [spacing]="0" [align]="'end'">
+            <QLabel [text]="'' + activeCount()" [size]="18" />
+            <QLabel [text]="'pendentes'" />
+          </QVBoxLayout>
+        </QFrame>
+      </QHBoxLayout>
+
+      <QVBoxLayout [spacing]="10">
+        <QHBoxLayout [spacing]="8">
+          <QLineEdit
+            class="todo-input"
+            [model]="newTask"
+            placeholder="Nova tarefa"
+            (returnPressed)="addTodo()"
+          />
+          <QPushButton text="Adicionar" kind="primary" (clicked)="addTodo()" />
+        </QHBoxLayout>
+
+        <QHBoxLayout [spacing]="6">
+          <QPushButton
+            text="Todas"
+            [kind]="filter() === 'all' ? 'primary' : 'secondary'"
+            (clicked)="setFilter('all')"
+          />
+
+          <QPushButton
+            text="Pendentes"
+            [kind]="filter() === 'active' ? 'primary' : 'secondary'"
+            (clicked)="setFilter('active')"
+          />
+
+          <QPushButton
+            text="Concluidas"
+            [kind]="filter() === 'completed' ? 'primary' : 'secondary'"
+            (clicked)="setFilter('completed')"
+          />
+
+        </QHBoxLayout>
+
+        <QLine orientation="horizontal" />
+
+        <QVBoxLayout [spacing]="6" class="todo-list">
+          @for (todo of filteredTodos(); track todo.id) {
+            <QFrame shape="box" [margin]="6" [class.todo-done]="todo.completed">
+              <QHBoxLayout [spacing]="8" [align]="'center'">
+                <QCheckBox [model]="todo.done" (click)="updateTodo(todo)" />
+                <QLineEdit
+                  class="todo-title"
+                  [model]="todo.editing"
+                  (editingFinished)="updateTodo(todo)"
+                  (returnPressed)="updateTodo(todo)"
+                />
+                <QPushButton text="Remover" kind="ghost" (clicked)="removeTodo(todo.id)" />
+              </QHBoxLayout>
+            </QFrame>
+          } @empty {
+            <QFrame shape="box" [margin]="6" class="todo-empty">
+              <QLabel [text]="'Nenhuma tarefa para este filtro.'" [alignment]="'center'" />
+            </QFrame>
+          }
+        </QVBoxLayout>
+      </QVBoxLayout>
+    </QVBoxLayout>
+  </QCentralWidget>
+
+  <QStatusBar />
+</QMainWindow>

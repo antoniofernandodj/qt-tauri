@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
     DialEditComponent,
@@ -92,7 +92,6 @@ class LoginFormState extends QObjectState {
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     CalendarWidgetComponent, ColumnViewComponent, CommandLinkButtonComponent,
     ContextMenuComponent, DialEditComponent, DialogComponent,
     DialogButtonBoxComponent, DoubleSpinBoxComponent, EditableComboBoxComponent,
@@ -120,6 +119,8 @@ class LoginFormState extends QObjectState {
 })
 export class GalleryComponent implements OnInit {
 
+  private router = inject(Router);
+
   qProperty(item: any) { return new QProperty(item); }
 
   selectedDate = new QProperty<Date>(new Date());
@@ -128,6 +129,8 @@ export class GalleryComponent implements OnInit {
   op: string | null = null;
 
   constructor(protected loginForm: LoginFormState, private msgBox: QMessageBox) {}
+
+  goHome(): void { this.router.navigate(['/']); }
 
   async submitForm(): Promise<void> {
     this.loginForm.markAllAsTouched();

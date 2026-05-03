@@ -1,26 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommandLinkButtonComponent } from '../../components/widgets/command-link-button/command-link-button.component';
 import { VBoxLayoutComponent } from '../../components/layouts/vbox-layout/vbox-layout.component';
 import { HBoxLayoutComponent } from '../../components/layouts/hbox-layout/hbox-layout.component';
 import { GroupBoxComponent } from '../../components/widgets/group-box/group-box.component';
 import { LabelComponent } from '../../components/widgets/label/label.component';
+import { PushButtonComponent } from '../../components/widgets/push-button/push-button.component';
 
 @Component({
   selector: 'app-command-link-button-test',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
     CommandLinkButtonComponent,
     VBoxLayoutComponent,
     HBoxLayoutComponent,
     GroupBoxComponent,
-    LabelComponent
+    LabelComponent,
+    PushButtonComponent
   ],
   template: `
-    <a routerLink="/" class="qt-nav-back">← Back to Home</a>
+    <QPushButton text="← Back to Home" kind="ghost" (clicked)="goHome()" />
     
     <div style="padding: 20px;">
       <QVBoxLayout [spacing]="20">
@@ -84,7 +85,10 @@ import { LabelComponent } from '../../components/widgets/label/label.component';
   `
 })
 export class CommandLinkButtonTestComponent {
+  private router = inject(Router);
   lastClicked = 'Click a button to see its ID.';
+
+  goHome(): void { this.router.navigate(['/']); }
 
   onClicked(id: string): void {
     this.lastClicked = 'Last clicked: ' + id;
